@@ -4,6 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { StarkLoader } from '@/components/ui/StarkLoader';
+import { StarkLayout } from '@/components/layout/StarkLayout';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -45,15 +47,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+      </head>
+      <body className={`${inter.variable} font-sans antialiased bg-[#0a0a0f] text-[#00d4ff]`}>
         <ThemeProvider>
-          <div className="flex min-h-screen flex-col">
+          <StarkLayout>
             <Header />
-            <main className="flex-1">
+            <main className="flex-1 relative z-10">
               {children}
             </main>
             <Footer />
-          </div>
+          </StarkLayout>
         </ThemeProvider>
       </body>
     </html>
