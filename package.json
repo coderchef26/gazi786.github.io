@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently \"npm:next:dev\" \"npm:slicemachine\" --names \"next,slicemachine\" --prefix-colors blue,magenta",
+    "next:dev": "next",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "slicemachine": "start-slicemachine",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -18,7 +21,6 @@
     "@prismicio/client": "^7.19.2",
     "@prismicio/next": "^2.0.1",
     "@prismicio/react": "^3.2.1",
-    "@slicemachine/adapter-next": "^0.3.82",
     "@tailwindcss/typography": "^0.5.16",
     "autoprefixer": "^10.4.21",
     "clsx": "^2.1.1",
@@ -30,18 +32,19 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.62.0",
-    "slice-machine-ui": "^2.18.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.11",
     "zod": "^4.0.17"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@slicemachine/adapter-next": "^0.3.82",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
+    "slice-machine-ui": "^2.18.0",
     "typescript": "^5"
   }
 }

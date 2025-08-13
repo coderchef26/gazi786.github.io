@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     
     // Verify the webhook secret if you have one
     const secret = request.headers.get('repository-name')
-    if (secret !== 'gazi-portfolio') {
+    if (secret !== 'coderchef') {
       return NextResponse.json({ message: 'Invalid secret' }, { status: 401 })
     }
     
