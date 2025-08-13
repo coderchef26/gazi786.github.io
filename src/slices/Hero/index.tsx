@@ -1,26 +1,16 @@
 'use client'
 
-import React from 'react'
+import { Content } from '@prismicio/client'
+import { SliceComponentProps } from '@prismicio/react'
+import { PrismicRichText } from '@prismicio/react'
 import { motion } from 'framer-motion'
 import { Typography, Container, Box } from '@mui/material'
 import { ArrowDownward, GitHub, LinkedIn, Mail } from '@mui/icons-material'
 import { Button } from '@/components/ui/Button'
 
-export interface HeroSliceProps {
-  title?: string
-  subtitle?: string
-  description?: string
-  ctaText?: string
-  ctaLink?: string
-}
+export type HeroProps = SliceComponentProps<Content.HeroSlice>
 
-export const HeroSlice: React.FC<HeroSliceProps> = ({
-  title = "Alshafaraz Gazi",
-  subtitle = "Full-Stack Developer & Creative Problem Solver",
-  description = "I craft modern web applications with cutting-edge technologies, focusing on user experience and scalable solutions.",
-  ctaText = "View My Work",
-  ctaLink = "#projects"
-}) => {
+const Hero = ({ slice }: HeroProps): JSX.Element => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -33,146 +23,113 @@ export const HeroSlice: React.FC<HeroSliceProps> = ({
   }
 
   const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.8,
-        ease: "easeOut"
+        duration: 0.5
       }
     }
   }
 
-  return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 bg-mesh-gradient relative overflow-hidden">
-      {/* Background Animation */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-30 dark:opacity-20"
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -50, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        <motion.div
-          className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-30 dark:opacity-20"
-          animate={{
-            x: [0, -100, 0],
-            y: [0, 50, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-      </div>
+  const socialLinks = [
+    { icon: GitHub, href: 'https://github.com/gazi786', label: 'GitHub' },
+    { icon: LinkedIn, href: 'https://linkedin.com/in/alshafaraz-gazi', label: 'LinkedIn' },
+    { icon: Mail, href: 'mailto:alshafaraz.gazi@gmail.com', label: 'Email' },
+  ]
 
+  return (
+    <section
+      data-slice-type={slice.slice_type}
+      data-slice-variation={slice.variation}
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900 relative overflow-hidden"
+    >
       <Container maxWidth="lg" className="relative z-10">
         <motion.div
-          className="text-center"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
+          className="text-center space-y-8"
         >
           <motion.div variants={itemVariants}>
             <Typography
               variant="h1"
-              className="gradient-text mb-6 font-extrabold text-5xl md:text-7xl"
+              className="text-4xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent mb-6"
             >
-              {title}
+              {slice.primary.title || "Alshafaraz Gazi"}
             </Typography>
           </motion.div>
 
           <motion.div variants={itemVariants}>
             <Typography
               variant="h2"
-              className="text-gray-700 dark:text-gray-300 mb-8 text-xl md:text-2xl font-medium"
+              className="text-xl md:text-2xl lg:text-3xl text-gray-700 dark:text-gray-300 font-light max-w-4xl mx-auto"
             >
-              {subtitle}
+              {slice.primary.subtitle || "Full-Stack Developer & Creative Problem Solver"}
             </Typography>
           </motion.div>
 
-          <motion.div variants={itemVariants}>
-            <Typography
-              variant="body1"
-              className="text-gray-600 dark:text-gray-400 mb-12 text-lg max-w-2xl mx-auto leading-relaxed"
-            >
-              {description}
-            </Typography>
-          </motion.div>
-
-          <motion.div 
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
-          >
-            <Button
-              size="large"
-              className="px-8 py-3 text-lg"
-              href={ctaLink}
-            >
-              {ctaText}
-            </Button>
-            
-            <div className="flex items-center space-x-4">
-              <motion.a
-                href="https://github.com/gazi786"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className="p-3 rounded-full glass-effect text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                <GitHub fontSize="large" />
-              </motion.a>
-              <motion.a
-                href="https://linkedin.com/in/alshafaraz-gazi"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className="p-3 rounded-full glass-effect text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                <LinkedIn fontSize="large" />
-              </motion.a>
-              <motion.a
-                href="mailto:alshafaraz.gazi@gmail.com"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className="p-3 rounded-full glass-effect text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                <Mail fontSize="large" />
-              </motion.a>
+          <motion.div variants={itemVariants} className="max-w-2xl mx-auto">
+            <div className="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+              {slice.primary.description ? (
+                <PrismicRichText field={slice.primary.description} />
+              ) : (
+                <p>I craft modern web applications with cutting-edge technologies, focusing on user experience and scalable solutions.</p>
+              )}
             </div>
           </motion.div>
 
-          <motion.div 
-            variants={itemVariants}
-            className="flex justify-center"
-          >
-            <motion.a
-              href="#about"
-              className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              animate={{
-                y: [0, 10, 0],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button
+              size="large"
+              href={slice.primary.cta_link?.url || "#projects"}
+              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
             >
-              <ArrowDownward fontSize="large" />
-            </motion.a>
+              {slice.primary.cta_text || "View My Work"}
+            </Button>
+            
+            <div className="flex space-x-4">
+              {socialLinks.map(({ icon: Icon, href, label }) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label={label}
+                >
+                  <Icon className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            variants={itemVariants}
+            className="pt-12"
+          >
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5 }}
+              className="inline-block"
+            >
+              <ArrowDownward className="w-8 h-8 text-gray-400 dark:text-gray-500" />
+            </motion.div>
           </motion.div>
         </motion.div>
       </Container>
+
+      {/* Background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-4 -right-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+        <div className="absolute -bottom-8 -left-4 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+      </div>
     </section>
   )
 }
+
+export default Hero

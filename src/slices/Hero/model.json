@@ -1,0 +1,52 @@
+{
+  "id": "hero",
+  "type": "slice",
+  "name": "Hero",
+  "description": "Hero slice",
+  "imageUrl": "",
+  "variation": "default",
+  "version": "initial",
+  "slice_type": "hero",
+  "docURL": "...",
+  "primary": {
+    "title": {
+      "type": "Text",
+      "config": {
+        "label": "Title",
+        "placeholder": "Enter your title"
+      }
+    },
+    "subtitle": {
+      "type": "Text",
+      "config": {
+        "label": "Subtitle",
+        "placeholder": "Enter your subtitle"
+      }
+    },
+    "description": {
+      "type": "StructuredText",
+      "config": {
+        "label": "Description",
+        "placeholder": "Enter your description",
+        "allowTargetBlank": true,
+        "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+      }
+    },
+    "cta_text": {
+      "type": "Text",
+      "config": {
+        "label": "CTA Text",
+        "placeholder": "Call to action text"
+      }
+    },
+    "cta_link": {
+      "type": "Link",
+      "config": {
+        "label": "CTA Link",
+        "placeholder": "Call to action link",
+        "allowTargetBlank": true
+      }
+    }
+  },
+  "items": {}
+}

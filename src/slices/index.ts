@@ -2,4 +2,8 @@
 
 import dynamic from "next/dynamic";
 
-export const components = {};
+const Hero = dynamic(() => import("./Hero"));
+
+export const components = {
+  hero: Hero,
+};
