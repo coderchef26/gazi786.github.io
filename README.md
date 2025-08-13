@@ -1,36 +1,150 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Alshafaraz Gazi - Portfolio Website
 
-## Getting Started
+A modern, responsive portfolio website built with Next.js 15, TypeScript, Tailwind CSS, Material-UI, and Framer Motion. Features dynamic content management with Prismic CMS and includes a contact form with free service integration.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Modern Design**: Clean, professional design with smooth animations
+- **Responsive**: Works perfectly on all devices and screen sizes
+- **Dark/Light Mode**: Toggle between dark and light themes
+- **Interactive Carousel**: Featured projects showcase with touch/swipe support
+- **Contact Form**: Working contact form with form validation using Formspree
+- **CMS Ready**: Prismic integration for content management
+- **SEO Optimized**: Proper meta tags and Open Graph support
+- **Performance**: Optimized images and lazy loading
+- **Accessibility**: WCAG compliant design
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Sections
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Hero**: Eye-catching introduction with social links
+- **About**: Personal introduction and key highlights
+- **Projects**: Featured projects carousel + all projects grid with filtering
+- **Skills**: Interactive skill bars with categories
+- **Education**: Academic background and achievements
+- **Contact**: Contact form and information
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Tech Stack
 
-## Learn More
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS + Material-UI (MUI)
+- **Animations**: Framer Motion
+- **Forms**: React Hook Form + Zod validation
+- **CMS**: Prismic (optional)
+- **Contact Form**: Formspree (free)
+- **Icons**: Material-UI Icons + Lucide React
 
-To learn more about Next.js, take a look at the following resources:
+## 📦 Installation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/gazi786/gazi786.github.io.git
+   cd gazi786.github.io
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Deploy on Vercel
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. Open [http://localhost:3001](http://localhost:3001) in your browser.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ⚙️ Configuration
+
+### Contact Form Setup
+
+1. Go to [Formspree.io](https://formspree.io) and create a free account
+2. Create a new form and get your form ID
+3. Update the form endpoint in `src/slices/Contact/index.tsx`:
+   ```typescript
+   const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+   ```
+
+### Prismic CMS Setup (Optional)
+
+1. Create a Prismic repository at [prismic.io](https://prismic.io)
+2. Set up your environment variable:
+   ```bash
+   NEXT_PUBLIC_PRISMIC_ENVIRONMENT=your-repo-name
+   ```
+3. Configure your content types and slices as needed
+
+### Customization
+
+- **Personal Info**: Update content in the slice components
+- **Colors**: Modify the color scheme in `tailwind.config.ts`
+- **Projects**: Update the project data in `src/slices/Projects/index.tsx`
+- **Skills**: Modify skills and categories in `src/slices/Skills/index.tsx`
+- **Education**: Update education info in `src/slices/Education/index.tsx`
+
+## 📝 Content Management
+
+All content can be easily customized by editing the respective slice files:
+
+- Hero content: `src/slices/Hero/index.tsx`
+- About content: `src/slices/About/index.tsx`
+- Projects: `src/slices/Projects/index.tsx`
+- Skills: `src/slices/Skills/index.tsx`
+- Education: `src/slices/Education/index.tsx`
+- Contact info: `src/slices/Contact/index.tsx`
+
+## 🚀 Deployment
+
+### GitHub Pages
+
+1. Build the static export:
+   ```bash
+   npm run build
+   ```
+
+2. The `out` folder contains the static files ready for deployment
+
+### Vercel (Recommended)
+
+1. Connect your GitHub repository to Vercel
+2. Deploy with one click - no configuration needed!
+
+### Netlify
+
+1. Connect your GitHub repository to Netlify
+2. Build command: `npm run build`
+3. Publish directory: `out`
+
+## 📱 Social Media Links
+
+Update your social media links in:
+- Hero section: `src/slices/Hero/index.tsx`
+- Header: `src/components/layout/Header.tsx`
+- Footer: `src/components/layout/Footer.tsx`
+- Contact section: `src/slices/Contact/index.tsx`
+
+## 🎨 Design Credits
+
+Inspired by modern portfolio designs with a focus on:
+- Clean, minimal aesthetic
+- Smooth animations and transitions
+- Mobile-first responsive design
+- Accessible user experience
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+## 📞 Contact
+
+Alshafaraz Gazi - [alshafaraz.gazi@gmail.com](mailto:alshafaraz.gazi@gmail.com)
+
+Project Link: [https://github.com/gazi786/gazi786.github.io](https://github.com/gazi786/gazi786.github.io)
+
+---
+
+Built with ❤️ by Alshafaraz Gazi

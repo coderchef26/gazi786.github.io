@@ -1,0 +1,16 @@
+<svg width="400" height="250" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="250" fill="url(#gradient4)"/>
+  <defs>
+    <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EC4899;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <g transform="translate(200,125)">
+    <path d="M-20,-15 L-5,-15 L0,-10 L-5,-5 L-20,-5 Z M20,-15 L5,-15 L0,-10 L5,-5 L20,-5 Z M-10,5 L10,5 L15,10 L10,15 L-10,15 L-15,10 Z" fill="white" opacity="0.2"/>
+    <circle cx="-12" cy="-10" r="2" fill="white"/>
+    <circle cx="12" cy="-10" r="2" fill="white"/>
+    <circle cx="0" cy="10" r="2" fill="white"/>
+  </g>
+  <text x="200" y="200" text-anchor="middle" fill="white" font-family="Inter" font-size="16" font-weight="600">Component Library</text>
+</svg>
