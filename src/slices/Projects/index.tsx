@@ -1,302 +1,267 @@
-'use client'
+'use client';
 
-import React, { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Typography, Container, Grid, Chip, IconButton, Box } from '@mui/material'
-import { Card, CardContent } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
-import { FeaturedProjectsCarousel } from '@/components/ui/FeaturedProjectsCarousel'
-import { GitHub, ExternalLink, Filter } from '@mui/icons-material'
-import Image from 'next/image'
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Content } from '@prismicio/client';
+import { SliceComponentProps } from '@prismicio/react';
 
-export interface Project {
-  id: string
-  title: string
-  description: string
-  image: string
-  technologies: string[]
-  githubUrl?: string
-  liveUrl?: string
-  featured?: boolean
-  category: 'web' | 'mobile' | 'desktop' | 'other'
+export type ProjectsProps = SliceComponentProps<Content.ProjectsSlice>;
+
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  technologies: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+  featured?: boolean;
+  category: 'web' | 'mobile' | 'ai' | 'blockchain';
 }
 
-export interface ProjectsSliceProps {
-  title?: string
-  subtitle?: string
-  projects?: Project[]
-  showFilters?: boolean
-}
+const Projects = ({ slice }: ProjectsProps): JSX.Element => {
+  const [filter, setFilter] = useState<string>('all');
+  const [visibleProjects, setVisibleProjects] = useState(6);
 
-const defaultProjects: Project[] = [
-  {
-    id: '1',
-    title: 'MUI Carousel Component',
-    description: 'A modern, customizable carousel component for React Material-UI with TypeScript support and comprehensive demo examples.',
-    image: '/images/projects/components.svg',
-    technologies: ['React', 'TypeScript', 'Material-UI', 'Next.js', 'CSS-in-JS'],
-    githubUrl: 'https://github.com/gazi786/mui-carousel',
-    liveUrl: 'https://gazi786.github.io/mui-carousel/',
-    featured: true,
-    category: 'web'
-  },
-  {
-    id: '2',
-    title: 'E-Commerce Platform',
-    description: 'A modern e-commerce platform built with Next.js, featuring real-time inventory, payment integration, and admin dashboard.',
-    image: '/images/projects/ecommerce.svg',
-    technologies: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'Stripe'],
-    githubUrl: 'https://github.com/gazi786/ecommerce-platform',
-    liveUrl: 'https://ecommerce-demo.vercel.app',
-    featured: true,
-    category: 'web'
-  },
-  {
-    id: '3',
-    title: 'Task Management App',
-    description: 'A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.',
-    image: '/images/projects/taskmanager.svg',
-    technologies: ['React', 'Node.js', 'Socket.io', 'MongoDB', 'Material-UI'],
-    githubUrl: 'https://github.com/gazi786/task-manager',
-    liveUrl: 'https://taskmanager-demo.netlify.app',
-    featured: true,
-    category: 'web'
-  },
-  {
-    id: '3',
-    title: 'Portfolio CMS',
-    description: 'A headless CMS built with Strapi for managing portfolio content, with a beautiful admin interface and RESTful API.',
-    image: '/images/projects/cms.svg',
-    technologies: ['Strapi', 'React', 'PostgreSQL', 'AWS S3', 'Docker'],
-    githubUrl: 'https://github.com/gazi786/portfolio-cms',
-    featured: false,
-    category: 'web'
-  },
-  {
-    id: '4',
-    title: 'React Component Library',
-    description: 'A comprehensive component library with TypeScript support, Storybook documentation, and npm package distribution.',
-    image: '/images/projects/components.svg',
-    technologies: ['React', 'TypeScript', 'Storybook', 'Jest', 'Rollup'],
-    githubUrl: 'https://github.com/gazi786/react-components',
-    liveUrl: 'https://components.gazi786.dev',
-    featured: false,
-    category: 'other'
-  }
-]
+  const defaultProjects: Project[] = [
+    {
+      id: '1',
+      title: 'AI-POWERED ANALYTICS PLATFORM',
+      description: 'Advanced machine learning dashboard with real-time data processing and predictive analytics capabilities.',
+      image: '/images/projects/cms.jpg',
+      technologies: ['React', 'Python', 'TensorFlow', 'AWS'],
+      githubUrl: 'https://github.com/gazi786',
+      liveUrl: 'https://demo.com',
+      featured: true,
+      category: 'ai'
+    },
+    {
+      id: '2',
+      title: 'BLOCKCHAIN TRADING SYSTEM',
+      description: 'Decentralized trading platform with smart contracts and real-time market analysis.',
+      image: '/images/projects/ecommerce.jpg',
+      technologies: ['Next.js', 'Solidity', 'Web3.js', 'Node.js'],
+      githubUrl: 'https://github.com/gazi786',
+      liveUrl: 'https://demo.com',
+      category: 'blockchain'
+    },
+    {
+      id: '3',
+      title: 'NEURAL NETWORK VISUALIZER',
+      description: 'Interactive tool for visualizing and training neural networks with real-time feedback.',
+      image: '/images/projects/taskmanager.jpg',
+      technologies: ['React', 'D3.js', 'PyTorch', 'FastAPI'],
+      githubUrl: 'https://github.com/gazi786',
+      category: 'ai'
+    },
+    {
+      id: '4',
+      title: 'QUANTUM COMPUTING SIMULATOR',
+      description: 'Web-based quantum circuit simulator with advanced quantum algorithm implementations.',
+      image: '/images/projects/components.jpg',
+      technologies: ['TypeScript', 'WebAssembly', 'Rust', 'React'],
+      githubUrl: 'https://github.com/gazi786',
+      category: 'web'
+    }
+  ];
 
-export const ProjectsSlice: React.FC<ProjectsSliceProps> = ({
-  title = "Featured Projects",
-  subtitle = "Some of my recent work that I'm proud to share",
-  projects = defaultProjects,
-  showFilters = true
-}) => {
-  const [filter, setFilter] = useState<string>('all')
-  const [visibleProjects, setVisibleProjects] = useState(6)
-
-  const categories = ['all', 'web', 'mobile', 'desktop', 'other']
+  const categories = ['all', 'web', 'mobile', 'ai', 'blockchain'];
+  
   const filteredProjects = filter === 'all' 
-    ? projects 
-    : projects.filter(project => project.category === filter)
+    ? defaultProjects 
+    : defaultProjects.filter(project => project.category === filter);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: 0.2,
+        delayChildren: 0.3,
         staggerChildren: 0.1
       }
     }
-  }
+  };
 
   const itemVariants = {
     hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
+      transition: { duration: 0.6, ease: "easeOut" }
     }
-  }
-
-  const cardVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: { 
-      scale: 1, 
-      opacity: 1,
-      transition: { duration: 0.5 }
-    },
-    exit: { 
-      scale: 0.8, 
-      opacity: 0,
-      transition: { duration: 0.3 }
-    }
-  }
+  };
 
   return (
-    <section id="projects" className="section-padding bg-white dark:bg-gray-800">
-      <Container maxWidth="lg">
+    <section 
+      id="projects" 
+      data-slice-type={slice?.slice_type}
+      data-slice-variation={slice?.variation}
+      className="relative py-20 overflow-hidden"
+    >
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
+          {/* Section Header */}
           <motion.div variants={itemVariants} className="text-center mb-16">
-            <Typography variant="h2" className="gradient-text mb-4">
-              {title}
-            </Typography>
-            <Typography variant="body1" className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
-              {subtitle}
-            </Typography>
-            <div className="w-20 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full" />
+            <div className="inline-block">
+              <h2 className="text-4xl md:text-5xl font-bold jarvis-text glow-text mb-4">
+                PROJECT ARCHIVES
+              </h2>
+              <div className="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
+              <p className="text-cyan-300/60 mt-4 max-w-2xl mx-auto">
+                CLASSIFIED DEVELOPMENT PROJECTS SHOWCASING ADVANCED TECHNOLOGIES
+              </p>
+            </div>
           </motion.div>
 
-          {/* Featured Projects Carousel */}
-          {projects.filter(p => p.featured).length > 0 && (
-            <motion.div variants={itemVariants} className="mb-20">
-              <Typography variant="h3" className="text-center mb-8 font-semibold text-gray-900 dark:text-white">
-                Featured Projects
-              </Typography>
-              <FeaturedProjectsCarousel projects={projects} />
-            </motion.div>
-          )}
-
-          {/* All Projects Section */}
-          <motion.div variants={itemVariants} className="text-center mb-12">
-            <Typography variant="h3" className="font-semibold text-gray-900 dark:text-white mb-4">
-              All Projects
-            </Typography>
-            <Typography variant="body2" className="text-gray-600 dark:text-gray-400">
-              Explore my complete portfolio of work
-            </Typography>
+          {/* Filter System */}
+          <motion.div variants={itemVariants} className="flex justify-center mb-12">
+            <div className="jarvis-panel p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                <span className="text-xs jarvis-text text-cyan-400">FILTER MATRIX</span>
+              </div>
+              <div className="flex flex-wrap gap-2 justify-center">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setFilter(category)}
+                    className={`px-4 py-2 text-xs jarvis-text transition-all duration-300 ${
+                      filter === category
+                        ? 'bg-cyan-500/20 border-cyan-400 text-cyan-400'
+                        : 'bg-cyan-500/5 border-cyan-500/30 text-cyan-300/60 hover:border-cyan-400/50'
+                    } border rounded`}
+                  >
+                    {category.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+            </div>
           </motion.div>
 
-          {showFilters && (
-            <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-2 mb-12">
-              {categories.map((category) => (
-                <Chip
-                  key={category}
-                  label={category.charAt(0).toUpperCase() + category.slice(1)}
-                  onClick={() => setFilter(category)}
-                  color={filter === category ? "primary" : "default"}
-                  variant={filter === category ? "filled" : "outlined"}
-                  className="cursor-pointer transition-all duration-300 hover:scale-105"
-                />
-              ))}
-            </motion.div>
-          )}
-
+          {/* Projects Grid */}
           <motion.div variants={itemVariants}>
-            <Grid container spacing={4}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <AnimatePresence mode="wait">
                 {filteredProjects.slice(0, visibleProjects).map((project, index) => (
-                  <Grid item xs={12} md={6} lg={4} key={project.id}>
-                    <motion.div
-                      variants={cardVariants}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                      layout
-                    >
-                      <Card hover className="h-full group">
-                        <div className="relative overflow-hidden">
-                          <Image
-                            src={project.image}
-                            alt={project.title}
-                            width={400}
-                            height={250}
-                            className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                          />
-                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <div className="flex space-x-4">
-                              {project.githubUrl && (
-                                <IconButton
-                                  href={project.githubUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
-                                >
-                                  <GitHub />
-                                </IconButton>
-                              )}
-                              {project.liveUrl && (
-                                <IconButton
-                                  href={project.liveUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
-                                >
-                                  <ExternalLink />
-                                </IconButton>
-                              )}
-                            </div>
-                          </div>
-                          {project.featured && (
-                            <Chip
-                              label="Featured"
-                              size="small"
-                              className="absolute top-4 left-4 bg-blue-600 text-white"
-                            />
+                  <motion.div
+                    key={project.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ scale: 1.02, y: -5 }}
+                    className="holo-card group cursor-pointer overflow-hidden"
+                  >
+                    {/* Project Image */}
+                    <div className="relative h-48 overflow-hidden">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60" />
+                      
+                      {/* Action Buttons */}
+                      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="flex gap-2">
+                          {project.githubUrl && (
+                            <a
+                              href={project.githubUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-8 h-8 flex items-center justify-center bg-black/50 backdrop-blur-sm rounded border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/20"
+                            >
+                              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                              </svg>
+                            </a>
+                          )}
+                          {project.liveUrl && (
+                            <a
+                              href={project.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-8 h-8 flex items-center justify-center bg-black/50 backdrop-blur-sm rounded border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/20"
+                            >
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                              </svg>
+                            </a>
                           )}
                         </div>
-                        
-                        <CardContent className="p-6">
-                          <Typography variant="h6" className="font-semibold mb-2 text-gray-900 dark:text-white">
-                            {project.title}
-                          </Typography>
-                          <Typography variant="body2" className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-                            {project.description}
-                          </Typography>
-                          <div className="flex flex-wrap gap-1 mb-4">
-                            {project.technologies.slice(0, 3).map((tech, techIndex) => (
-                              <Chip
-                                key={techIndex}
-                                label={tech}
-                                size="small"
-                                variant="outlined"
-                                className="text-xs"
-                              />
-                            ))}
-                            {project.technologies.length > 3 && (
-                              <Chip
-                                label={`+${project.technologies.length - 3}`}
-                                size="small"
-                                variant="outlined"
-                                className="text-xs"
-                              />
-                            )}
+                      </div>
+
+                      {/* Featured Badge */}
+                      {project.featured && (
+                        <div className="absolute top-4 left-4">
+                          <div className="px-2 py-1 bg-cyan-500/20 border border-cyan-400/50 text-xs text-cyan-400 jarvis-text">
+                            FEATURED
                           </div>
-                          <div className="flex justify-between items-center">
-                            <Button variant="text" size="small">
-                              Learn More
-                            </Button>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  </Grid>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Project Info */}
+                    <div className="p-6">
+                      <h3 className="text-lg font-bold jarvis-text text-cyan-400 mb-2">
+                        {project.title}
+                      </h3>
+                      <p className="text-sm text-cyan-300/60 mb-4 leading-relaxed">
+                        {project.description}
+                      </p>
+
+                      {/* Technologies */}
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.technologies.map((tech, techIndex) => (
+                          <span
+                            key={techIndex}
+                            className="px-2 py-1 text-xs bg-cyan-500/10 border border-cyan-500/20 text-cyan-300/80 rounded"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Status Indicator */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                          <span className="text-xs text-green-400 jarvis-text">OPERATIONAL</span>
+                        </div>
+                        <span className="text-xs text-cyan-400/60 jarvis-text">
+                          {project.category.toUpperCase()}
+                        </span>
+                      </div>
+                    </div>
+                  </motion.div>
                 ))}
               </AnimatePresence>
-            </Grid>
+            </div>
           </motion.div>
 
+          {/* Load More */}
           {filteredProjects.length > visibleProjects && (
-            <motion.div variants={itemVariants} className="text-center mt-12">
-              <Button
+            <motion.div 
+              variants={itemVariants} 
+              className="text-center mt-12"
+            >
+              <button
                 onClick={() => setVisibleProjects(prev => prev + 6)}
-                variant="outlined"
-                size="large"
+                className="arc-reactor-btn"
               >
-                Load More Projects
-              </Button>
+                LOAD MORE DATA
+              </button>
             </motion.div>
           )}
         </motion.div>
-      </Container>
+      </div>
     </section>
-  )
-}
+  );
+};
+
+export default Projects;

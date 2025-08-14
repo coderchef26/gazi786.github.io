@@ -54,7 +54,7 @@ const defaultEducation: Education[] = [
   }
 ]
 
-export const EducationSlice: React.FC<EducationSliceProps> = ({
+const EducationSlice: React.FC<EducationSliceProps> = ({
   title = "Education & Learning",
   subtitle = "My academic journey and continuous learning path",
   education = defaultEducation
@@ -214,4 +214,5 @@ export const EducationSlice: React.FC<EducationSliceProps> = ({
   )
 }
 
+export default EducationSlice;
 export type { EducationSliceProps, Education }

@@ -1,0 +1,421 @@
+/* Tony Stark / Iron Man UI Styles */
+
+:root {
+  /* Arc Reactor Colors */
+  --arc-reactor-blue: #00d4ff;
+  --arc-reactor-glow: #00a8cc;
+  --arc-reactor-core: #ffffff;
+  --arc-reactor-dark: #001a1f;
+  
+  /* Holographic Colors */
+  --holo-cyan: #00ffff;
+  --holo-blue: #0080ff;
+  --holo-purple: #8000ff;
+  --holo-red: #ff0040;
+  --holo-orange: #ff8000;
+  --holo-yellow: #ffcc00;
+  
+  /* UI Colors */
+  --stark-bg: #000000;
+  --stark-surface: rgba(0, 20, 25, 0.95);
+  --stark-glass: rgba(0, 212, 255, 0.05);
+  --stark-border: rgba(0, 212, 255, 0.2);
+  --stark-text: #e0f7fa;
+  --stark-text-dim: rgba(224, 247, 250, 0.6);
+  
+  /* Glow Effects */
+  --glow-sm: 0 0 10px var(--arc-reactor-glow);
+  --glow-md: 0 0 20px var(--arc-reactor-glow);
+  --glow-lg: 0 0 40px var(--arc-reactor-glow);
+  --glow-xl: 0 0 60px var(--arc-reactor-glow);
+  
+  /* Animation Timing */
+  --stark-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark mode override for Stark theme */
+.stark-theme {
+  --background: var(--stark-bg);
+  --foreground: var(--stark-text);
+  --primary: var(--arc-reactor-blue);
+  --primary-foreground: var(--stark-bg);
+  --secondary: var(--stark-surface);
+  --secondary-foreground: var(--stark-text);
+}
+
+/* Holographic Background */
+.stark-bg {
+  background: linear-gradient(to bottom, #000000, #001a1f);
+  position: relative;
+  overflow: hidden;
+}
+
+.stark-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(0, 128, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(128, 0, 255, 0.05) 0%, transparent 70%);
+  animation: holoPulse 10s ease-in-out infinite;
+}
+
+/* HUD Grid Pattern */
+.hud-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridMove 20s linear infinite;
+  z-index: 1;
+}
+
+/* Arc Reactor Button */
+.arc-reactor-btn {
+  position: relative;
+  padding: 12px 32px;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 128, 255, 0.1));
+  border: 1px solid var(--arc-reactor-blue);
+  color: var(--arc-reactor-blue);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: var(--stark-transition);
+  overflow: hidden;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+
+.arc-reactor-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, var(--arc-reactor-core) 0%, var(--arc-reactor-blue) 50%, transparent 70%);
+  transition: width 0.5s, height 0.5s;
+  transform: translate(-50%, -50%);
+}
+
+.arc-reactor-btn:hover {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 128, 255, 0.2));
+  box-shadow: var(--glow-md);
+  transform: translateY(-2px);
+}
+
+.arc-reactor-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Holographic Card */
+.holo-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 128, 255, 0.05));
+  border: 1px solid var(--stark-border);
+  backdrop-filter: blur(10px);
+  border-radius: 0;
+  padding: 24px;
+  transition: var(--stark-transition);
+  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+}
+
+.holo-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--holo-cyan), var(--holo-blue), var(--holo-purple), var(--holo-blue));
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s;
+  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+}
+
+.holo-card:hover {
+  transform: translateY(-5px) rotateX(2deg);
+  box-shadow: 
+    0 10px 40px rgba(0, 212, 255, 0.2),
+    var(--glow-md);
+}
+
+.holo-card:hover::before {
+  opacity: 0.3;
+  animation: holoBorder 2s linear infinite;
+}
+
+/* HUD Frame */
+.hud-frame {
+  position: relative;
+  padding: 20px;
+}
+
+.hud-frame::before,
+.hud-frame::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--arc-reactor-blue);
+}
+
+.hud-frame::before {
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
+}
+
+.hud-frame::after {
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
+}
+
+.hud-frame-full::before,
+.hud-frame-full::after {
+  width: 100%;
+  height: 100%;
+  border-width: 1px;
+  opacity: 0.3;
+}
+
+/* Glowing Text */
+.glow-text {
+  color: var(--arc-reactor-blue);
+  text-shadow: 
+    0 0 10px var(--arc-reactor-glow),
+    0 0 20px var(--arc-reactor-glow),
+    0 0 30px var(--arc-reactor-glow);
+  animation: textPulse 2s ease-in-out infinite;
+}
+
+/* Data Stream Effect */
+.data-stream {
+  position: relative;
+  overflow: hidden;
+}
+
+.data-stream::before {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0, 212, 255, 0.4),
+    transparent
+  );
+  animation: dataFlow 3s linear infinite;
+}
+
+/* Scanning Line */
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--arc-reactor-blue),
+    transparent
+  );
+  animation: scan 4s linear infinite;
+  box-shadow: var(--glow-sm);
+}
+
+/* Tech Border */
+.tech-border {
+  position: relative;
+  border: 1px solid transparent;
+  background: linear-gradient(var(--stark-surface), var(--stark-surface)) padding-box,
+              linear-gradient(45deg, var(--holo-cyan), var(--holo-blue), var(--holo-purple)) border-box;
+}
+
+/* Particle Field */
+.particle-field {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--arc-reactor-blue);
+  border-radius: 50%;
+  box-shadow: var(--glow-sm);
+  animation: float 20s infinite linear;
+}
+
+/* Animations */
+@keyframes holoPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+@keyframes holoBorder {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes textPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes dataFlow {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+
+@keyframes scan {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    transform: translateY(-100vh) translateX(100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Loading Animation */
+.arc-reactor-loader {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.arc-reactor-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: var(--arc-reactor-core);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 
+    0 0 20px var(--arc-reactor-blue),
+    0 0 40px var(--arc-reactor-blue),
+    0 0 60px var(--arc-reactor-glow);
+}
+
+.arc-reactor-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--arc-reactor-blue);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.5;
+}
+
+.arc-reactor-ring:nth-child(1) {
+  animation: reactorSpin 2s linear infinite;
+}
+
+.arc-reactor-ring:nth-child(2) {
+  width: 70%;
+  height: 70%;
+  animation: reactorSpin 3s linear infinite reverse;
+}
+
+.arc-reactor-ring:nth-child(3) {
+  width: 40%;
+  height: 40%;
+  animation: reactorSpin 1.5s linear infinite;
+}
+
+@keyframes reactorSpin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Hexagon Grid Background */
+.hex-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 5 L85 25 L85 75 L50 95 L15 75 L15 25 Z' stroke='%2300d4ff' fill='none' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 100px 100px;
+}
+
+/* Jarvis-style UI elements */
+.jarvis-text {
+  font-family: 'Orbitron', 'Rajdhani', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.jarvis-panel {
+  position: relative;
+  background: rgba(0, 20, 25, 0.8);
+  border: 1px solid var(--arc-reactor-blue);
+  padding: 20px;
+  clip-path: polygon(
+    0 10px,
+    10px 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% calc(100% - 10px),
+    calc(100% - 10px) 100%,
+    10px 100%,
+    0 calc(100% - 10px)
+  );
+}
+
+.jarvis-panel::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border: 1px solid rgba(0, 212, 255, 0.1);
+  pointer-events: none;
+  clip-path: inherit;
+}

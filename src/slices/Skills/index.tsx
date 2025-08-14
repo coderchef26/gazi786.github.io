@@ -74,7 +74,7 @@ const defaultCategories: SkillCategory[] = [
   }
 ]
 
-export const SkillsSlice: React.FC<SkillsSliceProps> = ({
+const SkillsSlice: React.FC<SkillsSliceProps> = ({
   title = "Skills & Technologies",
   subtitle = "Technologies I work with and tools I use to bring ideas to life",
   categories = defaultCategories
@@ -231,3 +231,5 @@ export const SkillsSlice: React.FC<SkillsSliceProps> = ({
     </section>
   )
 }
+
+export default SkillsSlice;

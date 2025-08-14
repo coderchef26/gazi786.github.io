@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import StarkEffects from '@/components/effects/StarkEffects';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -45,9 +46,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} font-sans antialiased stark-theme stark-bg`}>
         <ThemeProvider>
-          <div className="flex min-h-screen flex-col">
+          <StarkEffects />
+          <div className="flex min-h-screen flex-col relative z-10">
             <Header />
             <main className="flex-1">
               {children}

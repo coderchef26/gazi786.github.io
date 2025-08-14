@@ -1,26 +1,44 @@
-'use client'
+'use client';
 
-import { Content } from '@prismicio/client'
-import { SliceComponentProps } from '@prismicio/react'
-import { PrismicRichText } from '@prismicio/react'
-import { motion } from 'framer-motion'
-import { Typography, Container, Box } from '@mui/material'
-import { ArrowDownward, GitHub, LinkedIn, Mail } from '@mui/icons-material'
-import { Button } from '@/components/ui/Button'
+import { Content } from '@prismicio/client';
+import { SliceComponentProps } from '@prismicio/react';
+import { PrismicRichText } from '@prismicio/react';
+import { motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import ArcReactorLoader from '@/components/effects/ArcReactorLoader';
 
-export type HeroProps = SliceComponentProps<Content.HeroSlice>
+export type HeroProps = SliceComponentProps<Content.HeroSlice>;
 
 const Hero = ({ slice }: HeroProps): JSX.Element => {
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [typedText, setTypedText] = useState('');
+  const fullTitle = slice.primary.title || "ALSHAFARAZ GAZI";
+  const subtitle = slice.primary.subtitle || "FULL-STACK DEVELOPER & SYSTEM ARCHITECT";
+
+  useEffect(() => {
+    // Simulate initialization
+    setTimeout(() => setIsInitialized(true), 2000);
+  }, []);
+
+  useEffect(() => {
+    if (isInitialized && typedText.length < fullTitle.length) {
+      const timeout = setTimeout(() => {
+        setTypedText(fullTitle.slice(0, typedText.length + 1));
+      }, 50);
+      return () => clearTimeout(timeout);
+    }
+  }, [isInitialized, typedText, fullTitle]);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2
+        delayChildren: 0.5,
+        staggerChildren: 0.1
       }
     }
-  }
+  };
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
@@ -28,108 +46,160 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.5
+        duration: 0.5,
+        ease: "easeOut"
       }
     }
-  }
+  };
 
   const socialLinks = [
-    { icon: GitHub, href: 'https://github.com/gazi786', label: 'GitHub' },
-    { icon: LinkedIn, href: 'https://linkedin.com/in/alshafaraz-gazi', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:alshafaraz.gazi@gmail.com', label: 'Email' },
-  ]
+    { name: 'GITHUB', href: 'https://github.com/gazi786', icon: 'M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z' },
+    { name: 'LINKEDIN', href: 'https://linkedin.com/in/alshafaraz-gazi', icon: 'M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z' },
+    { name: 'CONTACT', href: 'mailto:alshafaraz.gazi@gmail.com', icon: 'M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z' },
+  ];
+
+  if (!isInitialized) {
+    return (
+      <section className="min-h-screen flex items-center justify-center">
+        <ArcReactorLoader size="lg" text="SYSTEM INITIALIZING..." />
+      </section>
+    );
+  }
 
   return (
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900 relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
-      <Container maxWidth="lg" className="relative z-10">
+      {/* Background Tech Grid */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            linear-gradient(cyan 1px, transparent 1px),
+            linear-gradient(90deg, cyan 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px',
+          maskImage: 'radial-gradient(circle at center, black, transparent 70%)'
+        }} />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="text-center space-y-8"
+          className="text-center space-y-8 max-w-5xl mx-auto"
         >
-          <motion.div variants={itemVariants}>
-            <Typography
-              variant="h1"
-              className="text-4xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent mb-6"
-            >
-              {slice.primary.title || "Alshafaraz Gazi"}
-            </Typography>
+          {/* System Status */}
+          <motion.div 
+            variants={itemVariants}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/5"
+          >
+            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+            <span className="text-xs jarvis-text text-cyan-400">SYSTEM ONLINE</span>
           </motion.div>
 
+          {/* Main Title with typing effect */}
           <motion.div variants={itemVariants}>
-            <Typography
-              variant="h2"
-              className="text-xl md:text-2xl lg:text-3xl text-gray-700 dark:text-gray-300 font-light max-w-4xl mx-auto"
-            >
-              {slice.primary.subtitle || "Full-Stack Developer & Creative Problem Solver"}
-            </Typography>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold jarvis-text">
+              <span className="glow-text">{typedText}</span>
+              <span className="animate-pulse">|</span>
+            </h1>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="max-w-2xl mx-auto">
-            <div className="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
-              {slice.primary.description ? (
-                <PrismicRichText field={slice.primary.description} />
-              ) : (
-                <p>I craft modern web applications with cutting-edge technologies, focusing on user experience and scalable solutions.</p>
-              )}
+          {/* Subtitle */}
+          <motion.div variants={itemVariants}>
+            <div className="relative inline-block">
+              <h2 className="text-xl md:text-2xl lg:text-3xl jarvis-text text-cyan-300/80">
+                {subtitle}
+              </h2>
+              <div className="absolute -inset-x-20 -inset-y-2 bg-cyan-500/5 blur-xl" />
             </div>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button
-              size="large"
+          {/* Description in HUD panel */}
+          <motion.div variants={itemVariants} className="max-w-3xl mx-auto">
+            <div className="jarvis-panel p-6">
+              <div className="text-cyan-300/70 leading-relaxed">
+                {slice.primary.description ? (
+                  <PrismicRichText field={slice.primary.description} />
+                ) : (
+                  <p className="jarvis-text text-sm md:text-base">
+                    ENGINEERING NEXT-GENERATION WEB APPLICATIONS WITH CUTTING-EDGE TECHNOLOGIES. 
+                    SPECIALIZING IN SCALABLE ARCHITECTURES AND EXCEPTIONAL USER EXPERIENCES.
+                  </p>
+                )}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Action Buttons */}
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <a
               href={slice.primary.cta_link?.url || "#projects"}
-              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+              className="arc-reactor-btn group"
             >
-              {slice.primary.cta_text || "View My Work"}
-            </Button>
+              <span className="relative z-10">{slice.primary.cta_text || "ACCESS PROJECTS"}</span>
+            </a>
             
-            <div className="flex space-x-4">
-              {socialLinks.map(({ icon: Icon, href, label }) => (
+            <div className="flex gap-4">
+              {socialLinks.map((link, index) => (
                 <motion.a
-                  key={label}
-                  href={href}
+                  key={link.name}
+                  href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-label={label}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1 + index * 0.1 }}
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  className="group relative"
                 >
-                  <Icon className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+                  <div className="w-12 h-12 flex items-center justify-center holo-card">
+                    <svg className="w-5 h-5 fill-cyan-400" viewBox="0 0 24 24">
+                      <path d={link.icon} />
+                    </svg>
+                  </div>
+                  <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap jarvis-text">
+                    {link.name}
+                  </span>
                 </motion.a>
               ))}
             </div>
           </motion.div>
 
+          {/* Scroll Indicator */}
           <motion.div
             variants={itemVariants}
             className="pt-12"
           >
             <motion.div
               animate={{ y: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
+              transition={{ repeat: Infinity, duration: 2 }}
               className="inline-block"
             >
-              <ArrowDownward className="w-8 h-8 text-gray-400 dark:text-gray-500" />
+              <div className="w-6 h-10 rounded-full border-2 border-cyan-400/50 flex justify-center">
+                <motion.div
+                  animate={{ y: [2, 8, 2] }}
+                  transition={{ repeat: Infinity, duration: 1.5 }}
+                  className="w-1 h-3 bg-cyan-400 rounded-full mt-2"
+                />
+              </div>
             </motion.div>
           </motion.div>
         </motion.div>
-      </Container>
+      </div>
 
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-4 -right-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-        <div className="absolute -bottom-8 -left-4 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+      {/* Holographic decorations */}
+      <div className="absolute top-20 left-10 w-32 h-32 opacity-20">
+        <div className="w-full h-full border border-cyan-500/30 rotate-45 animate-pulse" />
+      </div>
+      <div className="absolute bottom-20 right-10 w-32 h-32 opacity-20">
+        <div className="w-full h-full border border-cyan-500/30 rotate-45 animate-pulse" />
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

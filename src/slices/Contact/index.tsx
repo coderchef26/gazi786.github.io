@@ -34,7 +34,7 @@ export interface ContactSliceProps {
   }
 }
 
-export const ContactSlice: React.FC<ContactSliceProps> = ({
+const ContactSlice: React.FC<ContactSliceProps> = ({
   title = "Let's Work Together",
   subtitle = "I'm always interested in new opportunities and exciting projects. Let's discuss how we can collaborate!",
   contactInfo = {
@@ -334,3 +334,5 @@ export const ContactSlice: React.FC<ContactSliceProps> = ({
     </section>
   )
 }
+
+export default ContactSlice;
