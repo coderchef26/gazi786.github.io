@@ -1,13 +1,9 @@
 import { Metadata } from 'next'
 import { createClient } from '@/lib/prismic'
-import dynamic from 'next/dynamic'
-
-const ArcReactorHub = dynamic(() => import('@/components/navigation/ArcReactorHub'), {
-  ssr: false
-})
+import ArcReactorClientWrapper from '@/components/navigation/ArcReactorClientWrapper'
 
 export default async function Home() {
-  return <ArcReactorHub />;
+  return <ArcReactorClientWrapper />;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
