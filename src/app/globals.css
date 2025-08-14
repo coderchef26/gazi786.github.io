@@ -6,20 +6,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --primary: #2563eb;
-  --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0f172a;
+  --background: #0a0a0f;
+  --foreground: #00d4ff;
+  --primary: #00d4ff;
+  --primary-foreground: #0a0a0f;
+  --secondary: #1a1a2e;
+  --secondary-foreground: #00d4ff;
+  --accent: #ff6b6b;
+  --accent-foreground: #0a0a0f;
+  --muted: #16213e;
+  --muted-foreground: #64748b;
+  --border: #1e293b;
+  --input: #1e293b;
+  --ring: #00d4ff;
+  --destructive: #ff4757;
+  --destructive-foreground: #ffffff;
+  --warning: #ffa502;
+  --warning-foreground: #0a0a0f;
+  --success: #26de81;
+  --success-foreground: #0a0a0f;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --secondary: #1e293b;
-    --secondary-foreground: #f1f5f9;
+    --background: #0a0a0f;
+    --foreground: #00d4ff;
+    --secondary: #1a1a2e;
+    --secondary-foreground: #00d4ff;
   }
 }
 
@@ -152,6 +165,167 @@ a {
 
   .animate-blob {
     animation: blob 7s infinite;
+  }
+
+  /* Tony Stark UI Effects */
+  @keyframes hologram-flicker {
+    0%, 100% { opacity: 1; }
+    98% { opacity: 1; }
+    99% { opacity: 0.98; }
+  }
+
+  @keyframes scan-line {
+    0% { transform: translateY(-100vh); }
+    100% { transform: translateY(100vh); }
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { 
+      box-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary);
+    }
+    50% { 
+      box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+    }
+  }
+
+  @keyframes matrix-rain {
+    0% { transform: translateY(-100vh); }
+    100% { transform: translateY(100vh); }
+  }
+
+  @keyframes holographic-border {
+    0% { border-color: var(--primary); }
+    25% { border-color: var(--accent); }
+    50% { border-color: var(--success); }
+    75% { border-color: var(--warning); }
+    100% { border-color: var(--primary); }
+  }
+
+  .hologram {
+    animation: hologram-flicker 0.15s linear infinite;
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 212, 255, 0.1) 50%, transparent 100%);
+    position: relative;
+  }
+
+  .hologram::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 212, 255, 0.03) 50%, transparent 100%);
+    animation: scan-line 3s linear infinite;
+    pointer-events: none;
+  }
+
+  .stark-glow {
+    animation: glow-pulse 2s ease-in-out infinite;
+    border: 1px solid var(--primary);
+  }
+
+  .holographic-border {
+    border: 2px solid var(--primary);
+    animation: holographic-border 4s linear infinite;
+    background: rgba(0, 212, 255, 0.05);
+    position: relative;
+  }
+
+  .holographic-border::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--primary), var(--accent), var(--success), var(--warning));
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0.3;
+    filter: blur(4px);
+  }
+
+  .stark-grid {
+    background-image: 
+      linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .stark-panel {
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(16, 33, 62, 0.9) 100%);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stark-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+    animation: sweep 3s infinite;
+  }
+
+  @keyframes sweep {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  .circuit-pattern {
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(0, 212, 255, 0.3) 1px, transparent 0);
+    background-size: 20px 20px;
+  }
+
+  .stark-text {
+    color: var(--primary);
+    text-shadow: 0 0 10px currentColor;
+    font-family: 'Orbitron', 'Inter', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .energy-core {
+    background: radial-gradient(circle, var(--primary) 0%, var(--accent) 50%, transparent 70%);
+    animation: energy-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes energy-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .hud-element {
+    border: 1px solid var(--primary);
+    background: rgba(0, 212, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hud-element::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    border-top: 2px solid var(--accent);
+    border-right: 2px solid var(--accent);
+  }
+
+  .hud-element::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-bottom: 2px solid var(--accent);
+    border-left: 2px solid var(--accent);
   }
 }
 
