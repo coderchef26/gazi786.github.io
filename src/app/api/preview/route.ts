@@ -13,7 +13,6 @@ export async function GET(request: NextRequest) {
         return `/${doc.uid}`
       },
       defaultURL: '/',
-      request,
     })
     
     redirect(url)

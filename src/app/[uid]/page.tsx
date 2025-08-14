@@ -16,11 +16,12 @@ function LoadingPage() {
   );
 }
 
-export default async function Page({ params }: { params: Params }) {
+export default async function Page({ params }: { params: Promise<Params> }) {
+  const { uid } = await params
   const client = createClient()
   
   try {
-    const page = await client.getByUID('page', params.uid)
+    const page = await client.getByUID('page', uid)
     
     return (
       <Suspense fallback={<LoadingPage />}>
@@ -76,11 +77,12 @@ export default async function Page({ params }: { params: Params }) {
   }
 }
 
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const client = createClient()
   
   try {
-    const page = await client.getByUID('page', params.uid)
+    const { uid } = await params
+    const page = await client.getByUID('page', uid)
     
     return {
       title: page.data.meta_title || page.data.title || 'Page',

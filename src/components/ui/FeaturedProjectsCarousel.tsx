@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { IconButton, Typography, Box } from '@mui/material'
-import { ChevronLeft, ChevronRight, GitHub, ExternalLink } from '@mui/icons-material'
+import { ChevronLeft, ChevronRight, GitHub } from '@mui/icons-material'
 import { Card, CardContent } from './Card'
 import { Button } from './Button'
 import Image from 'next/image'
@@ -148,7 +148,9 @@ export const FeaturedProjectsCarousel: React.FC<FeaturedProjectsCarouselProps> =
                       rel="noopener noreferrer"
                       size="large"
                     >
-                      <ExternalLink className="w-4 h-4 mr-2" />
+                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
                       View Live
                     </Button>
                   )}

@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { StarkLoader } from '@/components/ui/StarkLoader';
+import HolographicInterface from '@/components/effects/HolographicInterface';
+import EnhancedArcReactor from '@/components/effects/EnhancedArcReactor';
 
 interface StarkLayoutProps {
   children: React.ReactNode;
@@ -60,17 +62,18 @@ export const StarkLayout = ({ children }: StarkLayoutProps) => {
 
       {/* Main Interface */}
       {showInterface && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="relative z-10 min-h-screen flex flex-col"
-        >
+        <HolographicInterface isActive={true}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="relative z-10 min-h-screen flex flex-col"
+          >
           {/* Static Outer Container */}
           <div className="fixed inset-0 pointer-events-none z-[1]">
             {/* Top HUD Elements */}
             <div className="absolute top-4 left-4 hud-element p-2 pointer-events-auto">
-              <div className="w-12 h-2 bg-[#26de81] opacity-60" />
+              <EnhancedArcReactor size="sm" powerLevel={100} className="scale-50" />
               <div className="text-xs stark-text mt-1">PWR: 100%</div>
             </div>
             
@@ -118,6 +121,7 @@ export const StarkLayout = ({ children }: StarkLayoutProps) => {
             </div>
           </div>
         </motion.div>
+        </HolographicInterface>
       )}
     </div>
   );

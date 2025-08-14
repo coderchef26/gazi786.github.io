@@ -70,33 +70,73 @@ a {
   }
   
   h1 {
-    @apply text-4xl md:text-6xl font-bold;
+    font-size: 2.25rem;
+    font-weight: 700;
+  }
+
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 3.75rem;
+    }
   }
   
   h2 {
-    @apply text-3xl md:text-4xl font-semibold;
+    font-size: 1.875rem;
+    font-weight: 600;
+  }
+
+  @media (min-width: 768px) {
+    h2 {
+      font-size: 2.25rem;
+    }
   }
   
   h3 {
-    @apply text-2xl md:text-3xl font-medium;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  @media (min-width: 768px) {
+    h3 {
+      font-size: 1.875rem;
+    }
   }
 }
 
 @layer components {
   .section-padding {
-    @apply py-16 md:py-24 px-4;
+    padding: 4rem 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-padding {
+      padding: 6rem 1rem;
+    }
   }
   
   .container-custom {
-    @apply max-w-7xl mx-auto w-full;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
   }
   
   .gradient-text {
-    @apply bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent;
+    background: linear-gradient(to right, #2563eb, #9333ea);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
   }
   
   .glass-effect {
-    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-white/20 dark:border-gray-800/50;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .dark .glass-effect {
+    background-color: rgba(17, 24, 39, 0.8);
+    border-color: rgba(31, 41, 55, 0.5);
   }
 }
 

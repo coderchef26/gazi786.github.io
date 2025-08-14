@@ -49,16 +49,10 @@ export const StarkLoader = ({ isLoading, onLoadingComplete }: StarkLoaderProps) 
         exit={{ opacity: 0 }}
         className="fixed inset-0 z-50 bg-[#0a0a0f] flex items-center justify-center"
       >
-        {/* Animated Background Grid */}
         <div className="absolute inset-0 stark-grid opacity-20" />
-        
-        {/* Circuit Pattern Background */}
         <div className="absolute inset-0 circuit-pattern opacity-10" />
 
-        {/* Main Loader Container */}
         <div className="relative z-10 flex flex-col items-center space-y-8">
-          
-          {/* Arc Reactor Core */}
           <div className="relative">
             <motion.div
               className="w-32 h-32 rounded-full border-4 border-[#00d4ff] relative"
@@ -67,7 +61,6 @@ export const StarkLoader = ({ isLoading, onLoadingComplete }: StarkLoaderProps) 
             >
               <div className="absolute inset-2 rounded-full bg-gradient-to-r from-[#00d4ff] to-[#0099cc] energy-core" />
               
-              {/* Inner Rings */}
               <motion.div
                 className="absolute inset-4 rounded-full border-2 border-[#00d4ff] opacity-60"
                 animate={{ rotate: -360 }}
@@ -80,15 +73,13 @@ export const StarkLoader = ({ isLoading, onLoadingComplete }: StarkLoaderProps) 
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               />
               
-              {/* Center Dot */}
               <div className="absolute top-1/2 left-1/2 w-2 h-2 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2" />
             </motion.div>
 
-            {/* Orbit Rings */}
             {[...Array(3)].map((_, i) => (
               <motion.div
                 key={i}
-                className={`absolute top-1/2 left-1/2 w-${40 + i * 8} h-${40 + i * 8} border border-[#00d4ff] rounded-full opacity-${30 - i * 10} transform -translate-x-1/2 -translate-y-1/2`}
+                className="absolute top-1/2 left-1/2 border border-[#00d4ff] rounded-full transform -translate-x-1/2 -translate-y-1/2"
                 style={{
                   width: `${160 + i * 32}px`,
                   height: `${160 + i * 32}px`,
@@ -101,7 +92,6 @@ export const StarkLoader = ({ isLoading, onLoadingComplete }: StarkLoaderProps) 
             ))}
           </div>
 
-          {/* Loading Text */}
           <motion.div
             className="text-center space-y-4"
             initial={{ y: 20, opacity: 0 }}
@@ -118,7 +108,6 @@ export const StarkLoader = ({ isLoading, onLoadingComplete }: StarkLoaderProps) 
               {phase === 'complete' && 'SYSTEMS ONLINE'}
             </motion.h2>
             
-            {/* Progress Bar */}
             <div className="w-64 h-1 bg-gray-800 rounded-full overflow-hidden">
               <motion.div
                 className="h-full bg-gradient-to-r from-[#00d4ff] to-[#ff6b6b]"
@@ -135,9 +124,8 @@ export const StarkLoader = ({ isLoading, onLoadingComplete }: StarkLoaderProps) 
             >
               {Math.round(progress)}% COMPLETE
             </motion.p>
-          </div>
+          </motion.div>
 
-          {/* Status Indicators */}
           <div className="flex space-x-6">
             {['NEURAL LINK', 'HOLOGRAM', 'REPULSORS'].map((system, i) => (
               <motion.div
@@ -158,14 +146,13 @@ export const StarkLoader = ({ isLoading, onLoadingComplete }: StarkLoaderProps) 
           </div>
         </div>
 
-        {/* Scan Lines */}
         <motion.div
           className="absolute inset-0 pointer-events-none"
           style={{
             background: 'linear-gradient(transparent 0%, rgba(0, 212, 255, 0.05) 50%, transparent 100%)',
             height: '2px'
           }}
-          animate={{ y: [0, window.innerHeight || 800] }}
+          animate={{ y: [0, typeof window !== 'undefined' ? window.innerHeight : 800] }}
           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
         />
       </motion.div>

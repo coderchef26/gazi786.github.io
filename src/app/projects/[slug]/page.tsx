@@ -6,7 +6,7 @@ import { components } from '@/slices'
 import { Container, Typography, Grid, Chip, IconButton } from '@mui/material'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
-import { GitHub, ExternalLink, ArrowBack } from '@mui/icons-material'
+import { GitHub, ArrowBack } from '@mui/icons-material'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -130,11 +130,12 @@ The backend API is built with Node.js and Express, utilizing MongoDB for flexibl
 }
 
 interface Props {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const project = fallbackProjects[params.slug as keyof typeof fallbackProjects]
+  const { slug } = await params
+  const project = fallbackProjects[slug as keyof typeof fallbackProjects]
   
   if (!project) {
     return {
@@ -163,11 +164,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProjectPage({ params }: Props) {
+  const { slug } = await params
   const client = createClient()
   
   try {
     // Try to get project from Prismic first
-    const project = await client.getByUID('project', params.slug)
+    const project = await client.getByUID('project', slug)
     
     return (
       <div>
@@ -176,7 +178,7 @@ export default async function ProjectPage({ params }: Props) {
     )
   } catch (error) {
     // Fallback to static data if Prismic is not available
-    const fallbackProject = fallbackProjects[params.slug as keyof typeof fallbackProjects]
+    const fallbackProject = fallbackProjects[slug as keyof typeof fallbackProjects]
     
     if (!fallbackProject) {
       notFound()
@@ -262,7 +264,9 @@ export default async function ProjectPage({ params }: Props) {
                       href={fallbackProject.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      startIcon={<ExternalLink />}
+                      startIcon={<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>}
                     >
                       Live Demo
                     </Button>

@@ -4,9 +4,16 @@
       "Bash(move:*)",
       "Bash(mv:*)",
       "Bash(npm run dev:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "WebFetch(domain:www.linkedin.com)",
+      "Bash(npm run build:*)"
     ],
     "deny": [],
-    "ask": []
+    "ask": [],
+    "defaultMode": "acceptEdits",
+    "additionalDirectories": [
+      "D:\\"
+    ]
   }
 }
