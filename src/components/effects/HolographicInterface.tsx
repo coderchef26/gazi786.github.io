@@ -18,7 +18,7 @@ export default function HolographicInterface({ isActive = true, children }: Holo
     'DEFENSE GRID: ACTIVE',
     'TARGETING SYSTEM: ONLINE',
     'ARC REACTOR: STABLE',
-    'AI ASSISTANT: JARVIS READY',
+    'AI ASSISTANT: ATLAS READY',
     'SECURITY PROTOCOLS: ENGAGED'
   ].map((text, i) => ({
     id: i,

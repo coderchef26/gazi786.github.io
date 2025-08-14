@@ -26,7 +26,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
     return (
       <Suspense fallback={<LoadingPage />}>
         <article className="min-h-screen relative">
-          {/* Page Header with JARVIS styling */}
+          {/* Page Header with ATLAS styling */}
           <div className="relative overflow-hidden py-20 mb-12">
             <div className="absolute inset-0 opacity-20">
               <div className="absolute inset-0" style={{

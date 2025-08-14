@@ -71,14 +71,14 @@ export default function RootLayout({
 				/>
 			</head>
 			<body
-				className={`${inter.variable} font-sans antialiased bg-[#0a0a0f] text-[#00d4ff]`}
+				className={`${inter.variable} font-sans antialiased bg-[#0a0a0f] text-[#00d4ff] overflow-hidden`}
 			>
 				<ThemeProvider>
-					<StarkLayout>
-						<Header />
-						<main className="flex-1 relative z-10">{children}</main>
-						<Footer />
-					</StarkLayout>
+					<div className="h-screen w-screen fixed inset-0">
+						<StarkLayout>
+							{children}
+						</StarkLayout>
+					</div>
 				</ThemeProvider>
 			</body>
 		</html>

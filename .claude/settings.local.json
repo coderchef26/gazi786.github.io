@@ -11,7 +11,8 @@
       "Bash(rm:*)",
       "Bash(npm cache clean:*)",
       "Bash(npm install)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(taskkill:*)"
     ],
     "deny": [],
     "ask": [],

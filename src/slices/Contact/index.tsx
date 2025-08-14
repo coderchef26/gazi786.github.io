@@ -84,7 +84,7 @@ const Contact = ({ slice }: ContactProps): JSX.Element => {
       'INITIALIZING TRANSMISSION...',
       'ENCODING MESSAGE DATA...',
       'ESTABLISHING SECURE CHANNEL...',
-      'ROUTING THROUGH JARVIS NETWORK...',
+      'ROUTING THROUGH ATLAS NETWORK...',
       'TRANSMISSION IN PROGRESS...'
     ]);
 

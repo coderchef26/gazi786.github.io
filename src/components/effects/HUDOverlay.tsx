@@ -30,7 +30,7 @@ export default function HUDOverlay() {
             <span className="text-cyan-400">SYSTEM: {systemStatus}</span>
           </div>
           <div className="text-cyan-300 opacity-70">
-            JARVIS v2.0
+            ATLAS v2.0
           </div>
         </div>
       </motion.div>

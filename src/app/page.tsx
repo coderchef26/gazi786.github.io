@@ -1,60 +1,13 @@
 import { Metadata } from 'next'
-import { notFound } from 'next/navigation'
-import { SliceZone } from '@prismicio/react'
 import { createClient } from '@/lib/prismic'
-import { components } from '@/slices'
-import Hero from '@/slices/Hero'
-import About from '@/slices/About'
-import Projects from '@/slices/Projects'
-import Skills from '@/slices/Skills'
-import Education from '@/slices/Education'
-import Contact from '@/slices/Contact'
+import dynamic from 'next/dynamic'
+
+const ArcReactorHub = dynamic(() => import('@/components/navigation/ArcReactorHub'), {
+  ssr: false
+})
 
 export default async function Home() {
-  const client = createClient()
-  const homepage = await client.getSingle('homepage').catch(() => null);
-
-  if (homepage) {
-    return <SliceZone slices={homepage.data.slices} components={components} />
-  }
-
-  // Fallback to static slices if Prismic not available
-  return (
-    <div>
-      <Hero slice={createMockSlice('hero')} index={0} slices={[]} context={{}} />
-      <About slice={createMockSlice('about')} index={1} slices={[]} context={{}} />
-      <Projects slice={createMockSlice('projects')} index={2} slices={[]} context={{}} />
-      <Skills slice={createMockSlice('skills')} index={3} slices={[]} context={{}} />
-      <Education slice={createMockSlice('education')} index={4} slices={[]} context={{}} />
-      <Contact slice={createMockSlice('contact')} index={5} slices={[]} context={{}} />
-    </div>
-  )
-}
-
-function createMockSlice(sliceType: string) {
-  const baseSlice = {
-    slice_type: sliceType,
-    slice_label: null,
-    id: `${sliceType}-1`,
-    primary: {},
-    items: [],
-    variation: 'default'
-  }
-
-  if (sliceType === 'hero') {
-    return {
-      ...baseSlice,
-      primary: {
-        title: 'ALSHAFARAZ GAZI',
-        subtitle: 'FULL-STACK DEVELOPER & SYSTEM ARCHITECT',
-        description: null,
-        cta_text: 'ACCESS PROJECTS',
-        cta_link: { url: '#projects' }
-      }
-    }
-  }
-
-  return baseSlice
+  return <ArcReactorHub />;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
