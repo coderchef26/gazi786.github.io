@@ -134,7 +134,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const project = projects[params.slug as keyof typeof projects]
+  const project = fallbackProjects[params.slug as keyof typeof fallbackProjects]
   
   if (!project) {
     return {
@@ -182,16 +182,33 @@ export default async function ProjectPage({ params }: Props) {
       notFound()
     }
 
-    // Render fallback project UI
+    // Render fallback project UI with Arc Reactor styling
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
-        <Container maxWidth="lg">
-        <div className="mb-8">
-          <Link href="/#projects" className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
-            <ArrowBack className="w-4 h-4 mr-2" />
-            Back to Projects
-          </Link>
+      <div className="min-h-screen relative">
+        {/* Background Tech Grid */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `
+              linear-gradient(cyan 1px, transparent 1px),
+              linear-gradient(90deg, cyan 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }} />
         </div>
+
+        <Container maxWidth="lg" className="relative z-10 py-12">
+          <div className="mb-8">
+            <Link href="/#projects" className="inline-flex items-center text-cyan-400 hover:text-cyan-300 transition-colors arc-reactor-btn">
+              <ArrowBack className="w-4 h-4 mr-2" />
+              <span>Back to Projects</span>
+            </Link>
+          </div>
+
+          {/* System Status */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 mb-8">
+            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+            <span className="text-xs jarvis-text text-cyan-400">PROJECT LOADED</span>
+          </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
@@ -373,9 +390,8 @@ export default async function ProjectPage({ params }: Props) {
             </Card>
           </div>
         </div>
-      </Container>
-      </Container>
-    </div>
+        </Container>
+      </div>
   )
   }
 }

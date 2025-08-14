@@ -1,32 +1,21 @@
 'use client';
 
-<<<<<<< HEAD
 import { Content } from '@prismicio/client';
 import { SliceComponentProps } from '@prismicio/react';
 import { PrismicRichText } from '@prismicio/react';
 import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 import ArcReactorLoader from '@/components/effects/ArcReactorLoader';
-=======
-import { Content } from '@prismicio/client'
-import { SliceComponentProps } from '@prismicio/react'
-import { PrismicRichText } from '@prismicio/react'
-import { motion } from 'framer-motion'
-import { ArrowDownward, GitHub, LinkedIn, Mail, FlashOn } from '@mui/icons-material'
-import { useEffect, useRef } from 'react'
->>>>>>> 19444ce963dc766351e4bf7d45356453f39d7a3e
 
 export type HeroProps = SliceComponentProps<Content.HeroSlice>;
 
 const Hero = ({ slice }: HeroProps): JSX.Element => {
-<<<<<<< HEAD
   const [isInitialized, setIsInitialized] = useState(false);
   const [typedText, setTypedText] = useState('');
   const fullTitle = slice.primary.title || "ALSHAFARAZ GAZI";
   const subtitle = slice.primary.subtitle || "FULL-STACK DEVELOPER & SYSTEM ARCHITECT";
 
   useEffect(() => {
-    // Simulate initialization
     setTimeout(() => setIsInitialized(true), 2000);
   }, []);
 
@@ -39,21 +28,13 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
     }
   }, [isInitialized, typedText, fullTitle]);
 
-=======
-  const heroRef = useRef<HTMLElement>(null)
-  
->>>>>>> 19444ce963dc766351e4bf7d45356453f39d7a3e
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
         delayChildren: 0.5,
-<<<<<<< HEAD
         staggerChildren: 0.1
-=======
-        staggerChildren: 0.3
->>>>>>> 19444ce963dc766351e4bf7d45356453f39d7a3e
       }
     }
   };
@@ -64,23 +45,7 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
       y: 0,
       opacity: 1,
       transition: {
-<<<<<<< HEAD
         duration: 0.5,
-=======
-        duration: 0.8,
-        ease: "easeOut"
-      }
-    }
-  }
-
-  const glitchVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 1,
->>>>>>> 19444ce963dc766351e4bf7d45356453f39d7a3e
         ease: "easeOut"
       }
     }
@@ -102,12 +67,10 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
 
   return (
     <section
-      ref={heroRef}
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
-<<<<<<< HEAD
       {/* Background Tech Grid */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute inset-0" style={{
@@ -121,14 +84,10 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-=======
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
->>>>>>> 19444ce963dc766351e4bf7d45356453f39d7a3e
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-<<<<<<< HEAD
           className="text-center space-y-8 max-w-5xl mx-auto"
         >
           {/* System Status */}
@@ -138,35 +97,10 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
           >
             <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             <span className="text-xs jarvis-text text-cyan-400">SYSTEM ONLINE</span>
-=======
-          className="text-center space-y-12"
-        >
-          {/* Power Core Display */}
-          <motion.div 
-            variants={glitchVariants}
-            className="flex justify-center mb-8"
-          >
-            <div className="relative">
-              <div className="w-24 h-24 rounded-full border-4 border-[#00d4ff] relative energy-core">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                  className="absolute inset-2 rounded-full border-2 border-[#00d4ff] opacity-60"
-                />
-                <FlashOn className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[#00d4ff] text-2xl" />
-              </div>
-              <motion.div
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="absolute inset-0 rounded-full border border-[#00d4ff] opacity-30"
-              />
-            </div>
->>>>>>> 19444ce963dc766351e4bf7d45356453f39d7a3e
           </motion.div>
 
           {/* Main Title with typing effect */}
           <motion.div variants={itemVariants}>
-<<<<<<< HEAD
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold jarvis-text">
               <span className="glow-text">{typedText}</span>
               <span className="animate-pulse">|</span>
@@ -175,31 +109,29 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
 
           {/* Subtitle */}
           <motion.div variants={itemVariants}>
-            <div className="relative inline-block">
-              <h2 className="text-xl md:text-2xl lg:text-3xl jarvis-text text-cyan-300/80">
-                {subtitle}
-              </h2>
-              <div className="absolute -inset-x-20 -inset-y-2 bg-cyan-500/5 blur-xl" />
-            </div>
+            <h2 className="text-xl md:text-2xl text-cyan-300 jarvis-text tracking-wider">
+              {subtitle}
+            </h2>
           </motion.div>
 
-          {/* Description in HUD panel */}
+          {/* Description */}
           <motion.div variants={itemVariants} className="max-w-3xl mx-auto">
-            <div className="jarvis-panel p-6">
-              <div className="text-cyan-300/70 leading-relaxed">
-                {slice.primary.description ? (
+            <div className="holo-card p-6">
+              {slice.primary.description ? (
+                <div className="text-gray-300">
                   <PrismicRichText field={slice.primary.description} />
-                ) : (
-                  <p className="jarvis-text text-sm md:text-base">
-                    ENGINEERING NEXT-GENERATION WEB APPLICATIONS WITH CUTTING-EDGE TECHNOLOGIES. 
-                    SPECIALIZING IN SCALABLE ARCHITECTURES AND EXCEPTIONAL USER EXPERIENCES.
-                  </p>
-                )}
-              </div>
+                </div>
+              ) : (
+                <p className="text-gray-300">
+                  Architecting next-generation web solutions with precision and innovation. 
+                  Specializing in full-stack development, system design, and creating 
+                  exceptional digital experiences.
+                </p>
+              )}
             </div>
           </motion.div>
 
-          {/* Action Buttons */}
+          {/* CTA Buttons */}
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <a
               href={slice.primary.cta_link?.url || "#projects"}
@@ -210,61 +142,11 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
             
             <div className="flex gap-4">
               {socialLinks.map((link, index) => (
-=======
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-orbitron font-bold stark-text mb-6">
-              {slice.primary.title || "ALSHAFARAZ.GAZI"}
-            </h1>
-            <motion.div
-              className="h-1 w-32 mx-auto bg-gradient-to-r from-[#00d4ff] to-[#ff6b6b] mb-8"
-              initial={{ width: 0 }}
-              animate={{ width: 128 }}
-              transition={{ delay: 1.5, duration: 1 }}
-            />
-          </motion.div>
-
-          <motion.div variants={itemVariants}>
-            <div className="space-y-4">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl stark-text font-orbitron font-light">
-                {slice.primary.subtitle || "SYSTEMS ARCHITECT & NEURAL ENGINEER"}
-              </h2>
-              <div className="flex justify-center space-x-4 text-sm stark-text">
-                <span className="hud-element px-3 py-1">REACT.JS</span>
-                <span className="hud-element px-3 py-1">NODE.JS</span>
-                <span className="hud-element px-3 py-1">NEXT.JS</span>
-                <span className="hud-element px-3 py-1">AI/ML</span>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div variants={itemVariants} className="max-w-3xl mx-auto">
-            <div className="stark-panel p-6 text-lg stark-text leading-relaxed">
-              {slice.primary.description ? (
-                <PrismicRichText field={slice.primary.description} />
-              ) : (
-                <p>Engineering next-generation web architectures with quantum-level precision. Specializing in neural network integration and holographic interface design.</p>
-              )}
-            </div>
-          </motion.div>
-
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <motion.a
-              href={slice.primary.cta_link?.url || "#projects"}
-              className="holographic-border px-8 py-4 stark-text font-orbitron font-bold text-lg hover:bg-[#00d4ff] hover:text-[#0a0a0f] transition-colors cursor-pointer"
-              whileHover={{ scale: 1.05, boxShadow: "0 0 30px #00d4ff" }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {slice.primary.cta_text || "INITIALIZE PORTFOLIO"}
-            </motion.a>
-            
-            <div className="flex space-x-6">
-              {socialLinks.map(({ icon: Icon, href, label }) => (
->>>>>>> 19444ce963dc766351e4bf7d45356453f39d7a3e
                 <motion.a
                   key={link.name}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-<<<<<<< HEAD
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1 + index * 0.1 }}
@@ -279,14 +161,6 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
                   <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap jarvis-text">
                     {link.name}
                   </span>
-=======
-                  className="hud-element p-3 stark-text hover:bg-[#00d4ff] hover:text-[#0a0a0f] transition-colors"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-label={label}
-                >
-                  <Icon className="text-xl" />
->>>>>>> 19444ce963dc766351e4bf7d45356453f39d7a3e
                 </motion.a>
               ))}
             </div>
@@ -298,7 +172,6 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
             className="pt-16"
           >
             <motion.div
-<<<<<<< HEAD
               animate={{ y: [0, 10, 0] }}
               transition={{ repeat: Infinity, duration: 2 }}
               className="inline-block"
@@ -309,59 +182,21 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
                   transition={{ repeat: Infinity, duration: 1.5 }}
                   className="w-1 h-3 bg-cyan-400 rounded-full mt-2"
                 />
-=======
-              animate={{ y: [0, 15, 0] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-              className="inline-block"
-            >
-              <div className="hud-element p-2 stark-text">
-                <ArrowDownward className="text-2xl" />
->>>>>>> 19444ce963dc766351e4bf7d45356453f39d7a3e
               </div>
             </motion.div>
-            <div className="mt-4 text-xs stark-text opacity-70 font-mono">
+            <div className="mt-4 text-xs text-cyan-400/70 jarvis-text">
               SCROLL TO EXPLORE
             </div>
           </motion.div>
         </motion.div>
       </div>
 
-<<<<<<< HEAD
       {/* Holographic decorations */}
       <div className="absolute top-20 left-10 w-32 h-32 opacity-20">
         <div className="w-full h-full border border-cyan-500/30 rotate-45 animate-pulse" />
       </div>
       <div className="absolute bottom-20 right-10 w-32 h-32 opacity-20">
         <div className="w-full h-full border border-cyan-500/30 rotate-45 animate-pulse" />
-=======
-      {/* Holographic Effects */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Data Streams */}
-        <div className="absolute top-20 left-10 w-1 h-32 bg-gradient-to-b from-[#00d4ff] to-transparent opacity-60 animate-pulse" />
-        <div className="absolute top-40 right-20 w-1 h-24 bg-gradient-to-b from-[#ff6b6b] to-transparent opacity-40 animate-pulse" />
-        <div className="absolute bottom-20 left-1/4 w-1 h-20 bg-gradient-to-b from-[#26de81] to-transparent opacity-50 animate-pulse" />
-        
-        {/* Floating Particles */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-[#00d4ff] rounded-full opacity-60"
-            style={{
-              top: `${20 + i * 15}%`,
-              left: `${10 + i * 15}%`,
-            }}
-            animate={{
-              y: [-20, 20, -20],
-              opacity: [0.3, 0.8, 0.3],
-            }}
-            transition={{
-              duration: 3 + i,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
->>>>>>> 19444ce963dc766351e4bf7d45356453f39d7a3e
       </div>
     </section>
   );
