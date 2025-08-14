@@ -41,15 +41,15 @@ export const StarkLayout = ({ children }: StarkLayoutProps) => {
       </div>
 
       {/* Holographic Scan Lines */}
-      <div className="fixed inset-0 pointer-events-none z-[5]">
+      <div className="fixed inset-0 pointer-events-none z-[2]">
         <motion.div
           className="absolute w-full h-[2px] bg-gradient-to-r from-transparent via-[#00d4ff] to-transparent opacity-30"
-          animate={{ y: [0, window.innerHeight || 800] }}
+          animate={{ y: [0, typeof window !== 'undefined' ? window.innerHeight : 800] }}
           transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
         />
         <motion.div
           className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-[#ff6b6b] to-transparent opacity-20"
-          animate={{ y: [0, window.innerHeight || 800] }}
+          animate={{ y: [0, typeof window !== 'undefined' ? window.innerHeight : 800] }}
           transition={{ duration: 6, repeat: Infinity, ease: "linear", delay: 2 }}
         />
       </div>
@@ -70,7 +70,7 @@ export const StarkLayout = ({ children }: StarkLayoutProps) => {
             className="relative z-10 min-h-screen flex flex-col"
           >
           {/* Static Outer Container */}
-          <div className="fixed inset-0 pointer-events-none z-[1]">
+          <div className="fixed inset-0 pointer-events-none z-[30]">
             {/* Top HUD Elements */}
             <div className="absolute top-4 left-4 hud-element p-2 pointer-events-auto">
               <EnhancedArcReactor size="sm" powerLevel={100} className="scale-50" />
@@ -102,7 +102,7 @@ export const StarkLayout = ({ children }: StarkLayoutProps) => {
           </div>
 
           {/* Bottom Status Bar */}
-          <div className="fixed bottom-0 left-0 right-0 h-12 bg-gradient-to-r from-[#1a1a2e] via-[#16213e] to-[#1a1a2e] border-t border-[#00d4ff] z-[2]">
+          <div className="fixed bottom-0 left-0 right-0 h-12 bg-gradient-to-r from-[#1a1a2e] via-[#16213e] to-[#1a1a2e] border-t border-[#00d4ff] z-[40]">
             <div className="h-full flex items-center justify-between px-6">
               <div className="flex items-center space-x-4">
                 <div className="w-2 h-2 bg-[#26de81] rounded-full animate-pulse" />

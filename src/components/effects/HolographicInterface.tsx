@@ -9,30 +9,25 @@ interface HolographicInterfaceProps {
 }
 
 export default function HolographicInterface({ isActive = true, children }: HolographicInterfaceProps) {
-  const [scanlines, setScanlines] = useState<number[]>([]);
-  const [dataStreams, setDataStreams] = useState<Array<{ id: number; text: string; delay: number }>>([]);
+  const [mounted, setMounted] = useState(false);
+  const [scanlines] = useState<number[]>(Array.from({ length: 20 }, (_, i) => i * 5));
+  const [dataStreams] = useState<Array<{ id: number; text: string; delay: number }>>([
+    'SYSTEM STATUS: OPERATIONAL',
+    'NEURAL LINK: ESTABLISHED',
+    'POWER CORE: 100% CAPACITY',
+    'DEFENSE GRID: ACTIVE',
+    'TARGETING SYSTEM: ONLINE',
+    'ARC REACTOR: STABLE',
+    'AI ASSISTANT: JARVIS READY',
+    'SECURITY PROTOCOLS: ENGAGED'
+  ].map((text, i) => ({
+    id: i,
+    text,
+    delay: i * 2
+  })));
 
   useEffect(() => {
-    // Generate random scanlines
-    const lines = Array.from({ length: 20 }, (_, i) => i * 5);
-    setScanlines(lines);
-
-    // Generate data streams
-    const streams = [
-      'SYSTEM STATUS: OPERATIONAL',
-      'NEURAL LINK: ESTABLISHED',
-      'POWER CORE: 100% CAPACITY',
-      'DEFENSE GRID: ACTIVE',
-      'TARGETING SYSTEM: ONLINE',
-      'ARC REACTOR: STABLE',
-      'AI ASSISTANT: JARVIS READY',
-      'SECURITY PROTOCOLS: ENGAGED'
-    ].map((text, i) => ({
-      id: i,
-      text,
-      delay: i * 2
-    }));
-    setDataStreams(streams);
+    setMounted(true);
   }, []);
 
   if (!isActive) return <>{children}</>;
@@ -57,7 +52,7 @@ export default function HolographicInterface({ isActive = true, children }: Holo
       </div>
 
       {/* Scanning lines */}
-      <div className="fixed inset-0 pointer-events-none z-10">
+      <div className="fixed inset-0 pointer-events-none z-[5]">
         {scanlines.map((position) => (
           <motion.div
             key={position}
@@ -79,37 +74,39 @@ export default function HolographicInterface({ isActive = true, children }: Holo
       </div>
 
       {/* Floating holographic elements */}
-      <div className="fixed inset-0 pointer-events-none z-10">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ 
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
-              opacity: 0 
-            }}
-            animate={{ 
-              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1920),
-              y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1080),
-              opacity: [0, 0.6, 0],
-              rotate: 360
-            }}
-            transition={{
-              duration: 15 + i * 2,
-              repeat: Infinity,
-              delay: i * 3,
-              ease: "linear"
-            }}
-            className="absolute w-8 h-8 border border-cyan-400/30"
-            style={{
-              clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)'
-            }}
-          />
-        ))}
-      </div>
+      {mounted && (
+        <div className="fixed inset-0 pointer-events-none z-[6]">
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ 
+                x: `${20 + i * 15}%`,
+                y: `${10 + i * 12}%`,
+                opacity: 0 
+              }}
+              animate={{ 
+                x: [`${20 + i * 15}%`, `${60 + i * 10}%`, `${20 + i * 15}%`],
+                y: [`${10 + i * 12}%`, `${70 + i * 8}%`, `${10 + i * 12}%`],
+                opacity: [0, 0.6, 0],
+                rotate: [0, 180, 360]
+              }}
+              transition={{
+                duration: 15 + i * 2,
+                repeat: Infinity,
+                delay: i * 3,
+                ease: "linear"
+              }}
+              className="absolute w-8 h-8 border border-cyan-400/30"
+              style={{
+                clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)'
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Data streams */}
-      <div className="fixed left-4 top-1/4 pointer-events-none z-20">
+      <div className="fixed left-4 top-1/4 pointer-events-none z-[7]">
         <AnimatePresence>
           {dataStreams.map((stream) => (
             <motion.div
@@ -134,7 +131,7 @@ export default function HolographicInterface({ isActive = true, children }: Holo
       </div>
 
       {/* Corner HUD elements */}
-      <div className="fixed top-4 left-4 pointer-events-none z-30">
+      <div className="fixed top-4 left-4 pointer-events-none z-[8]">
         <div className="w-20 h-20 border-l-2 border-t-2 border-cyan-400/50" />
         <motion.div
           animate={{ opacity: [0.3, 1, 0.3] }}
@@ -143,7 +140,7 @@ export default function HolographicInterface({ isActive = true, children }: Holo
         />
       </div>
       
-      <div className="fixed top-4 right-4 pointer-events-none z-30">
+      <div className="fixed top-4 right-4 pointer-events-none z-[8]">
         <div className="w-20 h-20 border-r-2 border-t-2 border-cyan-400/50" />
         <motion.div
           animate={{ opacity: [0.3, 1, 0.3] }}
@@ -152,7 +149,7 @@ export default function HolographicInterface({ isActive = true, children }: Holo
         />
       </div>
 
-      <div className="fixed bottom-4 left-4 pointer-events-none z-30">
+      <div className="fixed bottom-4 left-4 pointer-events-none z-[8]">
         <div className="w-20 h-20 border-l-2 border-b-2 border-cyan-400/50" />
         <motion.div
           animate={{ opacity: [0.3, 1, 0.3] }}
@@ -161,7 +158,7 @@ export default function HolographicInterface({ isActive = true, children }: Holo
         />
       </div>
 
-      <div className="fixed bottom-4 right-4 pointer-events-none z-30">
+      <div className="fixed bottom-4 right-4 pointer-events-none z-[8]">
         <div className="w-20 h-20 border-r-2 border-b-2 border-cyan-400/50" />
         <motion.div
           animate={{ opacity: [0.3, 1, 0.3] }}

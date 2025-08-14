@@ -150,7 +150,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: project.title,
       description: project.description,
       type: 'article',
-      url: `https://gazi786.github.io/projects/${params.slug}`,
+      url: `https://gazi786.github.io/projects/${slug}`,
       images: [
         {
           url: project.image,
