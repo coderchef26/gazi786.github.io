@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Content } from "@prismicio/client";
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import type { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import EnhancedArcReactor from "@/components/effects/EnhancedArcReactor";
 
@@ -18,7 +18,7 @@ interface ContactMessage {
 	status: "pending" | "processing" | "sent" | "failed";
 }
 
-const Contact = ({ slice }: ContactProps): JSX.Element => {
+const Contact = ({ slice }: ContactProps) => {
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
@@ -117,7 +117,7 @@ const Contact = ({ slice }: ContactProps): JSX.Element => {
 		setIsTransmitting(false);
 	};
 
-	const containerVariants = {
+	const containerVariants: Variants = {
 		hidden: { opacity: 0 },
 		visible: {
 			opacity: 1,
@@ -128,12 +128,12 @@ const Contact = ({ slice }: ContactProps): JSX.Element => {
 		},
 	};
 
-	const itemVariants = {
+	const itemVariants: Variants = {
 		hidden: { y: 30, opacity: 0 },
 		visible: {
 			y: 0,
 			opacity: 1,
-			transition: { duration: 0.6, ease: "easeOut" },
+			transition: { duration: 0.6, ease: "easeOut" as const },
 		},
 	};
 

@@ -1,14 +1,14 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Content } from '@prismicio/client';
+import { motion, Variants } from 'framer-motion';
+import type { Content } from '@prismicio/client';
 import { SliceComponentProps } from '@prismicio/react';
 
 export type AboutProps = SliceComponentProps<Content.AboutSlice>;
 
-const About = ({ slice }: AboutProps): JSX.Element => {
-  const containerVariants = {
+const About = ({ slice }: AboutProps) => {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -19,7 +19,7 @@ const About = ({ slice }: AboutProps): JSX.Element => {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,

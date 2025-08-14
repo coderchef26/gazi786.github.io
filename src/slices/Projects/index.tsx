@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Content } from '@prismicio/client';
+import type { Content } from '@prismicio/client';
 import { SliceComponentProps } from '@prismicio/react';
 
 export type ProjectsProps = SliceComponentProps<Content.ProjectsSlice>;
@@ -19,7 +19,7 @@ interface Project {
   category: 'web' | 'mobile' | 'ai' | 'blockchain';
 }
 
-const Projects = ({ slice }: ProjectsProps): JSX.Element => {
+const Projects = ({ slice }: ProjectsProps) => {
   const [filter, setFilter] = useState<string>('all');
   const [visibleProjects, setVisibleProjects] = useState(6);
 

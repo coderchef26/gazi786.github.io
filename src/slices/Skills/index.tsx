@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Content } from '@prismicio/client';
+import type { Content } from '@prismicio/client';
 import { SliceComponentProps } from '@prismicio/react';
 import EnhancedArcReactor from '@/components/effects/EnhancedArcReactor';
 
@@ -17,7 +17,7 @@ interface SkillData {
   color: string;
 }
 
-const Skills = ({ slice }: SkillsProps): JSX.Element => {
+const Skills = ({ slice }: SkillsProps) => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   
   const skillsData: SkillData[] = [

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Content } from '@prismicio/client';
+import type { Content } from '@prismicio/client';
 import { SliceComponentProps } from '@prismicio/react';
 import EnhancedArcReactor from '@/components/effects/EnhancedArcReactor';
 
@@ -23,7 +23,7 @@ interface EducationData {
   icon: string;
 }
 
-const Education = ({ slice }: EducationProps): JSX.Element => {
+const Education = ({ slice }: EducationProps) => {
   const [activeFilter, setActiveFilter] = useState<string>('all');
   
   const educationData: EducationData[] = [

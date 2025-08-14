@@ -1,6 +1,6 @@
 'use client';
 
-import { Content } from '@prismicio/client';
+import type { Content } from '@prismicio/client';
 import { SliceComponentProps } from '@prismicio/react';
 import { PrismicRichText } from '@prismicio/react';
 import { motion } from 'framer-motion';
@@ -9,7 +9,7 @@ import ArcReactorLoader from '@/components/effects/ArcReactorLoader';
 
 export type HeroProps = SliceComponentProps<Content.HeroSlice>;
 
-const Hero = ({ slice }: HeroProps): JSX.Element => {
+const Hero = ({ slice }: HeroProps) => {
   const [isInitialized, setIsInitialized] = useState(false);
   const [typedText, setTypedText] = useState('');
   const fullTitle = slice.primary.title || "ALSHAFARAZ GAZI";
