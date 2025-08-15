@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
@@ -11,6 +11,11 @@ const inter = Inter({
 	subsets: ["latin"],
 	variable: "--font-inter",
 });
+
+export const viewport: Viewport = {
+	width: "device-width",
+	initialScale: 1,
+};
 
 export const metadata: Metadata = {
 	title: "Alshafaraz Gazi - Full-Stack Developer & Creative Problem Solver",
@@ -45,7 +50,6 @@ export const metadata: Metadata = {
 			"Portfolio showcasing modern web applications and creative solutions",
 		creator: "@yourusername",
 	},
-	viewport: "width=device-width, initial-scale=1",
 	icons: {
 		icon: "/favicon.ico",
 	},

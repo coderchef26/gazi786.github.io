@@ -3,20 +3,20 @@ import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 
 /**
- * Props for `Skills`.
+ * Props for `Blog`.
  */
-export type SkillsProps = SliceComponentProps<Content.SkillsSlice>;
+export type BlogProps = SliceComponentProps<Content.BlogSlice>;
 
 /**
- * Component for "Skills" Slices.
+ * Component for "Blog" Slices.
  */
-const Skills: FC<SkillsProps> = ({ slice }) => {
+const Blog: FC<BlogProps> = ({ slice }) => {
   return (
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      Placeholder component for skills (variation: {slice.variation}) slices.
+      Placeholder component for blog (variation: {slice.variation}) slices.
       <br />
       <strong>You can edit this slice directly in your code editor.</strong>
       {/**
@@ -49,4 +49,4 @@ const Skills: FC<SkillsProps> = ({ slice }) => {
   );
 };
 
-export default Skills;
+export default Blog;

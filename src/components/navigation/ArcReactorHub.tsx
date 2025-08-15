@@ -294,5 +294,3 @@ export default function ArcReactorHub() {
     </div>
   );
 }
-
-export default ArcReactorHub;

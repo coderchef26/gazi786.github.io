@@ -2,18 +2,12 @@
 
 import dynamic from "next/dynamic";
 
-const Hero = dynamic(() => import("./Hero"));
-const About = dynamic(() => import("./About"));
-const Projects = dynamic(() => import("./Projects"));
-const Skills = dynamic(() => import("./Skills"));
-const Education = dynamic(() => import("./Education"));
-const Contact = dynamic(() => import("./Contact"));
-
 export const components = {
-  hero: Hero,
-  about: About,
-  projects: Projects,
-  skills: Skills,
-  education: Education,
-  contact: Contact,
+  about: dynamic(() => import("./About")),
+  blog: dynamic(() => import("./Blog")),
+  contact: dynamic(() => import("./Contact")),
+  education: dynamic(() => import("./Education")),
+  hero: dynamic(() => import("./Hero")),
+  projects: dynamic(() => import("./Projects")),
+  skills: dynamic(() => import("./Skills")),
 };

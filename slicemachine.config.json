@@ -4,5 +4,5 @@
   ],
   "adapter": "@slicemachine/adapter-next",
   "repositoryName": "coderchef",
-  "localSliceSimulatorURL": "http://localhost:3000/slice-simulator"
+  "localSliceSimulatorURL": "http://localhost:3005/slice-simulator"
 }

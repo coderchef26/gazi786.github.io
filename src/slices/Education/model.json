@@ -1,8 +1,8 @@
 {
-  "id": "hero",
+  "id": "education",
   "type": "SharedSlice",
-  "name": "Hero",
-  "description": "Hero",
+  "name": "Education",
+  "description": "Education",
   "variations": [
     {
       "id": "default",

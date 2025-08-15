@@ -1,8 +1,8 @@
 {
-  "id": "hero",
+  "id": "skills",
   "type": "SharedSlice",
-  "name": "Hero",
-  "description": "Hero",
+  "name": "Skills",
+  "description": "Skills",
   "variations": [
     {
       "id": "default",

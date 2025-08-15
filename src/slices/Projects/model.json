@@ -1,8 +1,8 @@
 {
-  "id": "hero",
+  "id": "projects",
   "type": "SharedSlice",
-  "name": "Hero",
-  "description": "Hero",
+  "name": "Projects",
+  "description": "Projects",
   "variations": [
     {
       "id": "default",

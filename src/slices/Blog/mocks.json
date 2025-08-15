@@ -1,0 +1,59 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "given",
+				"type": "Text"
+			},
+			"excerpt": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Ex eu officia magna et minim eiusmod magna commodo voluptate aliquip ullamco mollit exercitation enim laborum."
+						}
+					}
+				]
+			},
+			"content": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Dolore culpa excepteur irure sit excepteur amet aute."
+						}
+					}
+				]
+			},
+			"tags": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"tag",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "discover",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			},
+			"publish_date": {
+				"__TYPE__": "FieldContent",
+				"type": "Date",
+				"value": "2021-02-14"
+			}
+		},
+		"items": []
+	}
+]
