@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Orbitron } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { AzmaraLayout } from "@/components/layout/AzmaraLayout";
 
 const inter = Inter({
@@ -85,9 +84,7 @@ export default function RootLayout({
 				className={`${inter.variable} ${orbitron.variable} font-sans antialiased bg-[#0a0a0f] text-[#00d4ff]`}
 				suppressHydrationWarning
 			>
-				<ThemeProvider>
-					<AzmaraLayout>{children}</AzmaraLayout>
-				</ThemeProvider>
+				<AzmaraLayout>{children}</AzmaraLayout>
 			</body>
 		</html>
 	);

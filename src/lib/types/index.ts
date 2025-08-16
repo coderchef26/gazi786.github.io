@@ -53,3 +53,6 @@ export interface SettingsData {
 	contact_details: ContactDetail[];
 	social_media_links: SocialMediaLink[];
 }
+
+// Animation types
+export * from './animations';

@@ -1,35 +1,46 @@
 import React from "react";
-import {
-	Button as MuiButton,
-	ButtonProps as MuiButtonProps,
-} from "@mui/material";
 import { cn } from "@/lib/utils";
+import { atlasTheme } from "@/lib/theme/atlas";
 
-interface ButtonProps extends Omit<MuiButtonProps, "className"> {
-	className?: string;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+	variant?: "primary" | "secondary" | "outline" | "ghost";
+	size?: "sm" | "md" | "lg";
 }
 
 export const Button: React.FC<ButtonProps> = ({
 	children,
 	className,
-	variant = "contained",
+	variant = "primary",
+	size = "md",
+	disabled,
 	...props
 }) => {
+	const sizeClasses = {
+		sm: "px-3 py-1.5 text-xs",
+		md: "px-4 py-2 text-sm",
+		lg: "px-6 py-3 text-base",
+	};
+
+	const variantClasses = {
+		primary: `bg-gradient-to-r from-[${atlasTheme.colors.primary}] to-[${atlasTheme.colors.primaryDark}] text-white hover:shadow-lg hover:shadow-cyan-500/50`,
+		secondary: `bg-[${atlasTheme.colors.surface}] text-[${atlasTheme.colors.primary}] hover:bg-[${atlasTheme.colors.surfaceLight}] border border-[${atlasTheme.colors.border}]`,
+		outline: `border-2 border-[${atlasTheme.colors.primary}] text-[${atlasTheme.colors.primary}] hover:bg-[${atlasTheme.colors.primary}]/10`,
+		ghost: `text-[${atlasTheme.colors.primary}] hover:bg-[${atlasTheme.colors.primary}]/10`,
+	};
+
 	return (
-		<MuiButton
-			variant={variant}
+		<button
 			className={cn(
-				"normal-case font-medium rounded-lg transition-all duration-300",
-				variant === "contained" &&
-					"bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl",
-				variant === "outlined" &&
-					"border-2 border-blue-600 text-blue-600 hover:bg-blue-50",
-				variant === "text" && "text-blue-600 hover:bg-blue-50",
+				"font-semibold rounded-lg transition-all duration-300 transform hover:scale-105",
+				"disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100",
+				sizeClasses[size],
+				variantClasses[variant],
 				className
 			)}
+			disabled={disabled}
 			{...props}
 		>
 			{children}
-		</MuiButton>
+		</button>
 	);
 };

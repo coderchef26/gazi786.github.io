@@ -33,16 +33,16 @@ export default function ParticleField() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Initialize particles
-    const particleCount = 100;
+    // Initialize particles with Iron Man style
+    const particleCount = 150;
     particlesRef.current = Array.from({ length: particleCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
-      size: Math.random() * 2 + 1,
-      opacity: Math.random() * 0.5 + 0.5,
-      hue: 180 + Math.random() * 20, // Cyan to blue range
+      vx: (Math.random() - 0.5) * 1.2,
+      vy: (Math.random() - 0.5) * 1.2,
+      size: Math.random() * 1.5 + 0.5,
+      opacity: Math.random() * 0.8 + 0.2,
+      hue: 180 + Math.random() * 40, // Extended cyan to blue range
     }));
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -63,15 +63,21 @@ export default function ParticleField() {
         if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
         if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
 
-        // Mouse interaction
+        // Enhanced mouse interaction with repulsion
         const dx = mouseRef.current.x - particle.x;
         const dy = mouseRef.current.y - particle.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        if (distance < 100) {
-          const force = (100 - distance) / 100;
-          particle.vx += (dx / distance) * force * 0.02;
-          particle.vy += (dy / distance) * force * 0.02;
+        if (distance < 150) {
+          const force = (150 - distance) / 150;
+          // Repulsion effect for Iron Man-style interaction
+          particle.vx -= (dx / distance) * force * 0.03;
+          particle.vy -= (dy / distance) * force * 0.03;
+          // Increase particle brightness on interaction
+          particle.opacity = Math.min(particle.opacity + force * 0.3, 1);
+        } else {
+          // Fade back to normal opacity
+          particle.opacity = Math.max(particle.opacity - 0.01, 0.2);
         }
 
         // Apply friction

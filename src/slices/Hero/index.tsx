@@ -5,7 +5,8 @@ import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { motion, AnimatePresence } from "framer-motion";
 import ArcReactorLoader from "@/components/effects/ArcReactorLoader";
-import EnhancedArcReactor from "@/components/effects/EnhancedArcReactor";
+import CommandCentreReactor from "@/components/navigation/CommandCentreReactor";
+import AnimatedContent from "./AnimatedContent";
 import Link from "next/link";
 import { createClient } from "@/prismicio";
 import {
@@ -153,17 +154,18 @@ const Hero: FC<HeroProps> = ({ slice }) => {
 	if (!isInitialized) {
 		return (
 			<div className="min-h-screen flex items-center justify-center">
-				<ArcReactorLoader size="lg" text="INITIALIZING ATLAS PROTOCOL..." />
+				<ArcReactorLoader size="lg" text="INITIALISING ATLAS PROTOCOL..." />
 			</div>
 		);
 	}
 
 	return (
-		<section
-			data-slice-type={slice.slice_type}
-			data-slice-variation={slice.variation}
-			className="relative min-h-screen flex items-center justify-center overflow-hidden"
-		>
+		<AnimatedContent>
+			<section
+				data-slice-type={slice.slice_type}
+				data-slice-variation={slice.variation}
+				className="relative min-h-screen flex items-center justify-center overflow-hidden"
+			>
 			{/* Background Grid */}
 			<div className="absolute inset-0 opacity-20">
 				<div
@@ -181,7 +183,7 @@ const Hero: FC<HeroProps> = ({ slice }) => {
 			</div>
 
 			{/* Main Container */}
-			<div className="relative z-10 w-full h-full flex">
+			<div className="relative z-10 w-full h-full flex flex-col lg:flex-row items-center justify-center lg:justify-between px-4 lg:px-8">
 				{/* Left Side - System Details */}
 
 				{/* Center - Arc Reactor */}
@@ -189,16 +191,16 @@ const Hero: FC<HeroProps> = ({ slice }) => {
 					initial={{ opacity: 0, scale: 0.5 }}
 					animate={{ opacity: 1, scale: 1 }}
 					transition={{ duration: 0.8 }}
-					className="w-1/3 flex items-center justify-center relative"
+					className="w-full lg:w-1/3 flex items-center justify-center relative order-2 lg:order-1 py-8 lg:py-0"
 					onMouseEnter={() => setShowNavigation(true)}
 					onMouseLeave={() => setShowNavigation(false)}
 					onClick={() => setShowNavigation(!showNavigation)}
 				>
 					<div className="cursor-pointer">
-						<EnhancedArcReactor
-							size="lg"
-							powerLevel={showNavigation ? 120 : 100}
-							className="scale-125"
+						<CommandCentreReactor
+							powerLevel={100}
+							showNavigation={showNavigation}
+							className="scale-75 md:scale-100 lg:scale-125"
 						/>
 					</div>
 
@@ -208,7 +210,7 @@ const Hero: FC<HeroProps> = ({ slice }) => {
 							<div className="absolute inset-0 flex items-center justify-center">
 								{navigationItems.map((item, index) => {
 									const angle = (index * 360) / navigationItems.length;
-									const radius = 150;
+									const radius = window.innerWidth < 768 ? 100 : window.innerWidth < 1024 ? 120 : 150;
 									const radian = (angle * Math.PI) / 180;
 									const x = Math.cos(radian - Math.PI / 2) * radius;
 									const y = Math.sin(radian - Math.PI / 2) * radius;
@@ -237,8 +239,8 @@ const Hero: FC<HeroProps> = ({ slice }) => {
 													className="group relative"
 												>
 													{/* Node */}
-													<div className="w-14 h-14 rounded-full border-2 border-cyan-400/50 bg-[#1a1a2e]/80 backdrop-blur-sm flex items-center justify-center hover:border-[#00d4ff] hover:bg-[#00d4ff]/20 transition-all duration-300">
-														{renderIcon(item.icon || item.n_id, 24)}
+													<div className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full border-2 border-cyan-400/50 bg-[#1a1a2e]/80 backdrop-blur-sm flex items-center justify-center hover:border-[#00d4ff] hover:bg-[#00d4ff]/20 transition-all duration-300">
+														{renderIcon(item.icon || item.n_id, window.innerWidth < 768 ? 16 : window.innerWidth < 1024 ? 20 : 24)}
 													</div>
 
 													{/* Label on hover */}
@@ -293,9 +295,9 @@ const Hero: FC<HeroProps> = ({ slice }) => {
 					initial={{ opacity: 0, x: 50 }}
 					animate={{ opacity: 1, x: 0 }}
 					transition={{ duration: 0.8, delay: 0.2 }}
-					className="w-1/3 flex items-center justify-end pr-8"
+					className="w-full lg:w-1/3 flex items-center justify-center lg:justify-end order-1 lg:order-2 lg:pr-8"
 				>
-					<div className="space-y-4 text-right">
+					<div className="space-y-4 text-center lg:text-right">
 						{/* Status Indicator */}
 						<div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/5">
 							<div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
@@ -319,12 +321,12 @@ const Hero: FC<HeroProps> = ({ slice }) => {
 						</h1>
 
 						{/* Job Title */}
-						<p className="text-sm md:text-base lg:text-lg text-cyan-300 azmara-text max-w-sm ml-auto">
+						<p className="text-sm md:text-base lg:text-lg text-cyan-300 azmara-text max-w-sm mx-auto lg:ml-auto">
 							{subtitle}
 						</p>
 
 						{/* CTA Buttons */}
-						<div className="flex flex-col sm:flex-row gap-3 pt-2 justify-end">
+						<div className="flex flex-col sm:flex-row gap-3 pt-2 justify-center lg:justify-end">
 							<button className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 transform hover:scale-105 text-sm">
 								VIEW PROJECTS
 							</button>
@@ -336,9 +338,10 @@ const Hero: FC<HeroProps> = ({ slice }) => {
 				</motion.div>
 			</div>
 
-			{/* Bottom gradient line */}
-			<div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
-		</section>
+				{/* Bottom gradient line */}
+				<div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
+			</section>
+		</AnimatedContent>
 	);
 };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 interface AzmaraLoaderProps {
 	isLoading: boolean;
@@ -82,7 +82,7 @@ export const AzmaraLoader = ({
 							animate={{ opacity: 1, width: "auto" }}
 							transition={{ delay: 2.8, duration: 0.8 }}
 						>
-							{">"} Initializing ATLAS...
+							{">"} Initialising ATLAS...
 						</motion.div>
 						<motion.div
 							className="text-yellow-400"
@@ -107,6 +107,14 @@ export const AzmaraLoader = ({
 							transition={{ delay: 4.0, duration: 0.8 }}
 						>
 							{">"} System ready...
+						</motion.div>
+						<motion.div
+							className="text-green-400 animate-pulse"
+							initial={{ opacity: 0, width: 0 }}
+							animate={{ opacity: 1, width: "auto" }}
+							transition={{ delay: 4.0, duration: 0.8 }}
+						>
+							{">"} Welcome to Coder Chef Domain...
 						</motion.div>
 					</motion.div>
 

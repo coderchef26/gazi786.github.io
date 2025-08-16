@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import AzmaraEffects from './AzmaraEffects';
 
 interface HolographicInterfaceProps {
   isActive?: boolean;
@@ -34,6 +35,9 @@ export default function HolographicInterface({ isActive = true, children }: Holo
 
   return (
     <div className="relative min-h-screen overflow-hidden">
+      {/* Iron Man Style AzmaraEffects */}
+      <AzmaraEffects />
+      
       {/* Background grid */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute inset-0 opacity-20">
