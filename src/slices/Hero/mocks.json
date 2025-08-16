@@ -2,7 +2,18 @@
 	{
 		"__TYPE__": "SharedSliceContent",
 		"variation": "default",
-		"primary": {},
+		"primary": {
+			"name": {
+				"__TYPE__": "FieldContent",
+				"value": "wide",
+				"type": "Text"
+			},
+			"job_title": {
+				"__TYPE__": "FieldContent",
+				"value": "faster",
+				"type": "Text"
+			}
+		},
 		"items": []
 	}
 ]

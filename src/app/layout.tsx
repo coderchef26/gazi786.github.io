@@ -1,15 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Orbitron } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { StarkLayout } from "@/components/layout/StarkLayout";
-import StarkEffects from "@/components/effects/StarkEffects";
+import { AzmaraLayout } from "@/components/layout/AzmaraLayout";
 
 const inter = Inter({
 	subsets: ["latin"],
 	variable: "--font-inter",
+});
+
+const orbitron = Orbitron({
+	subsets: ["latin"],
+	variable: "--font-orbitron",
+	weight: ["400", "700", "900"],
 });
 
 export const viewport: Viewport = {
@@ -51,7 +54,23 @@ export const metadata: Metadata = {
 		creator: "@yourusername",
 	},
 	icons: {
-		icon: "/favicon.ico",
+		icon: "/favicon/favicon.ico",
+		shortcut: "/favicon/favicon-16x16.png",
+		apple: "/favicon/apple-touch-icon.png",
+		other: [
+			{
+				rel: "icon",
+				type: "image/png",
+				sizes: "32x32",
+				url: "/favicon/favicon-32x32.png",
+			},
+			{
+				rel: "icon",
+				type: "image/png",
+				sizes: "16x16",
+				url: "/favicon/favicon-16x16.png",
+			},
+		],
 	},
 };
 
@@ -62,27 +81,12 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<head>
-				<link rel="preconnect" href="https://fonts.googleapis.com" />
-				<link
-					rel="preconnect"
-					href="https://fonts.gstatic.com"
-					crossOrigin=""
-				/>
-				<link
-					href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap"
-					rel="stylesheet"
-				/>
-			</head>
 			<body
-				className={`${inter.variable} font-sans antialiased bg-[#0a0a0f] text-[#00d4ff] overflow-hidden`}
+				className={`${inter.variable} ${orbitron.variable} font-sans antialiased bg-[#0a0a0f] text-[#00d4ff]`}
+				suppressHydrationWarning
 			>
 				<ThemeProvider>
-					<div className="h-screen w-screen fixed inset-0">
-						<StarkLayout>
-							{children}
-						</StarkLayout>
-					</div>
+					<AzmaraLayout>{children}</AzmaraLayout>
 				</ThemeProvider>
 			</body>
 		</html>

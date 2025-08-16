@@ -267,6 +267,28 @@ type PageDocumentDataSlicesSlice =
  */
 interface PageDocumentData {
   /**
+   * Title field in *Page*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: page.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *Page*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: page.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  description: prismic.KeyTextField;
+
+  /**
    * Slice Zone field in *Page*
    *
    * - **Field Type**: Slice Zone
@@ -326,6 +348,16 @@ export type PageDocument<Lang extends string = string> =
  */
 export interface SettingsDocumentDataNavigationItem {
   /**
+   * NID field in *Settings → Navigation*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navigation[].n_id
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  n_id: prismic.KeyTextField;
+
+  /**
    * Label field in *Settings → Navigation*
    *
    * - **Field Type**: Text
@@ -336,14 +368,24 @@ export interface SettingsDocumentDataNavigationItem {
   label: prismic.KeyTextField;
 
   /**
-   * URL field in *Settings → Navigation*
+   * Component field in *Settings → Navigation*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: settings.navigation[].url
+   * - **API ID Path**: settings.navigation[].component
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
-  url: prismic.KeyTextField;
+  component: prismic.KeyTextField;
+
+  /**
+   * Description field in *Settings → Navigation*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navigation[].description
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  description: prismic.KeyTextField;
 }
 
 /**
@@ -397,6 +439,21 @@ export type AllDocumentTypes =
   | SettingsDocument;
 
 /**
+ * Primary content in *About → Default → Primary*
+ */
+export interface AboutSliceDefaultPrimary {
+  /**
+   * Mission field in *About → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.default.primary.mission
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  mission: prismic.RichTextField;
+}
+
+/**
  * Default variation for About Slice
  *
  * - **API ID**: `default`
@@ -405,7 +462,7 @@ export type AllDocumentTypes =
  */
 export type AboutSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Record<string, never>,
+  Simplify<AboutSliceDefaultPrimary>,
   never
 >;
 
@@ -581,6 +638,31 @@ export type EducationSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *Hero → Default → Primary*
+ */
+export interface HeroSliceDefaultPrimary {
+  /**
+   * Name field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.name
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * Job Title field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.job_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  job_title: prismic.KeyTextField;
+}
+
+/**
  * Default variation for Hero Slice
  *
  * - **API ID**: `default`
@@ -589,7 +671,7 @@ export type EducationSlice = prismic.SharedSlice<
  */
 export type HeroSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Record<string, never>,
+  Simplify<HeroSliceDefaultPrimary>,
   never
 >;
 
@@ -702,6 +784,7 @@ declare module "@prismicio/client" {
       SettingsDocumentDataNavigationItem,
       AllDocumentTypes,
       AboutSlice,
+      AboutSliceDefaultPrimary,
       AboutSliceVariation,
       AboutSliceDefault,
       BlogSlice,
@@ -716,6 +799,7 @@ declare module "@prismicio/client" {
       EducationSliceVariation,
       EducationSliceDefault,
       HeroSlice,
+      HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
       ProjectsSlice,

@@ -23,6 +23,13 @@
           "label": "Navigation",
           "repeat": true,
           "fields": {
+            "n_id": {
+              "type": "Text",
+              "config": {
+                "label": "NID",
+                "placeholder": ""
+              }
+            },
             "label": {
               "type": "Text",
               "config": {
@@ -30,10 +37,17 @@
                 "placeholder": ""
               }
             },
-            "url": {
+            "component": {
               "type": "Text",
               "config": {
-                "label": "URL",
+                "label": "Component",
+                "placeholder": ""
+              }
+            },
+            "description": {
+              "type": "Text",
+              "config": {
+                "label": "Description",
                 "placeholder": ""
               }
             }
