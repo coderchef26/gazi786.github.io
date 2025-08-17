@@ -1,0 +1,151 @@
+{
+  "id": "certifications",
+  "type": "SharedSlice",
+  "name": "Certifications",
+  "description": "Certifications",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "cert_name": {
+          "type": "Text",
+          "config": {
+            "label": "Cert Name",
+            "placeholder": "Certification title"
+          }
+        },
+        "cert_acronym": {
+          "type": "Text",
+          "config": {
+            "label": "Cert Acronym",
+            "placeholder": "e.g., \"AWS SAA\""
+          }
+        },
+        "issuing_organization": {
+          "type": "Text",
+          "config": {
+            "label": "Issuing Organization",
+            "placeholder": "e.g., \"Amazon Web Services\""
+          }
+        },
+        "issuer_logo": {
+          "type": "Image",
+          "config": {
+            "label": "Issuer Logo",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "cert_type": {
+          "type": "Select",
+          "config": {
+            "label": "Cert Type",
+            "placeholder": "",
+            "options": [
+              "Certification",
+              "License",
+              "Badge",
+              "Credentials (Micro)"
+            ]
+          }
+        },
+        "cert_level": {
+          "type": "Select",
+          "config": {
+            "label": "Cert Level",
+            "placeholder": "",
+            "options": [
+              "Foundational",
+              "Associate",
+              "Professional",
+              "Expert",
+              "Specialty"
+            ]
+          }
+        },
+        "issue_date": {
+          "type": "Date",
+          "config": {
+            "label": "Issue Date",
+            "placeholder": "When earned"
+          }
+        },
+        "expiry_date": {
+          "type": "Date",
+          "config": {
+            "label": "Expiry Date",
+            "placeholder": "When it expires (if applicable)"
+          }
+        },
+        "is_lifetime": {
+          "type": "Boolean",
+          "config": {
+            "label": "Is Lifetime",
+            "placeholder_false": "false",
+            "placeholder_true": "true",
+            "default_value": false
+          }
+        },
+        "credential_id": {
+          "type": "Text",
+          "config": {
+            "label": "Credential ID",
+            "placeholder": "Certificate number"
+          }
+        },
+        "verification_url": {
+          "type": "Link",
+          "config": {
+            "label": "Verification URL",
+            "placeholder": "Where to verify",
+            "select": null,
+            "allowTargetBlank": true,
+            "allowText": true,
+            "repeat": false
+          }
+        },
+        "certificate_image": {
+          "type": "Image",
+          "config": {
+            "label": "Certificate Image",
+            "constraint": {},
+            "thumbnails": [
+              {
+                "name": "certificate",
+                "width": 1024,
+                "height": 1024
+              }
+            ]
+          }
+        },
+        "voice_summary": {
+          "type": "Text",
+          "config": {
+            "label": "Voice Summary",
+            "placeholder": "One-sentence description for voice"
+          }
+        },
+        "achievement_keywords": {
+          "type": "Text",
+          "config": {
+            "label": "Achievement Keywords",
+            "placeholder": "For search/voice commands"
+          }
+        },
+        "credential_importance": {
+          "type": "Number",
+          "config": {
+            "label": "Credential Importance",
+            "placeholder": "1-10 for AI prioritization"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

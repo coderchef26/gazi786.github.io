@@ -12,17 +12,43 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "title": {
+        "company_name": {
           "type": "Text",
           "config": {
-            "label": "Title",
-            "placeholder": ""
+            "label": "Company Name",
+            "placeholder": "Employer name"
           }
         },
-        "employment_type": {
+        "company_logo": {
+          "type": "Image",
+          "config": {
+            "label": "Company Logo",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "company_website": {
+          "type": "Link",
+          "config": {
+            "label": "Company Website",
+            "placeholder": "Company URL",
+            "select": null,
+            "allowTargetBlank": true,
+            "allowText": true,
+            "repeat": false
+          }
+        },
+        "company_location": {
+          "type": "Text",
+          "config": {
+            "label": "Company Location",
+            "placeholder": "City, Country"
+          }
+        },
+        "work_type": {
           "type": "Select",
           "config": {
-            "label": "Employment Type",
+            "label": "Work Type",
             "placeholder": "",
             "options": [
               "Full-time",
@@ -36,20 +62,46 @@
             ]
           }
         },
-        "employer": {
-          "type": "Text",
+        "work_model": {
+          "type": "Select",
           "config": {
-            "label": "Company or Organisation",
-            "placeholder": ""
+            "label": "Work Model",
+            "placeholder": "",
+            "options": [
+              "Onsite",
+              "Hybrid",
+              "Remote"
+            ]
           }
         },
-        "current": {
-          "type": "Boolean",
+        "job_title": {
+          "type": "Text",
           "config": {
-            "label": "Currently Work Here",
-            "placeholder_false": "false",
-            "placeholder_true": "true",
-            "default_value": false
+            "label": "Title",
+            "placeholder": "Your position"
+          }
+        },
+        "department": {
+          "type": "Text",
+          "config": {
+            "label": "Department",
+            "placeholder": "e.g., \"Engineering\", \"Product Development\""
+          }
+        },
+        "seniority_level": {
+          "type": "Select",
+          "config": {
+            "label": "Seniority Level",
+            "placeholder": "",
+            "options": [
+              "Junior",
+              "Mid-level (Intermediate)",
+              "Senior",
+              "Lead",
+              "Principal",
+              "Manager",
+              "Director"
+            ]
           }
         },
         "startdate": {
@@ -66,32 +118,107 @@
             "placeholder": ""
           }
         },
-        "location": {
-          "type": "Text",
+        "is_current": {
+          "type": "Boolean",
           "config": {
-            "label": "Location",
-            "placeholder": ""
+            "label": "Currently Work Here",
+            "placeholder_false": "false",
+            "placeholder_true": "true",
+            "default_value": false
           }
         },
-        "location_type": {
-          "type": "Select",
-          "config": {
-            "label": "Location Type",
-            "placeholder": "",
-            "options": [
-              "Onsite",
-              "Hybrid",
-              "Remote"
-            ]
-          }
-        },
-        "description": {
+        "role_summary": {
           "type": "StructuredText",
           "config": {
-            "label": "Description",
-            "placeholder": "",
+            "label": "Role Summary",
+            "placeholder": "Brief overview of the role",
             "allowTargetBlank": true,
-            "multi": "paragraph,preformatted,heading3,heading4,heading5,heading6,strong,em,hyperlink,list-item,o-list-item,rtl,heading1,heading2"
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,list-item,o-list-item,rtl"
+          }
+        },
+        "key_achievements": {
+          "type": "Group",
+          "config": {
+            "label": "Key Achievements",
+            "repeat": true,
+            "fields": {
+              "achievement_title": {
+                "type": "Text",
+                "config": {
+                  "label": "Achievement Title",
+                  "placeholder": ""
+                }
+              },
+              "achievement_description": {
+                "type": "StructuredText",
+                "config": {
+                  "label": "Achievement Description",
+                  "placeholder": "",
+                  "allowTargetBlank": true,
+                  "multi": "paragraph,heading6,strong,em,hyperlink,list-item,o-list-item,rtl"
+                }
+              },
+              "metric_value": {
+                "type": "Text",
+                "config": {
+                  "label": "Metric Value",
+                  "placeholder": "e.g., \"40% improvement\""
+                }
+              },
+              "impact_area": {
+                "type": "Select",
+                "config": {
+                  "label": "Impact Area",
+                  "placeholder": "",
+                  "options": [
+                    "Revenue",
+                    "Cost",
+                    "Efficiency",
+                    "Quality",
+                    "User-experience"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "projects_delivered": {
+          "type": "Number",
+          "config": {
+            "label": "Projects Delivered",
+            "placeholder": "Number of projects completed"
+          }
+        },
+        "skills": {
+          "type": "Link",
+          "config": {
+            "label": "Skills",
+            "placeholder": "Link to skills page",
+            "select": null,
+            "allowTargetBlank": false,
+            "allowText": true,
+            "repeat": true
+          }
+        },
+        "voice_summary": {
+          "type": "Text",
+          "config": {
+            "label": "Voice Summary",
+            "placeholder": "One-sentence role description"
+          }
+        },
+        "role_keyowords": {
+          "type": "Text",
+          "config": {
+            "label": "Role Keyowords",
+            "placeholder": "For search/voice commands"
+          }
+        },
+        "impact_score": {
+          "type": "Number",
+          "config": {
+            "label": "Impact Score",
+            "placeholder": "1-10 for AI prioritization"
           }
         }
       },

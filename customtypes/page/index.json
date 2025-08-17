@@ -31,6 +31,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "certifications": {
+              "type": "SharedSlice"
+            },
             "experience": {
               "type": "SharedSlice"
             },

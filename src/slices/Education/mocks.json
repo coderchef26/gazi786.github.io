@@ -2,7 +2,123 @@
 	{
 		"__TYPE__": "SharedSliceContent",
 		"variation": "default",
-		"primary": {},
+		"primary": {
+			"institution_name": {
+				"__TYPE__": "FieldContent",
+				"value": "fur",
+				"type": "Text"
+			},
+			"institution_logo": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1560457079-9a6532ccb118",
+					"width": 4160,
+					"height": 3120
+				},
+				"url": "https://images.unsplash.com/photo-1560457079-9a6532ccb118",
+				"width": 4160,
+				"height": 3120,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "community",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"institution_location": {
+				"__TYPE__": "FieldContent",
+				"value": "usual",
+				"type": "Text"
+			},
+			"degree_type": {
+				"__TYPE__": "FieldContent",
+				"value": "Bootcamp",
+				"type": "Select"
+			},
+			"degree_tilte": {
+				"__TYPE__": "FieldContent",
+				"value": "pitch",
+				"type": "Text"
+			},
+			"field_of_study": {
+				"__TYPE__": "FieldContent",
+				"value": "egg",
+				"type": "Text"
+			},
+			"start_date": {
+				"__TYPE__": "FieldContent",
+				"type": "Date",
+				"value": "2012-10-16"
+			},
+			"end_date": {
+				"__TYPE__": "FieldContent",
+				"type": "Date",
+				"value": "2022-08-20"
+			},
+			"is_current": {
+				"__TYPE__": "BooleanContent",
+				"value": true
+			},
+			"graduation_year": {
+				"__TYPE__": "FieldContent",
+				"value": "desk",
+				"type": "Text"
+			},
+			"gpa_score": {
+				"__TYPE__": "FieldContent",
+				"value": "common",
+				"type": "Text"
+			},
+			"thesis_title": {
+				"__TYPE__": "FieldContent",
+				"value": "darkness",
+				"type": "Text"
+			},
+			"thesis_description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Cupidatat amet Lorem proident ullamco deserunt velit id fugiat magna qui proident."
+						}
+					}
+				]
+			},
+			"relevant_coursework": {
+				"__TYPE__": "FieldContent",
+				"value": "Course Code",
+				"type": "Select"
+			},
+			"key_achievements": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Proident officia anim velit cillum ut in est elit elit quis quis. Voluptate cillum deserunt non pariatur aliquip irure eiusmod aute nostrud ea cupidatat proident. Dolor labore ad reprehenderit adipisicing anim do."
+						}
+					}
+				]
+			},
+			"extracurriculars": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Occaecat nisi consectetur officia. Sint ullamco adipisicing culpa sunt."
+						}
+					}
+				]
+			}
+		},
 		"items": []
 	}
 ]

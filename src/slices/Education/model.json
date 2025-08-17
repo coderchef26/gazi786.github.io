@@ -10,7 +10,144 @@
       "docURL": "...",
       "version": "initial",
       "description": "Default",
-      "imageUrl": ""
+      "imageUrl": "",
+      "primary": {
+        "institution_name": {
+          "type": "Text",
+          "config": {
+            "label": "Institution Name",
+            "placeholder": "University/School name"
+          }
+        },
+        "institution_logo": {
+          "type": "Image",
+          "config": {
+            "label": "Institution Logo",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "institution_location": {
+          "type": "Text",
+          "config": {
+            "label": "Institution Location",
+            "placeholder": "City, Country"
+          }
+        },
+        "degree_type": {
+          "type": "Select",
+          "config": {
+            "label": "Degree Type",
+            "placeholder": "",
+            "options": [
+              "High School",
+              "Bachelor",
+              "Master",
+              "Diploma",
+              "Bootcamp",
+              "Course"
+            ]
+          }
+        },
+        "degree_tilte": {
+          "type": "Text",
+          "config": {
+            "label": "Degree Tilte",
+            "placeholder": "e.g., \"Bachelor of Computer Science\""
+          }
+        },
+        "field_of_study": {
+          "type": "Text",
+          "config": {
+            "label": "Field of Study",
+            "placeholder": "e.g., \"Software Engineering\""
+          }
+        },
+        "start_date": {
+          "type": "Date",
+          "config": {
+            "label": "Start Date",
+            "placeholder": ""
+          }
+        },
+        "end_date": {
+          "type": "Date",
+          "config": {
+            "label": "End Date",
+            "placeholder": "Leave empty if ongoing"
+          }
+        },
+        "is_current": {
+          "type": "Boolean",
+          "config": {
+            "label": "Is Current",
+            "placeholder_false": "false",
+            "placeholder_true": "true",
+            "default_value": false
+          }
+        },
+        "graduation_year": {
+          "type": "Text",
+          "config": {
+            "label": "Graduation Year",
+            "placeholder": "e.g., \"2022\""
+          }
+        },
+        "gpa_score": {
+          "type": "Text",
+          "config": {
+            "label": "GPA Score",
+            "placeholder": "GPA/Percentage/Grade"
+          }
+        },
+        "thesis_title": {
+          "type": "Text",
+          "config": {
+            "label": "Thesis Title",
+            "placeholder": "Final year project/thesis"
+          }
+        },
+        "thesis_description": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Thesis Description",
+            "placeholder": "Brief description",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "relevant_coursework": {
+          "type": "Select",
+          "config": {
+            "label": "Relevant Coursework",
+            "placeholder": "",
+            "options": [
+              "Course Name",
+              "Course Code",
+              "Grade"
+            ]
+          }
+        },
+        "key_achievements": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Key Achievements",
+            "placeholder": "Academic achievements",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "extracurriculars": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Extracurriculars",
+            "placeholder": "Clubs, societies, activities",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        }
+      },
+      "items": {}
     }
   ]
 }

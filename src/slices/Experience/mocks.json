@@ -3,25 +3,6 @@
 		"__TYPE__": "SharedSliceContent",
 		"variation": "default",
 		"primary": {
-			"title": {
-				"__TYPE__": "FieldContent",
-				"value": "brown",
-				"type": "Text"
-			},
-			"employment_type": {
-				"__TYPE__": "FieldContent",
-				"value": "Volunteer",
-				"type": "Select"
-			},
-			"employer": {
-				"__TYPE__": "FieldContent",
-				"value": "shorter",
-				"type": "Text"
-			},
-			"current": {
-				"__TYPE__": "BooleanContent",
-				"value": false
-			},
 			"startdate": {
 				"__TYPE__": "FieldContent",
 				"type": "Date",
@@ -32,26 +13,170 @@
 				"type": "Date",
 				"value": "2019-03-19"
 			},
-			"location": {
+			"company_name": {
 				"__TYPE__": "FieldContent",
-				"value": "twice",
+				"value": "both",
 				"type": "Text"
 			},
-			"location_type": {
+			"company_logo": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1493119508027-2b584f234d6c",
+					"width": 3424,
+					"height": 3424
+				},
+				"url": "https://images.unsplash.com/photo-1493119508027-2b584f234d6c",
+				"width": 3424,
+				"height": 3424,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "they",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"company_website": {
+				"key": "0f2eba69-5736-491f-b407-6e2269abbad4",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://slicemachine.dev",
+					"text": "answer"
+				}
+			},
+			"company_location": {
 				"__TYPE__": "FieldContent",
-				"value": "Hybrid",
+				"value": "outline",
+				"type": "Text"
+			},
+			"work_model": {
+				"__TYPE__": "FieldContent",
+				"value": "Remote",
 				"type": "Select"
 			},
-			"description": {
+			"work_type": {
+				"__TYPE__": "FieldContent",
+				"value": "Contract",
+				"type": "Select"
+			},
+			"job_title": {
+				"__TYPE__": "FieldContent",
+				"value": "height",
+				"type": "Text"
+			},
+			"department": {
+				"__TYPE__": "FieldContent",
+				"value": "metal",
+				"type": "Text"
+			},
+			"seniority_level": {
+				"__TYPE__": "FieldContent",
+				"value": "Lead",
+				"type": "Select"
+			},
+			"is_current": {
+				"__TYPE__": "BooleanContent",
+				"value": true
+			},
+			"role_summary": {
 				"__TYPE__": "StructuredTextContent",
 				"value": [
 					{
 						"type": "paragraph",
 						"content": {
-							"text": "Veniam consequat aute cillum excepteur. Lorem nulla ut ipsum nisi velit adipisicing irure nulla deserunt anim. Commodo est id ex qui est do quis proident do qui."
+							"text": "Esse labore officia cupidatat culpa nostrud ullamco laboris occaecat sint enim aute. Magna est eiusmod ea commodo voluptate tempor nulla dolor excepteur laboris."
 						}
 					}
 				]
+			},
+			"key_achievements": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"achievement_title",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "hat",
+									"type": "Text"
+								}
+							],
+							[
+								"achievement_description",
+								{
+									"__TYPE__": "StructuredTextContent",
+									"value": [
+										{
+											"type": "paragraph",
+											"content": {
+												"text": "Dolor nisi nulla officia magna consectetur elit nulla. Cupidatat officia dolore laboris in."
+											}
+										}
+									]
+								}
+							],
+							[
+								"metric_value",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "wash",
+									"type": "Text"
+								}
+							],
+							[
+								"impact_area",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "Revenue",
+									"type": "Select"
+								}
+							]
+						]
+					}
+				]
+			},
+			"projects_delivered": {
+				"__TYPE__": "FieldContent",
+				"value": "1",
+				"type": "Number"
+			},
+			"skills": {
+				"__TYPE__": "RepeatableContent",
+				"type": "Link",
+				"value": [
+					{
+						"key": "d80f8601-f291-48cf-848a-a5c87afb04e0",
+						"__TYPE__": "LinkContent",
+						"value": {
+							"__TYPE__": "ExternalLink",
+							"url": "http://twitter.com",
+							"text": "quarter"
+						}
+					}
+				]
+			},
+			"voice_summary": {
+				"__TYPE__": "FieldContent",
+				"value": "finest",
+				"type": "Text"
+			},
+			"role_keyowords": {
+				"__TYPE__": "FieldContent",
+				"value": "equator",
+				"type": "Text"
+			},
+			"impact_score": {
+				"__TYPE__": "FieldContent",
+				"value": "97",
+				"type": "Number"
 			}
 		},
 		"items": []
