@@ -2,7 +2,177 @@
 	{
 		"__TYPE__": "SharedSliceContent",
 		"variation": "default",
-		"primary": {},
+		"primary": {
+			"project_title": {
+				"__TYPE__": "FieldContent",
+				"value": "cook",
+				"type": "Text"
+			},
+			"project_tagline": {
+				"__TYPE__": "FieldContent",
+				"value": "decide",
+				"type": "Text"
+			},
+			"project_description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Fugiat proident excepteur fugiat duis. Minim duis Lorem est voluptate labore sit veniam do magna. Aute minim dolore exercitation do in tempor culpa."
+						}
+					}
+				]
+			},
+			"project_status": {
+				"__TYPE__": "FieldContent",
+				"value": "Maintained",
+				"type": "Select"
+			},
+			"start_date": {
+				"__TYPE__": "FieldContent",
+				"type": "Date",
+				"value": "2014-08-03"
+			},
+			"end_date": {
+				"__TYPE__": "FieldContent",
+				"type": "Date",
+				"value": "2015-11-11"
+			},
+			"featured_image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1589321599763-d66926c29613",
+					"width": 3168,
+					"height": 4752
+				},
+				"url": "https://images.unsplash.com/photo-1589321599763-d66926c29613",
+				"width": 3168,
+				"height": 4752,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "does",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"technologies": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"tech_name",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "flies",
+									"type": "Text"
+								}
+							],
+							[
+								"tech_category",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "Database",
+									"type": "Select"
+								}
+							]
+						]
+					}
+				]
+			},
+			"meta_title": {
+				"__TYPE__": "FieldContent",
+				"value": "on",
+				"type": "Text"
+			},
+			"meta_description": {
+				"__TYPE__": "FieldContent",
+				"value": "heart",
+				"type": "Text"
+			},
+			"og_image": {
+				"__TYPE__": "FieldContent",
+				"value": "favorite",
+				"type": "Text"
+			},
+			"is_featured": {
+				"__TYPE__": "FieldContent",
+				"value": "gentle",
+				"type": "Text"
+			},
+			"display_order": {
+				"__TYPE__": "FieldContent",
+				"value": "4",
+				"type": "Number"
+			},
+			"color_scheme": {
+				"__TYPE__": "FieldContent",
+				"value": "Purple",
+				"type": "Select"
+			},
+			"voice_summary": {
+				"__TYPE__": "FieldContent",
+				"value": "family",
+				"type": "Text"
+			},
+			"ai_keywords": {
+				"__TYPE__": "FieldContent",
+				"value": "medicine",
+				"type": "Text"
+			},
+			"accessibility_notes": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Reprehenderit sint amet commodo in incididunt irure sint consequat nisi dolore incididunt ullamco laborum in exercitation. Ipsum nulla proident sit voluptate Lorem exercitation anim cupidatat. Adipisicing magna laboris irure labore esse Lorem veniam tempor."
+						}
+					}
+				]
+			},
+			"project_slug": {
+				"__TYPE__": "FieldContent",
+				"value": "garage",
+				"type": "Text"
+			},
+			"live_url": {
+				"key": "3fdd5d31-8c98-4a0c-bdd7-a082aa9d7e32",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://slicemachine.dev",
+					"text": "pass"
+				}
+			},
+			"github_url": {
+				"key": "dc3e100d-213e-456a-a5de-54e24f518f83",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://prismic.io",
+					"text": "monkey"
+				}
+			},
+			"client_name": {
+				"__TYPE__": "FieldContent",
+				"value": "eat",
+				"type": "Text"
+			},
+			"client_industry": {
+				"__TYPE__": "FieldContent",
+				"value": "worry",
+				"type": "Text"
+			}
+		},
 		"items": []
 	}
 ]

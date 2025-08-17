@@ -1,0 +1,59 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "brown",
+				"type": "Text"
+			},
+			"employment_type": {
+				"__TYPE__": "FieldContent",
+				"value": "Volunteer",
+				"type": "Select"
+			},
+			"employer": {
+				"__TYPE__": "FieldContent",
+				"value": "shorter",
+				"type": "Text"
+			},
+			"current": {
+				"__TYPE__": "BooleanContent",
+				"value": false
+			},
+			"startdate": {
+				"__TYPE__": "FieldContent",
+				"type": "Date",
+				"value": "2018-09-04"
+			},
+			"enddate": {
+				"__TYPE__": "FieldContent",
+				"type": "Date",
+				"value": "2019-03-19"
+			},
+			"location": {
+				"__TYPE__": "FieldContent",
+				"value": "twice",
+				"type": "Text"
+			},
+			"location_type": {
+				"__TYPE__": "FieldContent",
+				"value": "Hybrid",
+				"type": "Select"
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Veniam consequat aute cillum excepteur. Lorem nulla ut ipsum nisi velit adipisicing irure nulla deserunt anim. Commodo est id ex qui est do quis proident do qui."
+						}
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

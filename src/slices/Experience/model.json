@@ -1,0 +1,101 @@
+{
+  "id": "experience",
+  "type": "SharedSlice",
+  "name": "Experience",
+  "description": "Experience",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": ""
+          }
+        },
+        "employment_type": {
+          "type": "Select",
+          "config": {
+            "label": "Employment Type",
+            "placeholder": "",
+            "options": [
+              "Full-time",
+              "Part-time",
+              "Self-employed",
+              "Freelance",
+              "Contract",
+              "Internship",
+              "Apprenticeship",
+              "Volunteer"
+            ]
+          }
+        },
+        "employer": {
+          "type": "Text",
+          "config": {
+            "label": "Company or Organisation",
+            "placeholder": ""
+          }
+        },
+        "current": {
+          "type": "Boolean",
+          "config": {
+            "label": "Currently Work Here",
+            "placeholder_false": "false",
+            "placeholder_true": "true",
+            "default_value": false
+          }
+        },
+        "startdate": {
+          "type": "Date",
+          "config": {
+            "label": "Start Date",
+            "placeholder": ""
+          }
+        },
+        "enddate": {
+          "type": "Date",
+          "config": {
+            "label": "End Date",
+            "placeholder": ""
+          }
+        },
+        "location": {
+          "type": "Text",
+          "config": {
+            "label": "Location",
+            "placeholder": ""
+          }
+        },
+        "location_type": {
+          "type": "Select",
+          "config": {
+            "label": "Location Type",
+            "placeholder": "",
+            "options": [
+              "Onsite",
+              "Hybrid",
+              "Remote"
+            ]
+          }
+        },
+        "description": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Description",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading3,heading4,heading5,heading6,strong,em,hyperlink,list-item,o-list-item,rtl,heading1,heading2"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

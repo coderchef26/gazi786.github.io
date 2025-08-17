@@ -10,7 +10,211 @@
       "docURL": "...",
       "version": "initial",
       "description": "Default",
-      "imageUrl": ""
+      "imageUrl": "",
+      "primary": {
+        "project_title": {
+          "type": "Text",
+          "config": {
+            "label": "Project Name",
+            "placeholder": "Project name"
+          }
+        },
+        "project_slug": {
+          "type": "Text",
+          "config": {
+            "label": "Project Slug",
+            "placeholder": "URL slug"
+          }
+        },
+        "project_tagline": {
+          "type": "Text",
+          "config": {
+            "label": "Project Tagline",
+            "placeholder": "Short one-liner description"
+          }
+        },
+        "project_description": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Project Description",
+            "placeholder": "Detailed description",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading5,heading6,strong,em,hyperlink,image,list-item,o-list-item,rtl"
+          }
+        },
+        "project_status": {
+          "type": "Select",
+          "config": {
+            "label": "Project Status",
+            "placeholder": "",
+            "options": [
+              "Completed",
+              "In-progress",
+              "Maintained",
+              "Archived"
+            ]
+          }
+        },
+        "start_date": {
+          "type": "Date",
+          "config": {
+            "label": "Start Date",
+            "placeholder": ""
+          }
+        },
+        "end_date": {
+          "type": "Date",
+          "config": {
+            "label": "End Date",
+            "placeholder": ""
+          }
+        },
+        "featured_image": {
+          "type": "Image",
+          "config": {
+            "label": "Featured Image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "technologies": {
+          "type": "Group",
+          "config": {
+            "label": "Technologies",
+            "repeat": true,
+            "fields": {
+              "tech_name": {
+                "type": "Text",
+                "config": {
+                  "label": "Tech Name",
+                  "placeholder": ""
+                }
+              },
+              "tech_category": {
+                "type": "Select",
+                "config": {
+                  "label": "Tech Category",
+                  "placeholder": "",
+                  "options": [
+                    "Frontend",
+                    "Backend",
+                    "Database",
+                    "Dev-Ops"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "live_url": {
+          "type": "Link",
+          "config": {
+            "label": "Live URL",
+            "placeholder": "Live demo",
+            "select": null,
+            "allowTargetBlank": true,
+            "allowText": true,
+            "repeat": false
+          }
+        },
+        "github_url": {
+          "type": "Link",
+          "config": {
+            "label": "GitHub URL",
+            "placeholder": "Repository",
+            "select": null,
+            "allowTargetBlank": true,
+            "allowText": true,
+            "repeat": false
+          }
+        },
+        "client_name": {
+          "type": "Text",
+          "config": {
+            "label": "Client Name",
+            "placeholder": ""
+          }
+        },
+        "client_industry": {
+          "type": "Text",
+          "config": {
+            "label": "Client Industry",
+            "placeholder": ""
+          }
+        },
+        "meta_title": {
+          "type": "Text",
+          "config": {
+            "label": "Meta Title",
+            "placeholder": ""
+          }
+        },
+        "meta_description": {
+          "type": "Text",
+          "config": {
+            "label": "Meta Description",
+            "placeholder": ""
+          }
+        },
+        "og_image": {
+          "type": "Text",
+          "config": {
+            "label": "OG Image",
+            "placeholder": ""
+          }
+        },
+        "is_featured": {
+          "type": "Text",
+          "config": {
+            "label": "Is Featured",
+            "placeholder": ""
+          }
+        },
+        "display_order": {
+          "type": "Number",
+          "config": {
+            "label": "Display Order",
+            "placeholder": ""
+          }
+        },
+        "color_scheme": {
+          "type": "Select",
+          "config": {
+            "label": "Color Scheme",
+            "placeholder": "",
+            "options": [
+              "Cyan",
+              "Blue",
+              "Purple",
+              "Green"
+            ]
+          }
+        },
+        "voice_summary": {
+          "type": "Text",
+          "config": {
+            "label": "Voice Summary",
+            "placeholder": ""
+          }
+        },
+        "ai_keywords": {
+          "type": "Text",
+          "config": {
+            "label": "AI Keywords",
+            "placeholder": ""
+          }
+        },
+        "accessibility_notes": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Accessibility Notes",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,list-item,o-list-item,rtl,heading1"
+          }
+        }
+      },
+      "items": {}
     }
   ]
 }

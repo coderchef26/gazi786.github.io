@@ -46,7 +46,7 @@
               "tag": {
                 "type": "Text",
                 "config": {
-                  "label": "tag",
+                  "label": "Tag",
                   "placeholder": ""
                 }
               }
