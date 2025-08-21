@@ -11,7 +11,7 @@ interface Message {
   text: string;
   isUser: boolean;
   timestamp: Date;
-  action?: 'navigate' | 'speak' | 'search';
+  action?: 'navigate' | 'speak' | 'search' | 'showcase';
   target?: string;
   suggestions?: string[];
 }

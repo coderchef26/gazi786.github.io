@@ -15,7 +15,7 @@ export class AtlasSpeech {
   private voices: SpeechSynthesisVoice[] = [];
   private isSupported: boolean = false;
   private currentUtterance: SpeechSynthesisUtterance | null = null;
-  private queue: string[] = [];
+  private speechQueue: string[] = [];
   private isProcessing: boolean = false;
 
   private constructor() {
@@ -140,16 +140,16 @@ export class AtlasSpeech {
   }
 
   public queue(text: string): void {
-    this.queue.push(text);
+    this.speechQueue.push(text);
     if (!this.isProcessing) {
       this.processQueue();
     }
   }
 
   private async processQueue(): Promise<void> {
-    if (this.queue.length === 0 || this.isProcessing) return;
+    if (this.speechQueue.length === 0 || this.isProcessing) return;
 
-    const text = this.queue.shift();
+    const text = this.speechQueue.shift();
     if (text) {
       try {
         await this.speak(text);
@@ -164,7 +164,7 @@ export class AtlasSpeech {
       speechSynthesis.cancel();
       this.currentUtterance = null;
       this.isProcessing = false;
-      this.queue.length = 0; // Clear queue
+      this.speechQueue.length = 0; // Clear queue
     }
   }
 
@@ -184,7 +184,7 @@ export class AtlasSpeech {
     return this.isSupported && (speechSynthesis.speaking || this.isProcessing);
   }
 
-  public isSupported(): boolean {
+  public getSpeechSupported(): boolean {
     return this.isSupported;
   }
 
@@ -199,7 +199,7 @@ export class AtlasSpeech {
       supported: this.isSupported,
       speaking: speechSynthesis.speaking,
       processing: this.isProcessing,
-      queueLength: this.queue.length,
+      queueLength: this.speechQueue.length,
       voicesAvailable: this.voices.length
     };
   }
@@ -310,7 +310,7 @@ export class AtlasRecognition {
     return this.isListening;
   }
 
-  public isSupported(): boolean {
+  public getRecognitionSupported(): boolean {
     return this.isSupported;
   }
 

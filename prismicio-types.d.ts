@@ -130,6 +130,40 @@ interface BlogDocumentData {
 export type BlogDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<BlogDocumentData>, "blog", Lang>;
 
+type BlogpostsDocumentDataSlicesSlice = BlogpostsSlice;
+
+/**
+ * Content for BlogPosts documents
+ */
+interface BlogpostsDocumentData {
+  /**
+   * Slice Zone field in *BlogPosts*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogposts.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<BlogpostsDocumentDataSlicesSlice>;
+}
+
+/**
+ * BlogPosts document from Prismic
+ *
+ * - **API ID**: `blogposts`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BlogpostsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<BlogpostsDocumentData>,
+    "blogposts",
+    Lang
+  >;
+
 type ContactPageDocumentDataSlicesSlice = ContactSlice;
 
 /**
@@ -435,6 +469,7 @@ export type SettingsDocument<Lang extends string = string> =
 
 export type AllDocumentTypes =
   | BlogDocument
+  | BlogpostsDocument
   | ContactPageDocument
   | HomeDocument
   | PageDocument
@@ -483,18 +518,18 @@ type AboutSliceVariation = AboutSliceDefault;
 export type AboutSlice = prismic.SharedSlice<"about", AboutSliceVariation>;
 
 /**
- * Item in *Blog → Default → Primary → Tags*
+ * Item in *Blog → Default → Primary → Posts*
  */
-export interface BlogSliceDefaultPrimaryTagsItem {
+export interface BlogSliceDefaultPrimaryPostsItem {
   /**
-   * Tag field in *Blog → Default → Primary → Tags*
+   * Posts field in *Blog → Default → Primary → Posts*
    *
-   * - **Field Type**: Text
+   * - **Field Type**: Content Relationship
    * - **Placeholder**: *None*
-   * - **API ID Path**: blog.default.primary.tags[].tag
-   * - **Documentation**: https://prismic.io/docs/fields/text
+   * - **API ID Path**: blog.default.primary.posts[].posts
+   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
    */
-  tag: prismic.KeyTextField;
+  posts: prismic.ContentRelationshipField<"blogposts">;
 }
 
 /**
@@ -502,54 +537,14 @@ export interface BlogSliceDefaultPrimaryTagsItem {
  */
 export interface BlogSliceDefaultPrimary {
   /**
-   * Title field in *Blog → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: blog.default.primary.title
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  title: prismic.KeyTextField;
-
-  /**
-   * Excerpt field in *Blog → Default → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: blog.default.primary.excerpt
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  excerpt: prismic.RichTextField;
-
-  /**
-   * Content field in *Blog → Default → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: blog.default.primary.content
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  content: prismic.RichTextField;
-
-  /**
-   * Tags field in *Blog → Default → Primary*
+   * Posts field in *Blog → Default → Primary*
    *
    * - **Field Type**: Group
    * - **Placeholder**: *None*
-   * - **API ID Path**: blog.default.primary.tags[]
+   * - **API ID Path**: blog.default.primary.posts[]
    * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
-  tags: prismic.GroupField<Simplify<BlogSliceDefaultPrimaryTagsItem>>;
-
-  /**
-   * Publish Date field in *Blog → Default → Primary*
-   *
-   * - **Field Type**: Date
-   * - **Placeholder**: *None*
-   * - **API ID Path**: blog.default.primary.publish_date
-   * - **Documentation**: https://prismic.io/docs/fields/date
-   */
-  publish_date: prismic.DateField;
+  posts: prismic.GroupField<Simplify<BlogSliceDefaultPrimaryPostsItem>>;
 }
 
 /**
@@ -580,9 +575,157 @@ type BlogSliceVariation = BlogSliceDefault;
 export type BlogSlice = prismic.SharedSlice<"blog", BlogSliceVariation>;
 
 /**
+ * Item in *BlogPosts → Default → Primary → Tags*
+ */
+export interface BlogpostsSliceDefaultPrimaryTagsItem {
+  /**
+   * Tag field in *BlogPosts → Default → Primary → Tags*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogposts.default.primary.tags[].tag
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  tag: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *BlogPosts → Default → Primary*
+ */
+export interface BlogpostsSliceDefaultPrimary {
+  /**
+   * Title field in *BlogPosts → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogposts.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Excerpt field in *BlogPosts → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogposts.default.primary.excerpt
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  excerpt: prismic.KeyTextField;
+
+  /**
+   * Content field in *BlogPosts → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogposts.default.primary.content
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  content: prismic.RichTextField;
+
+  /**
+   * Tags field in *BlogPosts → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogposts.default.primary.tags[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  tags: prismic.GroupField<Simplify<BlogpostsSliceDefaultPrimaryTagsItem>>;
+
+  /**
+   * Publish Date field in *BlogPosts → Default → Primary*
+   *
+   * - **Field Type**: Date
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogposts.default.primary.publish_date
+   * - **Documentation**: https://prismic.io/docs/fields/date
+   */
+  publish_date: prismic.DateField;
+}
+
+/**
+ * Default variation for BlogPosts Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type BlogpostsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<BlogpostsSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *BlogPosts*
+ */
+type BlogpostsSliceVariation = BlogpostsSliceDefault;
+
+/**
+ * BlogPosts Shared Slice
+ *
+ * - **API ID**: `blogposts`
+ * - **Description**: Blog Posts
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type BlogpostsSlice = prismic.SharedSlice<
+  "blogposts",
+  BlogpostsSliceVariation
+>;
+
+/**
+ * Default variation for CertificationCollection Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type CertificationCollectionSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *CertificationCollection*
+ */
+type CertificationCollectionSliceVariation =
+  CertificationCollectionSliceDefault;
+
+/**
+ * CertificationCollection Shared Slice
+ *
+ * - **API ID**: `certification_collection`
+ * - **Description**: CertificationCollection
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type CertificationCollectionSlice = prismic.SharedSlice<
+  "certification_collection",
+  CertificationCollectionSliceVariation
+>;
+
+/**
+ * Item in *Certifications → Default → Primary → Certification*
+ */
+export interface CertificationsSliceDefaultPrimaryCertificationItem {}
+
+/**
  * Primary content in *Certifications → Default → Primary*
  */
 export interface CertificationsSliceDefaultPrimary {
+  /**
+   * Certification field in *Certifications → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: certifications.default.primary.certification[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  certification: prismic.GroupField<
+    Simplify<CertificationsSliceDefaultPrimaryCertificationItem>
+  >;
+
   /**
    * Cert Name field in *Certifications → Default → Primary*
    *
@@ -841,9 +984,26 @@ export type ContactSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *Education → Default → Primary → Education*
+ */
+export interface EducationSliceDefaultPrimaryEducationItem {}
+
+/**
  * Primary content in *Education → Default → Primary*
  */
 export interface EducationSliceDefaultPrimary {
+  /**
+   * Education field in *Education → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: education.default.primary.education[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  education: prismic.GroupField<
+    Simplify<EducationSliceDefaultPrimaryEducationItem>
+  >;
+
   /**
    * Institution Name field in *Education → Default → Primary*
    *
@@ -1041,6 +1201,41 @@ export type EducationSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Default variation for EducationCollection Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type EducationCollectionSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *EducationCollection*
+ */
+type EducationCollectionSliceVariation = EducationCollectionSliceDefault;
+
+/**
+ * EducationCollection Shared Slice
+ *
+ * - **API ID**: `education_collection`
+ * - **Description**: EducationCollection
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type EducationCollectionSlice = prismic.SharedSlice<
+  "education_collection",
+  EducationCollectionSliceVariation
+>;
+
+/**
+ * Item in *Experience → Default → Primary → Experience*
+ */
+export interface ExperienceSliceDefaultPrimaryExperienceItem {}
+
+/**
  * Item in *Experience → Default → Primary → Key Achievements*
  */
 export interface ExperienceSliceDefaultPrimaryKeyAchievementsItem {
@@ -1091,6 +1286,18 @@ export interface ExperienceSliceDefaultPrimaryKeyAchievementsItem {
  * Primary content in *Experience → Default → Primary*
  */
 export interface ExperienceSliceDefaultPrimary {
+  /**
+   * Experience field in *Experience → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: experience.default.primary.experience[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  experience: prismic.GroupField<
+    Simplify<ExperienceSliceDefaultPrimaryExperienceItem>
+  >;
+
   /**
    * Company Name field in *Experience → Default → Primary*
    *
@@ -1341,6 +1548,36 @@ export type ExperienceSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Default variation for ExperienceCollection Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ExperienceCollectionSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *ExperienceCollection*
+ */
+type ExperienceCollectionSliceVariation = ExperienceCollectionSliceDefault;
+
+/**
+ * ExperienceCollection Shared Slice
+ *
+ * - **API ID**: `experience_collection`
+ * - **Description**: ExperienceCollection
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ExperienceCollectionSlice = prismic.SharedSlice<
+  "experience_collection",
+  ExperienceCollectionSliceVariation
+>;
+
+/**
  * Primary content in *Hero → Default → Primary*
  */
 export interface HeroSliceDefaultPrimary {
@@ -1393,6 +1630,11 @@ type HeroSliceVariation = HeroSliceDefault;
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
 /**
+ * Item in *Projects → Default → Primary → Project*
+ */
+export interface ProjectsSliceDefaultPrimaryProjectItem {}
+
+/**
  * Item in *Projects → Default → Primary → Technologies*
  */
 export interface ProjectsSliceDefaultPrimaryTechnologiesItem {
@@ -1423,6 +1665,16 @@ export interface ProjectsSliceDefaultPrimaryTechnologiesItem {
  * Primary content in *Projects → Default → Primary*
  */
 export interface ProjectsSliceDefaultPrimary {
+  /**
+   * Project field in *Projects → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: projects.default.primary.project[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  project: prismic.GroupField<Simplify<ProjectsSliceDefaultPrimaryProjectItem>>;
+
   /**
    * Project Name field in *Projects → Default → Primary*
    *
@@ -1691,6 +1943,41 @@ export type ProjectsSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Default variation for ProjectsCollection Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ProjectsCollectionSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *ProjectsCollection*
+ */
+type ProjectsCollectionSliceVariation = ProjectsCollectionSliceDefault;
+
+/**
+ * ProjectsCollection Shared Slice
+ *
+ * - **API ID**: `projects_collection`
+ * - **Description**: ProjectsCollection
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ProjectsCollectionSlice = prismic.SharedSlice<
+  "projects_collection",
+  ProjectsCollectionSliceVariation
+>;
+
+/**
+ * Item in *Skills → Default → Primary → Skill*
+ */
+export interface SkillsSliceDefaultPrimarySkillItem {}
+
+/**
  * Item in *Skills → Default → Primary → Related Projects*
  */
 export interface SkillsSliceDefaultPrimaryRelatedProjectsItem {
@@ -1725,6 +2012,16 @@ export interface SkillsSliceDefaultPrimaryRelatedProjectsItem {
  * Primary content in *Skills → Default → Primary*
  */
 export interface SkillsSliceDefaultPrimary {
+  /**
+   * Skill field in *Skills → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: skills.default.primary.skill[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  skill: prismic.GroupField<Simplify<SkillsSliceDefaultPrimarySkillItem>>;
+
   /**
    * Skill Name field in *Skills → Default → Primary*
    *
@@ -2027,6 +2324,36 @@ type SkillsSliceVariation = SkillsSliceDefault;
  */
 export type SkillsSlice = prismic.SharedSlice<"skills", SkillsSliceVariation>;
 
+/**
+ * Default variation for SkillsCollection Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type SkillsCollectionSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *SkillsCollection*
+ */
+type SkillsCollectionSliceVariation = SkillsCollectionSliceDefault;
+
+/**
+ * SkillsCollection Shared Slice
+ *
+ * - **API ID**: `skills_collection`
+ * - **Description**: SkillsCollection
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type SkillsCollectionSlice = prismic.SharedSlice<
+  "skills_collection",
+  SkillsCollectionSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -2051,6 +2378,9 @@ declare module "@prismicio/client" {
       BlogDocument,
       BlogDocumentData,
       BlogDocumentDataSlicesSlice,
+      BlogpostsDocument,
+      BlogpostsDocumentData,
+      BlogpostsDocumentDataSlicesSlice,
       ContactPageDocument,
       ContactPageDocumentData,
       ContactPageDocumentDataSlicesSlice,
@@ -2069,11 +2399,20 @@ declare module "@prismicio/client" {
       AboutSliceVariation,
       AboutSliceDefault,
       BlogSlice,
-      BlogSliceDefaultPrimaryTagsItem,
+      BlogSliceDefaultPrimaryPostsItem,
       BlogSliceDefaultPrimary,
       BlogSliceVariation,
       BlogSliceDefault,
+      BlogpostsSlice,
+      BlogpostsSliceDefaultPrimaryTagsItem,
+      BlogpostsSliceDefaultPrimary,
+      BlogpostsSliceVariation,
+      BlogpostsSliceDefault,
+      CertificationCollectionSlice,
+      CertificationCollectionSliceVariation,
+      CertificationCollectionSliceDefault,
       CertificationsSlice,
+      CertificationsSliceDefaultPrimaryCertificationItem,
       CertificationsSliceDefaultPrimary,
       CertificationsSliceVariation,
       CertificationsSliceDefault,
@@ -2082,28 +2421,44 @@ declare module "@prismicio/client" {
       ContactSliceVariation,
       ContactSliceDefault,
       EducationSlice,
+      EducationSliceDefaultPrimaryEducationItem,
       EducationSliceDefaultPrimary,
       EducationSliceVariation,
       EducationSliceDefault,
+      EducationCollectionSlice,
+      EducationCollectionSliceVariation,
+      EducationCollectionSliceDefault,
       ExperienceSlice,
+      ExperienceSliceDefaultPrimaryExperienceItem,
       ExperienceSliceDefaultPrimaryKeyAchievementsItem,
       ExperienceSliceDefaultPrimary,
       ExperienceSliceVariation,
       ExperienceSliceDefault,
+      ExperienceCollectionSlice,
+      ExperienceCollectionSliceVariation,
+      ExperienceCollectionSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
       ProjectsSlice,
+      ProjectsSliceDefaultPrimaryProjectItem,
       ProjectsSliceDefaultPrimaryTechnologiesItem,
       ProjectsSliceDefaultPrimary,
       ProjectsSliceVariation,
       ProjectsSliceDefault,
+      ProjectsCollectionSlice,
+      ProjectsCollectionSliceVariation,
+      ProjectsCollectionSliceDefault,
       SkillsSlice,
+      SkillsSliceDefaultPrimarySkillItem,
       SkillsSliceDefaultPrimaryRelatedProjectsItem,
       SkillsSliceDefaultPrimary,
       SkillsSliceVariation,
       SkillsSliceDefault,
+      SkillsCollectionSlice,
+      SkillsCollectionSliceVariation,
+      SkillsCollectionSliceDefault,
     };
   }
 }

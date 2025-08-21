@@ -3,6 +3,8 @@ import { createClient } from "@/prismicio";
 import { SliceZone } from "@prismicio/react";
 import { components } from "@/slices";
 import ArcReactorClientWrapper from "@/components/navigation/ArcReactorClientWrapper";
+import AtlasPageWrapper from "@/components/atlas/AtlasPageWrapper";
+import AtlasHomepage from "@/components/atlas/AtlasHomepage";
 
 export default async function Home() {
 	const client = createClient();
@@ -11,11 +13,11 @@ export default async function Home() {
 		// Try to fetch homepage from Prismic
 		const homepage = await client.getSingle("home");
 
-		// If homepage exists in Prismic, render slices
+		// If homepage exists in Prismic, render with ATLAS integration and Islamic greeting
 		return (
-			<div className="min-h-screen">
+			<AtlasHomepage pageData={homepage}>
 				<SliceZone slices={homepage.data.slices} components={components} />
-			</div>
+			</AtlasHomepage>
 		);
 	} catch {
 		// Fallback to Arc Reactor navigation if no homepage in Prismic yet

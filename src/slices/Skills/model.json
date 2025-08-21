@@ -12,6 +12,14 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
+        "skill": {
+          "type": "Group",
+          "config": {
+            "label": "Skill",
+            "repeat": true,
+            "fields": {}
+          }
+        },
         "skill_name": {
           "type": "Text",
           "config": {

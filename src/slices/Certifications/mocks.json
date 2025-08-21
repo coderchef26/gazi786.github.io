@@ -138,6 +138,15 @@
 				"__TYPE__": "FieldContent",
 				"value": "52",
 				"type": "Number"
+			},
+			"certification": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": []
+					}
+				]
 			}
 		},
 		"items": []

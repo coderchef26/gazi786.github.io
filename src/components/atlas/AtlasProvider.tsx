@@ -3,6 +3,8 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { AtlasCore, AtlasConfig } from '@/lib/atlas/core';
 import { AtlasAssistant, assistant } from '@/lib/atlas/assistant';
+import { enhancedAssistant, EnhancedAssistantResponse } from '@/lib/atlas/enhanced-assistant';
+import { Content } from '@prismicio/client';
 import { AtlasSpeech, AtlasRecognition, speech, recognition } from '@/lib/atlas/speech';
 
 interface AtlasContextType {
@@ -13,7 +15,8 @@ interface AtlasContextType {
   // Assistant
   isAssistantOpen: boolean;
   setAssistantOpen: (open: boolean) => void;
-  processQuery: (query: string) => ReturnType<AtlasAssistant['processQuery']>;
+  processQuery: (query: string) => EnhancedAssistantResponse;
+  updateKnowledgeBase: (pageData: Content.PageDocument) => void;
   
   // Speech
   speak: (text: string) => Promise<void>;
@@ -63,8 +66,9 @@ export default function AtlasProvider({ children, onNavigate }: AtlasProviderPro
   useEffect(() => {
     const initializeAtlas = async () => {
       try {
-        // Initialize assistant
+        // Initialize both assistants
         await assistant.initialize();
+        await enhancedAssistant.initialize();
         
         // Set up core listeners
         const core = AtlasCore.getInstance();
@@ -110,7 +114,7 @@ export default function AtlasProvider({ children, onNavigate }: AtlasProviderPro
         // Welcome message if enabled
         if (config.assistant.welcomeMessage && config.assistant.enabled) {
           setTimeout(() => {
-            const welcomeMsg = assistant.getWelcomeMessage();
+            const welcomeMsg = enhancedAssistant.getWelcomeMessage();
             announce(welcomeMsg);
             if (config.assistant.autoSpeak) {
               speak(welcomeMsg);
@@ -141,7 +145,13 @@ export default function AtlasProvider({ children, onNavigate }: AtlasProviderPro
 
   // Process assistant queries
   const processQuery = useCallback((query: string) => {
-    return assistant.processQuery(query);
+    return enhancedAssistant.processQuery(query);
+  }, []);
+
+  // Update knowledge base with Prismic data
+  const updateKnowledgeBase = useCallback((pageData: Content.PageDocument) => {
+    enhancedAssistant.updateKnowledgeBase(pageData);
+    announce('Portfolio data updated with latest information');
   }, []);
 
   // Speech functions
@@ -259,6 +269,7 @@ export default function AtlasProvider({ children, onNavigate }: AtlasProviderPro
     isAssistantOpen,
     setAssistantOpen: setIsAssistantOpen,
     processQuery,
+    updateKnowledgeBase,
     
     // Speech
     speak,

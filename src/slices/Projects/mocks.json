@@ -171,6 +171,15 @@
 				"__TYPE__": "FieldContent",
 				"value": "worry",
 				"type": "Text"
+			},
+			"project": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": []
+					}
+				]
 			}
 		},
 		"items": []

@@ -172,6 +172,15 @@
 				"__TYPE__": "FieldContent",
 				"value": "Server",
 				"type": "Select"
+			},
+			"skill": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": []
+					}
+				]
 			}
 		},
 		"items": []

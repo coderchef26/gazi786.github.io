@@ -3,55 +3,26 @@
 		"__TYPE__": "SharedSliceContent",
 		"variation": "default",
 		"primary": {
-			"title": {
-				"__TYPE__": "FieldContent",
-				"value": "given",
-				"type": "Text"
-			},
-			"excerpt": {
-				"__TYPE__": "StructuredTextContent",
-				"value": [
-					{
-						"type": "paragraph",
-						"content": {
-							"text": "Ex eu officia magna et minim eiusmod magna commodo voluptate aliquip ullamco mollit exercitation enim laborum."
-						}
-					}
-				]
-			},
-			"content": {
-				"__TYPE__": "StructuredTextContent",
-				"value": [
-					{
-						"type": "paragraph",
-						"content": {
-							"text": "Dolore culpa excepteur irure sit excepteur amet aute."
-						}
-					}
-				]
-			},
-			"tags": {
+			"posts": {
 				"__TYPE__": "GroupContentType",
 				"value": [
 					{
 						"__TYPE__": "GroupItemContent",
 						"value": [
 							[
-								"tag",
+								"posts",
 								{
-									"__TYPE__": "FieldContent",
-									"value": "article",
-									"type": "Text"
+									"__TYPE__": "LinkContent",
+									"key": "e7dbb142-25d4-4488-b409-22c897dcac6c",
+									"value": {
+										"__TYPE__": "DocumentLink",
+										"id": "mock_document_id"
+									}
 								}
 							]
 						]
 					}
 				]
-			},
-			"publish_date": {
-				"__TYPE__": "FieldContent",
-				"type": "Date",
-				"value": "2021-02-14"
 			}
 		},
 		"items": []

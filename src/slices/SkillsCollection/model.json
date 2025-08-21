@@ -1,0 +1,16 @@
+{
+  "id": "skills_collection",
+  "type": "SharedSlice",
+  "name": "SkillsCollection",
+  "description": "SkillsCollection",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": ""
+    }
+  ]
+}

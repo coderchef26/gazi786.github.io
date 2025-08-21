@@ -23,7 +23,7 @@ export interface PageDocument {
 	uid: string;
 	data: {
 		title: KeyTextField;
-		slices: Content.AllSlices[];
+		slices: any[];
 	};
 }
 

@@ -177,6 +177,15 @@
 				"__TYPE__": "FieldContent",
 				"value": "97",
 				"type": "Number"
+			},
+			"experience": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": []
+					}
+				]
 			}
 		},
 		"items": []

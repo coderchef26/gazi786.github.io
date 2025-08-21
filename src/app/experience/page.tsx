@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { createMockSlice } from '@/lib/mockData'
 
 export const metadata: Metadata = {
   title: 'Experience - MISSION HISTORY | Alshafaraz Gazi',
@@ -7,7 +6,7 @@ export const metadata: Metadata = {
 }
 
 // Create a simple Experience component for now
-function ExperienceComponent({ slice, index, slices, context }: any) {
+function ExperienceComponent() {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-4xl mx-auto text-center">
@@ -54,11 +53,9 @@ function ExperienceComponent({ slice, index, slices, context }: any) {
 }
 
 export default function ExperiencePage() {
-  const mockSliceData = createMockSlice('experience', {});
-
   return (
     <div className="min-h-screen p-8">
-      <ExperienceComponent slice={mockSliceData} index={0} slices={[mockSliceData]} context={{}} />
+      <ExperienceComponent />
     </div>
   );
 }

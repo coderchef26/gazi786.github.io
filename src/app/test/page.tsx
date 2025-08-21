@@ -281,14 +281,14 @@ export default function TestPage() {
         transition={{ duration: 0.5 }}
         className="relative z-10"
       >
-        {testComponents[activeTest].component}
+        {(testComponents as any)[activeTest].component}
       </motion.div>
 
       {/* Test Info */}
       <div className="fixed bottom-4 right-4 z-50">
         <div className="bg-[#1a1a2e]/90 backdrop-blur-sm border border-cyan-500/30 rounded-lg p-3">
           <div className="text-xs text-cyan-400">
-            <div className="font-bold">{testComponents[activeTest].name}</div>
+            <div className="font-bold">{(testComponents as any)[activeTest].name}</div>
             <div className="opacity-70">Press F12 for DevTools</div>
           </div>
         </div>

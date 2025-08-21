@@ -37,7 +37,7 @@ export default function AtlasPortfolio() {
         
         {/* Meta description for SEO */}
         <div className="atlas-sr-only">
-          Explore Alshafaraz Gazi's portfolio featuring modern web development projects, 
+          Explore Alshafaraz Gazi&apos;s portfolio featuring modern web development projects, 
           AI-powered accessibility, and interactive JARVIS-style interface. 
           Specializing in React, Node.js, TypeScript, and full-stack development.
         </div>

@@ -117,6 +117,15 @@
 						}
 					}
 				]
+			},
+			"education": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": []
+					}
+				]
 			}
 		},
 		"items": []

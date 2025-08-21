@@ -12,6 +12,14 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
+        "experience": {
+          "type": "Group",
+          "config": {
+            "label": "Experience",
+            "repeat": true,
+            "fields": {}
+          }
+        },
         "company_name": {
           "type": "Text",
           "config": {

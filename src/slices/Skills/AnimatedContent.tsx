@@ -7,7 +7,7 @@ interface AnimatedContentProps {
 	children: React.ReactNode;
 }
 
-export default function AnimatedContent({ children }: AnimatedContentProps) {
+export function AnimatedContent({ children }: AnimatedContentProps) {
 	const container = useRef(null);
 	const isInView = useInView(container, { once: true, margin: "-50px" });
 
@@ -33,7 +33,7 @@ export default function AnimatedContent({ children }: AnimatedContentProps) {
 			scale: 1,
 			filter: "blur(0px)",
 			transition: {
-				type: "spring",
+				type: "spring" as const,
 				stiffness: 120,
 				damping: 12,
 			},
@@ -164,3 +164,5 @@ export default function AnimatedContent({ children }: AnimatedContentProps) {
 		</motion.div>
 	);
 }
+
+export default AnimatedContent;

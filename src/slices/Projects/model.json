@@ -12,6 +12,14 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
+        "project": {
+          "type": "Group",
+          "config": {
+            "label": "Project",
+            "repeat": true,
+            "fields": {}
+          }
+        },
         "project_title": {
           "type": "Text",
           "config": {

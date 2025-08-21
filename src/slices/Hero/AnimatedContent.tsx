@@ -29,7 +29,7 @@ export default function AnimatedContent({ children }: AnimatedContentProps) {
 			scale: 1,
 			transition: {
 				duration: 0.8,
-				ease: "easeOut", // use a valid string easing
+				ease: "easeOut" as const,
 			},
 		},
 	};
@@ -99,7 +99,7 @@ export default function AnimatedContent({ children }: AnimatedContentProps) {
 				transition={{
 					duration: 2,
 					repeat: Infinity,
-					ease: "linear",
+					ease: "linear" as const,
 					delay: 1,
 				}}
 			/>

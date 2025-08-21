@@ -1,0 +1,53 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"tags": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"tag",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "article",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			},
+			"publish_date": {
+				"__TYPE__": "FieldContent",
+				"type": "Date",
+				"value": "2021-02-14"
+			},
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "found",
+				"type": "Text"
+			},
+			"excerpt": {
+				"__TYPE__": "FieldContent",
+				"value": "six",
+				"type": "Text"
+			},
+			"content": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Aute quis Lorem reprehenderit excepteur sint in consequat laboris qui dolore Lorem non. Reprehenderit minim adipisicing nulla commodo veniam adipisicing."
+						}
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

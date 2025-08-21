@@ -12,6 +12,14 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
+        "certification": {
+          "type": "Group",
+          "config": {
+            "label": "Certification",
+            "repeat": true,
+            "fields": {}
+          }
+        },
         "cert_name": {
           "type": "Text",
           "config": {

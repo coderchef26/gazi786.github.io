@@ -1,18 +1,23 @@
-import { Metadata } from 'next'
+"use client";
+
 import Projects from '@/slices/Projects'
 import { createMockSlice } from '@/lib/mockData'
-
-export const metadata: Metadata = {
-  title: 'Projects - MISSION ARCHIVE | Alshafaraz Gazi',
-  description: 'Completed missions and active deployments. Advanced systems and cutting-edge solutions.',
-}
+import AtlasProvider from '@/components/atlas/AtlasProvider'
 
 export default function ProjectsPage() {
   const mockSliceData = createMockSlice('projects', {});
 
+  const handleNavigation = (section: string) => {
+    if (section && section !== 'projects') {
+      window.location.href = `/${section}`;
+    }
+  };
+
   return (
-    <div className="min-h-screen p-8">
-      <Projects slice={mockSliceData} index={0} slices={[mockSliceData]} context={{}} />
-    </div>
+    <AtlasProvider onNavigate={handleNavigation}>
+      <div className="min-h-screen p-8">
+        <Projects slice={mockSliceData} index={0} slices={[mockSliceData]} context={{}} />
+      </div>
+    </AtlasProvider>
   );
 }

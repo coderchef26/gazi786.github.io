@@ -12,6 +12,14 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
+        "education": {
+          "type": "Group",
+          "config": {
+            "label": "Education",
+            "repeat": true,
+            "fields": {}
+          }
+        },
         "institution_name": {
           "type": "Text",
           "config": {
