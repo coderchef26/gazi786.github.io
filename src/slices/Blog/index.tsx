@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { Content } from "@prismicio/client";
-import { SliceComponentProps } from "@prismicio/react";
+import { Content, isFilled } from "@prismicio/client";
+import { SliceComponentProps, PrismicRichText } from "@prismicio/react";
 
 /**
  * Props for `Blog`.
@@ -11,42 +11,39 @@ export type BlogProps = SliceComponentProps<Content.BlogSlice>;
  * Component for "Blog" Slices.
  */
 const Blog: FC<BlogProps> = ({ slice }) => {
-  return (
-    <section
-      data-slice-type={slice.slice_type}
-      data-slice-variation={slice.variation}
-    >
-      Placeholder component for blog (variation: {slice.variation}) slices.
-      <br />
-      <strong>You can edit this slice directly in your code editor.</strong>
-      {/**
-       * 💡 Use Prismic MCP with your code editor
-       *
-       * Get AI-powered help to build your slice components — based on your actual model.
-       *
-       * ▶️ Setup:
-       * 1. Add a new MCP Server in your code editor:
-       *
-       * {
-       *   "mcpServers": {
-       *     "Prismic MCP": {
-       *       "command": "npx",
-       *       "args": ["-y", "@prismicio/mcp-server@latest"]
-       *     }
-       *   }
-       * }
-       *
-       * 2. Select a model optimized for coding (e.g. Claude 3.7 Sonnet or similar)
-       *
-       * ✅ Then open your slice file and ask your code editor:
-       *    "Code this slice"
-       *
-       * Your code editor reads your slice model and helps you code faster ⚡
-       * 🎙️ Give your feedback: https://community.prismic.io/t/help-us-shape-the-future-of-slice-creation/19505
-       * 📚 Documentation: https://prismic.io/docs/ai#code-with-prismics-mcp-server
-       */}
-    </section>
-  );
+	return (
+		<section
+			data-slice-type={slice.slice_type}
+			data-slice-variation={slice.variation}
+			className="py-20"
+		>
+			{isFilled.richText(slice.primary.title) && (
+				<div className="text-center mb-12">
+					<PrismicRichText 
+						field={slice.primary.title}
+						components={{
+							heading1: ({ children }) => (
+								<h1 className="text-4xl font-orbitron font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+									{children}
+								</h1>
+							),
+							heading2: ({ children }) => (
+								<h2 className="text-3xl font-orbitron font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+									{children}
+								</h2>
+							),
+							paragraph: ({ children }) => (
+								<p className="text-lg text-cyan-200/80 max-w-3xl mx-auto mt-4 font-inter">
+									{children}
+								</p>
+							)
+						}}
+					/>
+				</div>
+			)}
+
+		</section>
+	);
 };
 
 export default Blog;

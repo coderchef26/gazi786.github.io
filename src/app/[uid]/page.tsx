@@ -5,6 +5,7 @@ import { createClient } from "@/prismicio";
 import { components } from "@/slices";
 import ArcReactorLoader from "@/components/effects/ArcReactorLoader";
 import { Suspense } from "react";
+import * as prismic from "@prismicio/client";
 
 type Params = { uid: string };
 
@@ -115,11 +116,19 @@ export async function generateStaticParams() {
 	const client = createClient();
 
 	try {
-		const pages = await client.getAllByType("page");
+		/**
+		 * Query all Documents from the API, except the homepage.
+		 */
+		const pages = await client.getAllByType("page", {
+			predicates: [prismic.filter.not("my.page.uid", "home")],
+		});
 
-		return pages.map((page) => ({
-			uid: page.uid,
-		}));
+		/**
+		 * Define a path for every Document.
+		 */
+		return pages.map((page) => {
+			return { uid: page.uid };
+		});
 	} catch {
 		return [];
 	}

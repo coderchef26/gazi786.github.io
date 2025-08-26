@@ -12,24 +12,18 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "posts": {
-          "type": "Group",
+        "title": {
+          "type": "StructuredText",
           "config": {
-            "label": "Posts",
-            "repeat": true,
-            "fields": {
-              "posts": {
-                "type": "Link",
-                "config": {
-                  "label": "Posts",
-                  "select": "document",
-                  "repeat": false,
-                  "customtypes": [
-                    "blogposts"
-                  ]
-                }
-              }
-            }
+            "single": "heading2",
+            "label": "Blog Section Title"
+          }
+        },
+        "description": {
+          "type": "Text",
+          "config": {
+            "label": "Section Description",
+            "placeholder": "Blog section description"
           }
         }
       },

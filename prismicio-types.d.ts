@@ -69,12 +69,23 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
-type BlogDocumentDataSlicesSlice = BlogSlice;
+type BlogDocumentDataSlicesSlice = BlogpostsSlice | BlogSlice;
 
 /**
  * Content for Blog documents
  */
 interface BlogDocumentData {
+  /**
+   * Blog Slug field in *Blog*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog.blog_slug
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  blog_slug: prismic.KeyTextField;
+
   /**
    * Slice Zone field in *Blog*
    *
@@ -129,40 +140,6 @@ interface BlogDocumentData {
  */
 export type BlogDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<BlogDocumentData>, "blog", Lang>;
-
-type BlogpostsDocumentDataSlicesSlice = BlogpostsSlice;
-
-/**
- * Content for BlogPosts documents
- */
-interface BlogpostsDocumentData {
-  /**
-   * Slice Zone field in *BlogPosts*
-   *
-   * - **Field Type**: Slice Zone
-   * - **Placeholder**: *None*
-   * - **API ID Path**: blogposts.slices[]
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/slices
-   */
-  slices: prismic.SliceZone<BlogpostsDocumentDataSlicesSlice>;
-}
-
-/**
- * BlogPosts document from Prismic
- *
- * - **API ID**: `blogposts`
- * - **Repeatable**: `true`
- * - **Documentation**: https://prismic.io/docs/content-modeling
- *
- * @typeParam Lang - Language API ID of the document.
- */
-export type BlogpostsDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithUID<
-    Simplify<BlogpostsDocumentData>,
-    "blogposts",
-    Lang
-  >;
 
 type ContactPageDocumentDataSlicesSlice = ContactSlice;
 
@@ -469,7 +446,6 @@ export type SettingsDocument<Lang extends string = string> =
 
 export type AllDocumentTypes =
   | BlogDocument
-  | BlogpostsDocument
   | ContactPageDocument
   | HomeDocument
   | PageDocument
@@ -518,33 +494,28 @@ type AboutSliceVariation = AboutSliceDefault;
 export type AboutSlice = prismic.SharedSlice<"about", AboutSliceVariation>;
 
 /**
- * Item in *Blog → Default → Primary → Posts*
- */
-export interface BlogSliceDefaultPrimaryPostsItem {
-  /**
-   * Posts field in *Blog → Default → Primary → Posts*
-   *
-   * - **Field Type**: Content Relationship
-   * - **Placeholder**: *None*
-   * - **API ID Path**: blog.default.primary.posts[].posts
-   * - **Documentation**: https://prismic.io/docs/fields/content-relationship
-   */
-  posts: prismic.ContentRelationshipField<"blogposts">;
-}
-
-/**
  * Primary content in *Blog → Default → Primary*
  */
 export interface BlogSliceDefaultPrimary {
   /**
-   * Posts field in *Blog → Default → Primary*
+   * Blog Section Title field in *Blog → Default → Primary*
    *
-   * - **Field Type**: Group
+   * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: blog.default.primary.posts[]
-   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   * - **API ID Path**: blog.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
-  posts: prismic.GroupField<Simplify<BlogSliceDefaultPrimaryPostsItem>>;
+  title: prismic.RichTextField;
+
+  /**
+   * Section Description field in *Blog → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Blog section description
+   * - **API ID Path**: blog.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  description: prismic.KeyTextField;
 }
 
 /**
@@ -573,21 +544,6 @@ type BlogSliceVariation = BlogSliceDefault;
  * - **Documentation**: https://prismic.io/docs/slices
  */
 export type BlogSlice = prismic.SharedSlice<"blog", BlogSliceVariation>;
-
-/**
- * Item in *BlogPosts → Default → Primary → Tags*
- */
-export interface BlogpostsSliceDefaultPrimaryTagsItem {
-  /**
-   * Tag field in *BlogPosts → Default → Primary → Tags*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: blogposts.default.primary.tags[].tag
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  tag: prismic.KeyTextField;
-}
 
 /**
  * Primary content in *BlogPosts → Default → Primary*
@@ -626,12 +582,12 @@ export interface BlogpostsSliceDefaultPrimary {
   /**
    * Tags field in *BlogPosts → Default → Primary*
    *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: blogposts.default.primary.tags[]
-   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   * - **Field Type**: Text
+   * - **Placeholder**: Tag1, Tag2, Tag3
+   * - **API ID Path**: blogposts.default.primary.tags
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
-  tags: prismic.GroupField<Simplify<BlogpostsSliceDefaultPrimaryTagsItem>>;
+  tags: prismic.KeyTextField;
 
   /**
    * Publish Date field in *BlogPosts → Default → Primary*
@@ -645,6 +601,71 @@ export interface BlogpostsSliceDefaultPrimary {
 }
 
 /**
+ * Primary content in *BlogPosts → Items*
+ */
+export interface BlogpostsSliceDefaultItem {
+  /**
+   * Post Title field in *BlogPosts → Items*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogposts.items[].post_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  post_title: prismic.KeyTextField;
+
+  /**
+   * Post Excerpt field in *BlogPosts → Items*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogposts.items[].post_excerpt
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  post_excerpt: prismic.KeyTextField;
+
+  /**
+   * Post Content field in *BlogPosts → Items*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogposts.items[].post_content
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  post_content: prismic.RichTextField;
+
+  /**
+   * Post Tags field in *BlogPosts → Items*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Tag1, Tag2, Tag3
+   * - **API ID Path**: blogposts.items[].post_tags
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  post_tags: prismic.KeyTextField;
+
+  /**
+   * Publish Date field in *BlogPosts → Items*
+   *
+   * - **Field Type**: Date
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogposts.items[].publish_date
+   * - **Documentation**: https://prismic.io/docs/fields/date
+   */
+  publish_date: prismic.DateField;
+
+  /**
+   * Featured Image field in *BlogPosts → Items*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogposts.items[].featured_image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  featured_image: prismic.ImageField<never>;
+}
+
+/**
  * Default variation for BlogPosts Slice
  *
  * - **API ID**: `default`
@@ -654,7 +675,7 @@ export interface BlogpostsSliceDefaultPrimary {
 export type BlogpostsSliceDefault = prismic.SharedSliceVariation<
   "default",
   Simplify<BlogpostsSliceDefaultPrimary>,
-  never
+  Simplify<BlogpostsSliceDefaultItem>
 >;
 
 /**
@@ -675,220 +696,6 @@ export type BlogpostsSlice = prismic.SharedSlice<
 >;
 
 /**
- * Default variation for CertificationCollection Slice
- *
- * - **API ID**: `default`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type CertificationCollectionSliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Record<string, never>,
-  never
->;
-
-/**
- * Slice variation for *CertificationCollection*
- */
-type CertificationCollectionSliceVariation =
-  CertificationCollectionSliceDefault;
-
-/**
- * CertificationCollection Shared Slice
- *
- * - **API ID**: `certification_collection`
- * - **Description**: CertificationCollection
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type CertificationCollectionSlice = prismic.SharedSlice<
-  "certification_collection",
-  CertificationCollectionSliceVariation
->;
-
-/**
- * Item in *Certifications → Default → Primary → Certification*
- */
-export interface CertificationsSliceDefaultPrimaryCertificationItem {}
-
-/**
- * Primary content in *Certifications → Default → Primary*
- */
-export interface CertificationsSliceDefaultPrimary {
-  /**
-   * Certification field in *Certifications → Default → Primary*
-   *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: certifications.default.primary.certification[]
-   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
-   */
-  certification: prismic.GroupField<
-    Simplify<CertificationsSliceDefaultPrimaryCertificationItem>
-  >;
-
-  /**
-   * Cert Name field in *Certifications → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: Certification title
-   * - **API ID Path**: certifications.default.primary.cert_name
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  cert_name: prismic.KeyTextField;
-
-  /**
-   * Cert Acronym field in *Certifications → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: e.g., "AWS SAA"
-   * - **API ID Path**: certifications.default.primary.cert_acronym
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  cert_acronym: prismic.KeyTextField;
-
-  /**
-   * Issuing Organization field in *Certifications → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: e.g., "Amazon Web Services"
-   * - **API ID Path**: certifications.default.primary.issuing_organization
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  issuing_organization: prismic.KeyTextField;
-
-  /**
-   * Issuer Logo field in *Certifications → Default → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: certifications.default.primary.issuer_logo
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  issuer_logo: prismic.ImageField<never>;
-
-  /**
-   * Cert Type field in *Certifications → Default → Primary*
-   *
-   * - **Field Type**: Select
-   * - **Placeholder**: *None*
-   * - **API ID Path**: certifications.default.primary.cert_type
-   * - **Documentation**: https://prismic.io/docs/fields/select
-   */
-  cert_type: prismic.SelectField<
-    "Certification" | "License" | "Badge" | "Credentials (Micro)"
-  >;
-
-  /**
-   * Cert Level field in *Certifications → Default → Primary*
-   *
-   * - **Field Type**: Select
-   * - **Placeholder**: *None*
-   * - **API ID Path**: certifications.default.primary.cert_level
-   * - **Documentation**: https://prismic.io/docs/fields/select
-   */
-  cert_level: prismic.SelectField<
-    "Foundational" | "Associate" | "Professional" | "Expert" | "Specialty"
-  >;
-
-  /**
-   * Issue Date field in *Certifications → Default → Primary*
-   *
-   * - **Field Type**: Date
-   * - **Placeholder**: When earned
-   * - **API ID Path**: certifications.default.primary.issue_date
-   * - **Documentation**: https://prismic.io/docs/fields/date
-   */
-  issue_date: prismic.DateField;
-
-  /**
-   * Expiry Date field in *Certifications → Default → Primary*
-   *
-   * - **Field Type**: Date
-   * - **Placeholder**: When it expires (if applicable)
-   * - **API ID Path**: certifications.default.primary.expiry_date
-   * - **Documentation**: https://prismic.io/docs/fields/date
-   */
-  expiry_date: prismic.DateField;
-
-  /**
-   * Is Lifetime field in *Certifications → Default → Primary*
-   *
-   * - **Field Type**: Boolean
-   * - **Placeholder**: *None*
-   * - **Default Value**: false
-   * - **API ID Path**: certifications.default.primary.is_lifetime
-   * - **Documentation**: https://prismic.io/docs/fields/boolean
-   */
-  is_lifetime: prismic.BooleanField;
-
-  /**
-   * Credential ID field in *Certifications → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: Certificate number
-   * - **API ID Path**: certifications.default.primary.credential_id
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  credential_id: prismic.KeyTextField;
-
-  /**
-   * Verification URL field in *Certifications → Default → Primary*
-   *
-   * - **Field Type**: Link
-   * - **Placeholder**: Where to verify
-   * - **API ID Path**: certifications.default.primary.verification_url
-   * - **Documentation**: https://prismic.io/docs/fields/link
-   */
-  verification_url: prismic.LinkField<
-    string,
-    string,
-    unknown,
-    prismic.FieldState,
-    never
-  >;
-
-  /**
-   * Certificate Image field in *Certifications → Default → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: certifications.default.primary.certificate_image
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  certificate_image: prismic.ImageField<"certificate">;
-
-  /**
-   * Voice Summary field in *Certifications → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: One-sentence description for voice
-   * - **API ID Path**: certifications.default.primary.voice_summary
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  voice_summary: prismic.KeyTextField;
-
-  /**
-   * Achievement Keywords field in *Certifications → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: For search/voice commands
-   * - **API ID Path**: certifications.default.primary.achievement_keywords
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  achievement_keywords: prismic.KeyTextField;
-
-  /**
-   * Credential Importance field in *Certifications → Default → Primary*
-   *
-   * - **Field Type**: Number
-   * - **Placeholder**: 1-10 for AI prioritization
-   * - **API ID Path**: certifications.default.primary.credential_importance
-   * - **Documentation**: https://prismic.io/docs/fields/number
-   */
-  credential_importance: prismic.NumberField;
-}
-
-/**
  * Default variation for Certifications Slice
  *
  * - **API ID**: `default`
@@ -897,7 +704,7 @@ export interface CertificationsSliceDefaultPrimary {
  */
 export type CertificationsSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Simplify<CertificationsSliceDefaultPrimary>,
+  Record<string, never>,
   never
 >;
 
@@ -984,62 +791,70 @@ export type ContactSlice = prismic.SharedSlice<
 >;
 
 /**
- * Item in *Education → Default → Primary → Education*
- */
-export interface EducationSliceDefaultPrimaryEducationItem {}
-
-/**
  * Primary content in *Education → Default → Primary*
  */
 export interface EducationSliceDefaultPrimary {
   /**
-   * Education field in *Education → Default → Primary*
+   * Section Title field in *Education → Default → Primary*
    *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: education.default.primary.education[]
-   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   * - **Field Type**: Text
+   * - **Placeholder**: Education
+   * - **API ID Path**: education.default.primary.section_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
-  education: prismic.GroupField<
-    Simplify<EducationSliceDefaultPrimaryEducationItem>
-  >;
+  section_title: prismic.KeyTextField;
 
   /**
-   * Institution Name field in *Education → Default → Primary*
+   * Section Description field in *Education → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: My educational background and qualifications
+   * - **API ID Path**: education.default.primary.section_description
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_description: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *Education → Items*
+ */
+export interface EducationSliceDefaultItem {
+  /**
+   * Institution Name field in *Education → Items*
    *
    * - **Field Type**: Text
    * - **Placeholder**: University/School name
-   * - **API ID Path**: education.default.primary.institution_name
+   * - **API ID Path**: education.items[].institution_name
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   institution_name: prismic.KeyTextField;
 
   /**
-   * Institution Logo field in *Education → Default → Primary*
+   * Institution Logo field in *Education → Items*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: education.default.primary.institution_logo
+   * - **API ID Path**: education.items[].institution_logo
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   institution_logo: prismic.ImageField<never>;
 
   /**
-   * Institution Location field in *Education → Default → Primary*
+   * Institution Location field in *Education → Items*
    *
    * - **Field Type**: Text
    * - **Placeholder**: City, Country
-   * - **API ID Path**: education.default.primary.institution_location
+   * - **API ID Path**: education.items[].institution_location
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   institution_location: prismic.KeyTextField;
 
   /**
-   * Degree Type field in *Education → Default → Primary*
+   * Degree Type field in *Education → Items*
    *
    * - **Field Type**: Select
    * - **Placeholder**: *None*
-   * - **API ID Path**: education.default.primary.degree_type
+   * - **API ID Path**: education.items[].degree_type
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   degree_type: prismic.SelectField<
@@ -1047,127 +862,125 @@ export interface EducationSliceDefaultPrimary {
   >;
 
   /**
-   * Degree Tilte field in *Education → Default → Primary*
+   * Degree Title field in *Education → Items*
    *
    * - **Field Type**: Text
    * - **Placeholder**: e.g., "Bachelor of Computer Science"
-   * - **API ID Path**: education.default.primary.degree_tilte
+   * - **API ID Path**: education.items[].degree_title
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
-  degree_tilte: prismic.KeyTextField;
+  degree_title: prismic.KeyTextField;
 
   /**
-   * Field of Study field in *Education → Default → Primary*
+   * Field of Study field in *Education → Items*
    *
    * - **Field Type**: Text
    * - **Placeholder**: e.g., "Software Engineering"
-   * - **API ID Path**: education.default.primary.field_of_study
+   * - **API ID Path**: education.items[].field_of_study
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   field_of_study: prismic.KeyTextField;
 
   /**
-   * Start Date field in *Education → Default → Primary*
+   * Start Date field in *Education → Items*
    *
    * - **Field Type**: Date
    * - **Placeholder**: *None*
-   * - **API ID Path**: education.default.primary.start_date
+   * - **API ID Path**: education.items[].start_date
    * - **Documentation**: https://prismic.io/docs/fields/date
    */
   start_date: prismic.DateField;
 
   /**
-   * End Date field in *Education → Default → Primary*
+   * End Date field in *Education → Items*
    *
    * - **Field Type**: Date
    * - **Placeholder**: Leave empty if ongoing
-   * - **API ID Path**: education.default.primary.end_date
+   * - **API ID Path**: education.items[].end_date
    * - **Documentation**: https://prismic.io/docs/fields/date
    */
   end_date: prismic.DateField;
 
   /**
-   * Is Current field in *Education → Default → Primary*
+   * Is Current field in *Education → Items*
    *
    * - **Field Type**: Boolean
    * - **Placeholder**: *None*
    * - **Default Value**: false
-   * - **API ID Path**: education.default.primary.is_current
+   * - **API ID Path**: education.items[].is_current
    * - **Documentation**: https://prismic.io/docs/fields/boolean
    */
   is_current: prismic.BooleanField;
 
   /**
-   * Graduation Year field in *Education → Default → Primary*
+   * Graduation Year field in *Education → Items*
    *
    * - **Field Type**: Text
    * - **Placeholder**: e.g., "2022"
-   * - **API ID Path**: education.default.primary.graduation_year
+   * - **API ID Path**: education.items[].graduation_year
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   graduation_year: prismic.KeyTextField;
 
   /**
-   * GPA Score field in *Education → Default → Primary*
+   * GPA Score field in *Education → Items*
    *
    * - **Field Type**: Text
    * - **Placeholder**: GPA/Percentage/Grade
-   * - **API ID Path**: education.default.primary.gpa_score
+   * - **API ID Path**: education.items[].gpa_score
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   gpa_score: prismic.KeyTextField;
 
   /**
-   * Thesis Title field in *Education → Default → Primary*
+   * Thesis Title field in *Education → Items*
    *
    * - **Field Type**: Text
    * - **Placeholder**: Final year project/thesis
-   * - **API ID Path**: education.default.primary.thesis_title
+   * - **API ID Path**: education.items[].thesis_title
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   thesis_title: prismic.KeyTextField;
 
   /**
-   * Thesis Description field in *Education → Default → Primary*
+   * Thesis Description field in *Education → Items*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: Brief description
-   * - **API ID Path**: education.default.primary.thesis_description
+   * - **API ID Path**: education.items[].thesis_description
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   thesis_description: prismic.RichTextField;
 
   /**
-   * Relevant Coursework field in *Education → Default → Primary*
-   *
-   * - **Field Type**: Select
-   * - **Placeholder**: *None*
-   * - **API ID Path**: education.default.primary.relevant_coursework
-   * - **Documentation**: https://prismic.io/docs/fields/select
-   */
-  relevant_coursework: prismic.SelectField<
-    "Course Name" | "Course Code" | "Grade"
-  >;
-
-  /**
-   * Key Achievements field in *Education → Default → Primary*
+   * Key Achievements field in *Education → Items*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: Academic achievements
-   * - **API ID Path**: education.default.primary.key_achievements
+   * - **API ID Path**: education.items[].key_achievements
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   key_achievements: prismic.RichTextField;
 
   /**
-   * Extracurriculars field in *Education → Default → Primary*
+   * Extracurriculars field in *Education → Items*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: Clubs, societies, activities
-   * - **API ID Path**: education.default.primary.extracurriculars
+   * - **API ID Path**: education.items[].extracurriculars
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   extracurriculars: prismic.RichTextField;
+
+  /**
+   * Relevant Coursework field in *Education → Items*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Key subjects studied
+   * - **API ID Path**: education.items[].relevant_coursework
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  relevant_coursework: prismic.KeyTextField;
 }
 
 /**
@@ -1180,7 +993,7 @@ export interface EducationSliceDefaultPrimary {
 export type EducationSliceDefault = prismic.SharedSliceVariation<
   "default",
   Simplify<EducationSliceDefaultPrimary>,
-  never
+  Simplify<EducationSliceDefaultItem>
 >;
 
 /**
@@ -1201,129 +1014,60 @@ export type EducationSlice = prismic.SharedSlice<
 >;
 
 /**
- * Default variation for EducationCollection Slice
- *
- * - **API ID**: `default`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type EducationCollectionSliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Record<string, never>,
-  never
->;
-
-/**
- * Slice variation for *EducationCollection*
- */
-type EducationCollectionSliceVariation = EducationCollectionSliceDefault;
-
-/**
- * EducationCollection Shared Slice
- *
- * - **API ID**: `education_collection`
- * - **Description**: EducationCollection
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type EducationCollectionSlice = prismic.SharedSlice<
-  "education_collection",
-  EducationCollectionSliceVariation
->;
-
-/**
- * Item in *Experience → Default → Primary → Experience*
- */
-export interface ExperienceSliceDefaultPrimaryExperienceItem {}
-
-/**
- * Item in *Experience → Default → Primary → Key Achievements*
- */
-export interface ExperienceSliceDefaultPrimaryKeyAchievementsItem {
-  /**
-   * Achievement Title field in *Experience → Default → Primary → Key Achievements*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: experience.default.primary.key_achievements[].achievement_title
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  achievement_title: prismic.KeyTextField;
-
-  /**
-   * Achievement Description field in *Experience → Default → Primary → Key Achievements*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: experience.default.primary.key_achievements[].achievement_description
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  achievement_description: prismic.RichTextField;
-
-  /**
-   * Metric Value field in *Experience → Default → Primary → Key Achievements*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: e.g., "40% improvement"
-   * - **API ID Path**: experience.default.primary.key_achievements[].metric_value
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  metric_value: prismic.KeyTextField;
-
-  /**
-   * Impact Area field in *Experience → Default → Primary → Key Achievements*
-   *
-   * - **Field Type**: Select
-   * - **Placeholder**: *None*
-   * - **API ID Path**: experience.default.primary.key_achievements[].impact_area
-   * - **Documentation**: https://prismic.io/docs/fields/select
-   */
-  impact_area: prismic.SelectField<
-    "Revenue" | "Cost" | "Efficiency" | "Quality" | "User-experience"
-  >;
-}
-
-/**
  * Primary content in *Experience → Default → Primary*
  */
 export interface ExperienceSliceDefaultPrimary {
   /**
-   * Experience field in *Experience → Default → Primary*
+   * Section Title field in *Experience → Default → Primary*
    *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: experience.default.primary.experience[]
-   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   * - **Field Type**: Text
+   * - **Placeholder**: Experience
+   * - **API ID Path**: experience.default.primary.section_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
-  experience: prismic.GroupField<
-    Simplify<ExperienceSliceDefaultPrimaryExperienceItem>
-  >;
+  section_title: prismic.KeyTextField;
 
   /**
-   * Company Name field in *Experience → Default → Primary*
+   * Section Description field in *Experience → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: My professional experience and career journey
+   * - **API ID Path**: experience.default.primary.section_description
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_description: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *Experience → Items*
+ */
+export interface ExperienceSliceDefaultItem {
+  /**
+   * Company Name field in *Experience → Items*
    *
    * - **Field Type**: Text
    * - **Placeholder**: Employer name
-   * - **API ID Path**: experience.default.primary.company_name
+   * - **API ID Path**: experience.items[].company_name
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   company_name: prismic.KeyTextField;
 
   /**
-   * Company Logo field in *Experience → Default → Primary*
+   * Company Logo field in *Experience → Items*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: experience.default.primary.company_logo
+   * - **API ID Path**: experience.items[].company_logo
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   company_logo: prismic.ImageField<never>;
 
   /**
-   * Company Website field in *Experience → Default → Primary*
+   * Company Website field in *Experience → Items*
    *
    * - **Field Type**: Link
    * - **Placeholder**: Company URL
-   * - **API ID Path**: experience.default.primary.company_website
+   * - **API ID Path**: experience.items[].company_website
    * - **Documentation**: https://prismic.io/docs/fields/link
    */
   company_website: prismic.LinkField<
@@ -1335,21 +1079,21 @@ export interface ExperienceSliceDefaultPrimary {
   >;
 
   /**
-   * Company Location field in *Experience → Default → Primary*
+   * Company Location field in *Experience → Items*
    *
    * - **Field Type**: Text
    * - **Placeholder**: City, Country
-   * - **API ID Path**: experience.default.primary.company_location
+   * - **API ID Path**: experience.items[].company_location
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   company_location: prismic.KeyTextField;
 
   /**
-   * Work Type field in *Experience → Default → Primary*
+   * Work Type field in *Experience → Items*
    *
    * - **Field Type**: Select
    * - **Placeholder**: *None*
-   * - **API ID Path**: experience.default.primary.work_type
+   * - **API ID Path**: experience.items[].work_type
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   work_type: prismic.SelectField<
@@ -1364,41 +1108,41 @@ export interface ExperienceSliceDefaultPrimary {
   >;
 
   /**
-   * Work Model field in *Experience → Default → Primary*
+   * Work Model field in *Experience → Items*
    *
    * - **Field Type**: Select
    * - **Placeholder**: *None*
-   * - **API ID Path**: experience.default.primary.work_model
+   * - **API ID Path**: experience.items[].work_model
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   work_model: prismic.SelectField<"Onsite" | "Hybrid" | "Remote">;
 
   /**
-   * Title field in *Experience → Default → Primary*
+   * Job Title field in *Experience → Items*
    *
    * - **Field Type**: Text
    * - **Placeholder**: Your position
-   * - **API ID Path**: experience.default.primary.job_title
+   * - **API ID Path**: experience.items[].job_title
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   job_title: prismic.KeyTextField;
 
   /**
-   * Department field in *Experience → Default → Primary*
+   * Department field in *Experience → Items*
    *
    * - **Field Type**: Text
    * - **Placeholder**: e.g., "Engineering", "Product Development"
-   * - **API ID Path**: experience.default.primary.department
+   * - **API ID Path**: experience.items[].department
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   department: prismic.KeyTextField;
 
   /**
-   * Seniority Level field in *Experience → Default → Primary*
+   * Seniority Level field in *Experience → Items*
    *
    * - **Field Type**: Select
    * - **Placeholder**: *None*
-   * - **API ID Path**: experience.default.primary.seniority_level
+   * - **API ID Path**: experience.items[].seniority_level
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   seniority_level: prismic.SelectField<
@@ -1412,106 +1156,82 @@ export interface ExperienceSliceDefaultPrimary {
   >;
 
   /**
-   * Start Date field in *Experience → Default → Primary*
+   * Start Date field in *Experience → Items*
    *
    * - **Field Type**: Date
    * - **Placeholder**: *None*
-   * - **API ID Path**: experience.default.primary.startdate
+   * - **API ID Path**: experience.items[].start_date
    * - **Documentation**: https://prismic.io/docs/fields/date
    */
-  startdate: prismic.DateField;
+  start_date: prismic.DateField;
 
   /**
-   * End Date field in *Experience → Default → Primary*
+   * End Date field in *Experience → Items*
    *
    * - **Field Type**: Date
-   * - **Placeholder**: *None*
-   * - **API ID Path**: experience.default.primary.enddate
+   * - **Placeholder**: Leave empty if current
+   * - **API ID Path**: experience.items[].end_date
    * - **Documentation**: https://prismic.io/docs/fields/date
    */
-  enddate: prismic.DateField;
+  end_date: prismic.DateField;
 
   /**
-   * Currently Work Here field in *Experience → Default → Primary*
+   * Currently Work Here field in *Experience → Items*
    *
    * - **Field Type**: Boolean
    * - **Placeholder**: *None*
    * - **Default Value**: false
-   * - **API ID Path**: experience.default.primary.is_current
+   * - **API ID Path**: experience.items[].is_current
    * - **Documentation**: https://prismic.io/docs/fields/boolean
    */
   is_current: prismic.BooleanField;
 
   /**
-   * Role Summary field in *Experience → Default → Primary*
+   * Role Summary field in *Experience → Items*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: Brief overview of the role
-   * - **API ID Path**: experience.default.primary.role_summary
+   * - **API ID Path**: experience.items[].role_summary
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   role_summary: prismic.RichTextField;
 
   /**
-   * Key Achievements field in *Experience → Default → Primary*
+   * Key Achievements field in *Experience → Items*
    *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: experience.default.primary.key_achievements[]
-   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Notable accomplishments in this role
+   * - **API ID Path**: experience.items[].key_achievements
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
-  key_achievements: prismic.GroupField<
-    Simplify<ExperienceSliceDefaultPrimaryKeyAchievementsItem>
-  >;
+  key_achievements: prismic.RichTextField;
 
   /**
-   * Projects Delivered field in *Experience → Default → Primary*
+   * Projects Delivered field in *Experience → Items*
    *
    * - **Field Type**: Number
    * - **Placeholder**: Number of projects completed
-   * - **API ID Path**: experience.default.primary.projects_delivered
+   * - **API ID Path**: experience.items[].projects_delivered
    * - **Documentation**: https://prismic.io/docs/fields/number
    */
   projects_delivered: prismic.NumberField;
 
   /**
-   * Skills field in *Experience → Default → Primary*
-   *
-   * - **Field Type**: Link
-   * - **Placeholder**: Link to skills page
-   * - **API ID Path**: experience.default.primary.skills
-   * - **Documentation**: https://prismic.io/docs/fields/link
-   */
-  skills: prismic.Repeatable<
-    prismic.LinkField<string, string, unknown, prismic.FieldState, never>
-  >;
-
-  /**
-   * Voice Summary field in *Experience → Default → Primary*
+   * Technologies Used field in *Experience → Items*
    *
    * - **Field Type**: Text
-   * - **Placeholder**: One-sentence role description
-   * - **API ID Path**: experience.default.primary.voice_summary
+   * - **Placeholder**: Key technologies and tools
+   * - **API ID Path**: experience.items[].technologies_used
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
-  voice_summary: prismic.KeyTextField;
+  technologies_used: prismic.KeyTextField;
 
   /**
-   * Role Keyowords field in *Experience → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: For search/voice commands
-   * - **API ID Path**: experience.default.primary.role_keyowords
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  role_keyowords: prismic.KeyTextField;
-
-  /**
-   * Impact Score field in *Experience → Default → Primary*
+   * Impact Score field in *Experience → Items*
    *
    * - **Field Type**: Number
    * - **Placeholder**: 1-10 for AI prioritization
-   * - **API ID Path**: experience.default.primary.impact_score
+   * - **API ID Path**: experience.items[].impact_score
    * - **Documentation**: https://prismic.io/docs/fields/number
    */
   impact_score: prismic.NumberField;
@@ -1527,7 +1247,7 @@ export interface ExperienceSliceDefaultPrimary {
 export type ExperienceSliceDefault = prismic.SharedSliceVariation<
   "default",
   Simplify<ExperienceSliceDefaultPrimary>,
-  never
+  Simplify<ExperienceSliceDefaultItem>
 >;
 
 /**
@@ -1545,36 +1265,6 @@ type ExperienceSliceVariation = ExperienceSliceDefault;
 export type ExperienceSlice = prismic.SharedSlice<
   "experience",
   ExperienceSliceVariation
->;
-
-/**
- * Default variation for ExperienceCollection Slice
- *
- * - **API ID**: `default`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type ExperienceCollectionSliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Record<string, never>,
-  never
->;
-
-/**
- * Slice variation for *ExperienceCollection*
- */
-type ExperienceCollectionSliceVariation = ExperienceCollectionSliceDefault;
-
-/**
- * ExperienceCollection Shared Slice
- *
- * - **API ID**: `experience_collection`
- * - **Description**: ExperienceCollection
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type ExperienceCollectionSlice = prismic.SharedSlice<
-  "experience_collection",
-  ExperienceCollectionSliceVariation
 >;
 
 /**
@@ -1630,97 +1320,80 @@ type HeroSliceVariation = HeroSliceDefault;
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
 /**
- * Item in *Projects → Default → Primary → Project*
- */
-export interface ProjectsSliceDefaultPrimaryProjectItem {}
-
-/**
- * Item in *Projects → Default → Primary → Technologies*
- */
-export interface ProjectsSliceDefaultPrimaryTechnologiesItem {
-  /**
-   * Tech Name field in *Projects → Default → Primary → Technologies*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.technologies[].tech_name
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  tech_name: prismic.KeyTextField;
-
-  /**
-   * Tech Category field in *Projects → Default → Primary → Technologies*
-   *
-   * - **Field Type**: Select
-   * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.technologies[].tech_category
-   * - **Documentation**: https://prismic.io/docs/fields/select
-   */
-  tech_category: prismic.SelectField<
-    "Frontend" | "Backend" | "Database" | "Dev-Ops"
-  >;
-}
-
-/**
  * Primary content in *Projects → Default → Primary*
  */
 export interface ProjectsSliceDefaultPrimary {
   /**
-   * Project field in *Projects → Default → Primary*
+   * Section Title field in *Projects → Default → Primary*
    *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.project[]
-   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   * - **Field Type**: Text
+   * - **Placeholder**: Projects
+   * - **API ID Path**: projects.default.primary.section_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
-  project: prismic.GroupField<Simplify<ProjectsSliceDefaultPrimaryProjectItem>>;
+  section_title: prismic.KeyTextField;
 
   /**
-   * Project Name field in *Projects → Default → Primary*
+   * Section Description field in *Projects → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: My portfolio of projects and work
+   * - **API ID Path**: projects.default.primary.section_description
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_description: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *Projects → Items*
+ */
+export interface ProjectsSliceDefaultItem {
+  /**
+   * Project Name field in *Projects → Items*
    *
    * - **Field Type**: Text
    * - **Placeholder**: Project name
-   * - **API ID Path**: projects.default.primary.project_title
+   * - **API ID Path**: projects.items[].project_title
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   project_title: prismic.KeyTextField;
 
   /**
-   * Project Slug field in *Projects → Default → Primary*
+   * Project Slug field in *Projects → Items*
    *
    * - **Field Type**: Text
    * - **Placeholder**: URL slug
-   * - **API ID Path**: projects.default.primary.project_slug
+   * - **API ID Path**: projects.items[].project_slug
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   project_slug: prismic.KeyTextField;
 
   /**
-   * Project Tagline field in *Projects → Default → Primary*
+   * Project Tagline field in *Projects → Items*
    *
    * - **Field Type**: Text
    * - **Placeholder**: Short one-liner description
-   * - **API ID Path**: projects.default.primary.project_tagline
+   * - **API ID Path**: projects.items[].project_tagline
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   project_tagline: prismic.KeyTextField;
 
   /**
-   * Project Description field in *Projects → Default → Primary*
+   * Project Description field in *Projects → Items*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: Detailed description
-   * - **API ID Path**: projects.default.primary.project_description
+   * - **API ID Path**: projects.items[].project_description
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   project_description: prismic.RichTextField;
 
   /**
-   * Project Status field in *Projects → Default → Primary*
+   * Project Status field in *Projects → Items*
    *
    * - **Field Type**: Select
    * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.project_status
+   * - **API ID Path**: projects.items[].project_status
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   project_status: prismic.SelectField<
@@ -1728,53 +1401,51 @@ export interface ProjectsSliceDefaultPrimary {
   >;
 
   /**
-   * Start Date field in *Projects → Default → Primary*
+   * Start Date field in *Projects → Items*
    *
    * - **Field Type**: Date
    * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.start_date
+   * - **API ID Path**: projects.items[].start_date
    * - **Documentation**: https://prismic.io/docs/fields/date
    */
   start_date: prismic.DateField;
 
   /**
-   * End Date field in *Projects → Default → Primary*
+   * End Date field in *Projects → Items*
    *
    * - **Field Type**: Date
    * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.end_date
+   * - **API ID Path**: projects.items[].end_date
    * - **Documentation**: https://prismic.io/docs/fields/date
    */
   end_date: prismic.DateField;
 
   /**
-   * Featured Image field in *Projects → Default → Primary*
+   * Featured Image field in *Projects → Items*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.featured_image
+   * - **API ID Path**: projects.items[].featured_image
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   featured_image: prismic.ImageField<never>;
 
   /**
-   * Technologies field in *Projects → Default → Primary*
+   * Technologies Used field in *Projects → Items*
    *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.technologies[]
-   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   * - **Field Type**: Text
+   * - **Placeholder**: React, Node.js, MongoDB
+   * - **API ID Path**: projects.items[].technologies_used
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
-  technologies: prismic.GroupField<
-    Simplify<ProjectsSliceDefaultPrimaryTechnologiesItem>
-  >;
+  technologies_used: prismic.KeyTextField;
 
   /**
-   * Live URL field in *Projects → Default → Primary*
+   * Live URL field in *Projects → Items*
    *
    * - **Field Type**: Link
    * - **Placeholder**: Live demo
-   * - **API ID Path**: projects.default.primary.live_url
+   * - **API ID Path**: projects.items[].live_url
    * - **Documentation**: https://prismic.io/docs/fields/link
    */
   live_url: prismic.LinkField<
@@ -1786,11 +1457,11 @@ export interface ProjectsSliceDefaultPrimary {
   >;
 
   /**
-   * GitHub URL field in *Projects → Default → Primary*
+   * GitHub URL field in *Projects → Items*
    *
    * - **Field Type**: Link
    * - **Placeholder**: Repository
-   * - **API ID Path**: projects.default.primary.github_url
+   * - **API ID Path**: projects.items[].github_url
    * - **Documentation**: https://prismic.io/docs/fields/link
    */
   github_url: prismic.LinkField<
@@ -1802,114 +1473,45 @@ export interface ProjectsSliceDefaultPrimary {
   >;
 
   /**
-   * Client Name field in *Projects → Default → Primary*
+   * Client Name field in *Projects → Items*
    *
    * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.client_name
+   * - **Placeholder**: Client or company name
+   * - **API ID Path**: projects.items[].client_name
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   client_name: prismic.KeyTextField;
 
   /**
-   * Client Industry field in *Projects → Default → Primary*
+   * Is Featured field in *Projects → Items*
    *
-   * - **Field Type**: Text
+   * - **Field Type**: Boolean
    * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.client_industry
-   * - **Documentation**: https://prismic.io/docs/fields/text
+   * - **Default Value**: false
+   * - **API ID Path**: projects.items[].is_featured
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
    */
-  client_industry: prismic.KeyTextField;
+  is_featured: prismic.BooleanField;
 
   /**
-   * Meta Title field in *Projects → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.meta_title
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  meta_title: prismic.KeyTextField;
-
-  /**
-   * Meta Description field in *Projects → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.meta_description
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  meta_description: prismic.KeyTextField;
-
-  /**
-   * OG Image field in *Projects → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.og_image
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  og_image: prismic.KeyTextField;
-
-  /**
-   * Is Featured field in *Projects → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.is_featured
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  is_featured: prismic.KeyTextField;
-
-  /**
-   * Display Order field in *Projects → Default → Primary*
+   * Display Order field in *Projects → Items*
    *
    * - **Field Type**: Number
-   * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.display_order
+   * - **Placeholder**: Sort order
+   * - **API ID Path**: projects.items[].display_order
    * - **Documentation**: https://prismic.io/docs/fields/number
    */
   display_order: prismic.NumberField;
 
   /**
-   * Color Scheme field in *Projects → Default → Primary*
+   * Color Scheme field in *Projects → Items*
    *
    * - **Field Type**: Select
    * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.color_scheme
+   * - **API ID Path**: projects.items[].color_scheme
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   color_scheme: prismic.SelectField<"Cyan" | "Blue" | "Purple" | "Green">;
-
-  /**
-   * Voice Summary field in *Projects → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.voice_summary
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  voice_summary: prismic.KeyTextField;
-
-  /**
-   * AI Keywords field in *Projects → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.ai_keywords
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  ai_keywords: prismic.KeyTextField;
-
-  /**
-   * Accessibility Notes field in *Projects → Default → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: projects.default.primary.accessibility_notes
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  accessibility_notes: prismic.RichTextField;
 }
 
 /**
@@ -1922,7 +1524,7 @@ export interface ProjectsSliceDefaultPrimary {
 export type ProjectsSliceDefault = prismic.SharedSliceVariation<
   "default",
   Simplify<ProjectsSliceDefaultPrimary>,
-  never
+  Simplify<ProjectsSliceDefaultItem>
 >;
 
 /**
@@ -1943,119 +1545,68 @@ export type ProjectsSlice = prismic.SharedSlice<
 >;
 
 /**
- * Default variation for ProjectsCollection Slice
- *
- * - **API ID**: `default`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type ProjectsCollectionSliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Record<string, never>,
-  never
->;
-
-/**
- * Slice variation for *ProjectsCollection*
- */
-type ProjectsCollectionSliceVariation = ProjectsCollectionSliceDefault;
-
-/**
- * ProjectsCollection Shared Slice
- *
- * - **API ID**: `projects_collection`
- * - **Description**: ProjectsCollection
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type ProjectsCollectionSlice = prismic.SharedSlice<
-  "projects_collection",
-  ProjectsCollectionSliceVariation
->;
-
-/**
- * Item in *Skills → Default → Primary → Skill*
- */
-export interface SkillsSliceDefaultPrimarySkillItem {}
-
-/**
- * Item in *Skills → Default → Primary → Related Projects*
- */
-export interface SkillsSliceDefaultPrimaryRelatedProjectsItem {
-  /**
-   * Project Name field in *Skills → Default → Primary → Related Projects*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: skills.default.primary.related_projects[].project_name
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  project_name: prismic.KeyTextField;
-
-  /**
-   * Project Link field in *Skills → Default → Primary → Related Projects*
-   *
-   * - **Field Type**: Link
-   * - **Placeholder**: *None*
-   * - **API ID Path**: skills.default.primary.related_projects[].project_link
-   * - **Documentation**: https://prismic.io/docs/fields/link
-   */
-  project_link: prismic.LinkField<
-    string,
-    string,
-    unknown,
-    prismic.FieldState,
-    never
-  >;
-}
-
-/**
  * Primary content in *Skills → Default → Primary*
  */
 export interface SkillsSliceDefaultPrimary {
   /**
-   * Skill field in *Skills → Default → Primary*
-   *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: skills.default.primary.skill[]
-   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
-   */
-  skill: prismic.GroupField<Simplify<SkillsSliceDefaultPrimarySkillItem>>;
-
-  /**
-   * Skill Name field in *Skills → Default → Primary*
+   * Section Title field in *Skills → Default → Primary*
    *
    * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: skills.default.primary.skill_name
+   * - **Placeholder**: Skills
+   * - **API ID Path**: skills.default.primary.section_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_title: prismic.KeyTextField;
+
+  /**
+   * Section Description field in *Skills → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Technologies and tools I work with
+   * - **API ID Path**: skills.default.primary.section_description
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_description: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *Skills → Items*
+ */
+export interface SkillsSliceDefaultItem {
+  /**
+   * Skill Name field in *Skills → Items*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: JavaScript
+   * - **API ID Path**: skills.items[].skill_name
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   skill_name: prismic.KeyTextField;
 
   /**
-   * Skill Category field in *Skills → Default → Primary*
+   * Skill Category field in *Skills → Items*
    *
    * - **Field Type**: Select
    * - **Placeholder**: *None*
-   * - **API ID Path**: skills.default.primary.skill_category
+   * - **API ID Path**: skills.items[].skill_category
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   skill_category: prismic.SelectField<
     | "Frontend"
     | "Backend"
     | "Database"
-    | "Dev-Ops"
+    | "DevOps"
     | "Tools"
     | "Design"
-    | "Soft-skills"
+    | "Soft Skills"
   >;
 
   /**
-   * Skill Type field in *Skills → Default → Primary*
+   * Skill Type field in *Skills → Items*
    *
    * - **Field Type**: Select
    * - **Placeholder**: *None*
-   * - **API ID Path**: skills.default.primary.skill_type
+   * - **API ID Path**: skills.items[].skill_type
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   skill_type: prismic.SelectField<
@@ -2063,11 +1614,11 @@ export interface SkillsSliceDefaultPrimary {
   >;
 
   /**
-   * Proficiency Level field in *Skills → Default → Primary*
+   * Proficiency Level field in *Skills → Items*
    *
    * - **Field Type**: Select
    * - **Placeholder**: *None*
-   * - **API ID Path**: skills.default.primary.proficiency_level
+   * - **API ID Path**: skills.items[].proficiency_level
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   proficiency_level: prismic.SelectField<
@@ -2075,225 +1626,96 @@ export interface SkillsSliceDefaultPrimary {
   >;
 
   /**
-   * Proficiency Percentage field in *Skills → Default → Primary*
+   * Proficiency Percentage field in *Skills → Items*
    *
    * - **Field Type**: Number
-   * - **Placeholder**: *None*
-   * - **API ID Path**: skills.default.primary.proficiency_percentage
+   * - **Placeholder**: 85
+   * - **API ID Path**: skills.items[].proficiency_percentage
    * - **Documentation**: https://prismic.io/docs/fields/number
    */
   proficiency_percentage: prismic.NumberField;
 
   /**
-   * Years Experience field in *Skills → Default → Primary*
+   * Years Experience field in *Skills → Items*
    *
    * - **Field Type**: Number
-   * - **Placeholder**: *None*
-   * - **API ID Path**: skills.default.primary.years_experience
+   * - **Placeholder**: 3
+   * - **API ID Path**: skills.items[].years_experience
    * - **Documentation**: https://prismic.io/docs/fields/number
    */
   years_experience: prismic.NumberField;
 
   /**
-   * Skill Icon field in *Skills → Default → Primary*
+   * Skill Icon field in *Skills → Items*
    *
    * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: skills.default.primary.skill_icon
+   * - **Placeholder**: devicon-javascript-plain
+   * - **API ID Path**: skills.items[].skill_icon
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   skill_icon: prismic.KeyTextField;
 
   /**
-   * Display Order field in *Skills → Default → Primary*
-   *
-   * - **Field Type**: Number
-   * - **Placeholder**: *None*
-   * - **API ID Path**: skills.default.primary.display_order
-   * - **Documentation**: https://prismic.io/docs/fields/number
-   */
-  display_order: prismic.NumberField;
-
-  /**
-   * Colour Hex field in *Skills → Default → Primary*
+   * Colour Hex field in *Skills → Items*
    *
    * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: skills.default.primary.colour_hex
+   * - **Placeholder**: #F7DF1E
+   * - **API ID Path**: skills.items[].colour_hex
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   colour_hex: prismic.KeyTextField;
 
   /**
-   * Is Featured field in *Skills → Default → Primary*
+   * Is Featured field in *Skills → Items*
    *
    * - **Field Type**: Boolean
    * - **Placeholder**: *None*
    * - **Default Value**: false
-   * - **API ID Path**: skills.default.primary.is_featured
+   * - **API ID Path**: skills.items[].is_featured
    * - **Documentation**: https://prismic.io/docs/fields/boolean
    */
   is_featured: prismic.BooleanField;
 
   /**
-   * Skill Description field in *Skills → Default → Primary*
+   * Skill Description field in *Skills → Items*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: What you can do with this skill
-   * - **API ID Path**: skills.default.primary.skill_description
+   * - **API ID Path**: skills.items[].skill_description
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   skill_description: prismic.RichTextField;
 
   /**
-   * Use Cases field in *Skills → Default → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: How you've applied this skill
-   * - **API ID Path**: skills.default.primary.use_cases
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  use_cases: prismic.RichTextField;
-
-  /**
-   * Certifications field in *Skills → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: Related certifications
-   * - **API ID Path**: skills.default.primary.certifications
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  certifications: prismic.KeyTextField;
-
-  /**
-   * Certification URL field in *Skills → Default → Primary*
-   *
-   * - **Field Type**: Link
-   * - **Placeholder**: Link to certification
-   * - **API ID Path**: skills.default.primary.certification_url
-   * - **Documentation**: https://prismic.io/docs/fields/link
-   */
-  certification_url: prismic.LinkField<
-    string,
-    string,
-    unknown,
-    prismic.FieldState,
-    never
-  >;
-
-  /**
-   * Projects Count field in *Skills → Default → Primary*
+   * Projects Count field in *Skills → Items*
    *
    * - **Field Type**: Number
-   * - **Placeholder**: Number of projects using this skill
-   * - **API ID Path**: skills.default.primary.projects_count
+   * - **Placeholder**: 5
+   * - **API ID Path**: skills.items[].projects_count
    * - **Documentation**: https://prismic.io/docs/fields/number
    */
   projects_count: prismic.NumberField;
 
   /**
-   * Related Projects field in *Skills → Default → Primary*
-   *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: skills.default.primary.related_projects[]
-   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
-   */
-  related_projects: prismic.GroupField<
-    Simplify<SkillsSliceDefaultPrimaryRelatedProjectsItem>
-  >;
-
-  /**
-   * Professional Usage field in *Skills → Default → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: How you've used it professionally
-   * - **API ID Path**: skills.default.primary.professional_usage
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  professional_usage: prismic.RichTextField;
-
-  /**
-   * Learning Source field in *Skills → Default → Primary*
+   * Certifications field in *Skills → Items*
    *
    * - **Field Type**: Text
-   * - **Placeholder**:  Where/how you learned it
-   * - **API ID Path**: skills.default.primary.learning_source
+   * - **Placeholder**: Related certifications
+   * - **API ID Path**: skills.items[].certifications
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
-  learning_source: prismic.KeyTextField;
+  certifications: prismic.KeyTextField;
 
   /**
-   * Currently Learning field in *Skills → Default → Primary*
-   *
-   * - **Field Type**: Boolean
-   * - **Placeholder**: *None*
-   * - **Default Value**: false
-   * - **API ID Path**: skills.default.primary.currently_learning
-   * - **Documentation**: https://prismic.io/docs/fields/boolean
-   */
-  currently_learning: prismic.BooleanField;
-
-  /**
-   * Next Milestone field in *Skills → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: skills.default.primary.next_milestone
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  next_milestone: prismic.KeyTextField;
-
-  /**
-   * Voice Description field in *Skills → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: Short description for voice reading
-   * - **API ID Path**: skills.default.primary.voice_description
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  voice_description: prismic.KeyTextField;
-
-  /**
-   * Skill Keywords field in *Skills → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: Search/voice command keywords
-   * - **API ID Path**: skills.default.primary.skill_keywords
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  skill_keywords: prismic.KeyTextField;
-
-  /**
-   * Importance Rank field in *Skills → Default → Primary*
-   *
-   * - **Field Type**: Number
-   * - **Placeholder**: 1-10 for AI prioritization
-   * - **API ID Path**: skills.default.primary.importance_rank
-   * - **Documentation**: https://prismic.io/docs/fields/number
-   */
-  importance_rank: prismic.NumberField;
-
-  /**
-   * Skill Aliases field in *Skills → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: Alternative names (e.g., "JS" for JavaScript)
-   * - **API ID Path**: skills.default.primary.skill_aliases
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  skill_aliases: prismic.KeyTextField;
-
-  /**
-   * Environment field in *Skills → Default → Primary*
+   * Learning Status field in *Skills → Items*
    *
    * - **Field Type**: Select
    * - **Placeholder**: *None*
-   * - **API ID Path**: skills.default.primary.environment
+   * - **API ID Path**: skills.items[].learning_status
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
-  environment: prismic.SelectField<
-    "Client" | "Server" | "Fullstack" | "Mobile" | "Cloud"
+  learning_status: prismic.SelectField<
+    "Proficient" | "Currently Learning" | "Want to Learn"
   >;
 }
 
@@ -2307,7 +1729,7 @@ export interface SkillsSliceDefaultPrimary {
 export type SkillsSliceDefault = prismic.SharedSliceVariation<
   "default",
   Simplify<SkillsSliceDefaultPrimary>,
-  never
+  Simplify<SkillsSliceDefaultItem>
 >;
 
 /**
@@ -2323,36 +1745,6 @@ type SkillsSliceVariation = SkillsSliceDefault;
  * - **Documentation**: https://prismic.io/docs/slices
  */
 export type SkillsSlice = prismic.SharedSlice<"skills", SkillsSliceVariation>;
-
-/**
- * Default variation for SkillsCollection Slice
- *
- * - **API ID**: `default`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type SkillsCollectionSliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Record<string, never>,
-  never
->;
-
-/**
- * Slice variation for *SkillsCollection*
- */
-type SkillsCollectionSliceVariation = SkillsCollectionSliceDefault;
-
-/**
- * SkillsCollection Shared Slice
- *
- * - **API ID**: `skills_collection`
- * - **Description**: SkillsCollection
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type SkillsCollectionSlice = prismic.SharedSlice<
-  "skills_collection",
-  SkillsCollectionSliceVariation
->;
 
 declare module "@prismicio/client" {
   interface CreateClient {
@@ -2378,9 +1770,6 @@ declare module "@prismicio/client" {
       BlogDocument,
       BlogDocumentData,
       BlogDocumentDataSlicesSlice,
-      BlogpostsDocument,
-      BlogpostsDocumentData,
-      BlogpostsDocumentDataSlicesSlice,
       ContactPageDocument,
       ContactPageDocumentData,
       ContactPageDocumentDataSlicesSlice,
@@ -2399,21 +1788,15 @@ declare module "@prismicio/client" {
       AboutSliceVariation,
       AboutSliceDefault,
       BlogSlice,
-      BlogSliceDefaultPrimaryPostsItem,
       BlogSliceDefaultPrimary,
       BlogSliceVariation,
       BlogSliceDefault,
       BlogpostsSlice,
-      BlogpostsSliceDefaultPrimaryTagsItem,
       BlogpostsSliceDefaultPrimary,
+      BlogpostsSliceDefaultItem,
       BlogpostsSliceVariation,
       BlogpostsSliceDefault,
-      CertificationCollectionSlice,
-      CertificationCollectionSliceVariation,
-      CertificationCollectionSliceDefault,
       CertificationsSlice,
-      CertificationsSliceDefaultPrimaryCertificationItem,
-      CertificationsSliceDefaultPrimary,
       CertificationsSliceVariation,
       CertificationsSliceDefault,
       ContactSlice,
@@ -2421,44 +1804,29 @@ declare module "@prismicio/client" {
       ContactSliceVariation,
       ContactSliceDefault,
       EducationSlice,
-      EducationSliceDefaultPrimaryEducationItem,
       EducationSliceDefaultPrimary,
+      EducationSliceDefaultItem,
       EducationSliceVariation,
       EducationSliceDefault,
-      EducationCollectionSlice,
-      EducationCollectionSliceVariation,
-      EducationCollectionSliceDefault,
       ExperienceSlice,
-      ExperienceSliceDefaultPrimaryExperienceItem,
-      ExperienceSliceDefaultPrimaryKeyAchievementsItem,
       ExperienceSliceDefaultPrimary,
+      ExperienceSliceDefaultItem,
       ExperienceSliceVariation,
       ExperienceSliceDefault,
-      ExperienceCollectionSlice,
-      ExperienceCollectionSliceVariation,
-      ExperienceCollectionSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
       HeroSliceDefault,
       ProjectsSlice,
-      ProjectsSliceDefaultPrimaryProjectItem,
-      ProjectsSliceDefaultPrimaryTechnologiesItem,
       ProjectsSliceDefaultPrimary,
+      ProjectsSliceDefaultItem,
       ProjectsSliceVariation,
       ProjectsSliceDefault,
-      ProjectsCollectionSlice,
-      ProjectsCollectionSliceVariation,
-      ProjectsCollectionSliceDefault,
       SkillsSlice,
-      SkillsSliceDefaultPrimarySkillItem,
-      SkillsSliceDefaultPrimaryRelatedProjectsItem,
       SkillsSliceDefaultPrimary,
+      SkillsSliceDefaultItem,
       SkillsSliceVariation,
       SkillsSliceDefault,
-      SkillsCollectionSlice,
-      SkillsCollectionSliceVariation,
-      SkillsCollectionSliceDefault,
     };
   }
 }

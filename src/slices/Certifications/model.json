@@ -12,148 +12,160 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "certification": {
-          "type": "Group",
-          "config": {
-            "label": "Certification",
-            "repeat": true,
-            "fields": {}
-          }
-        },
-        "cert_name": {
+        "section_title": {
           "type": "Text",
           "config": {
-            "label": "Cert Name",
-            "placeholder": "Certification title"
+            "label": "Section Title",
+            "placeholder": "Certifications"
           }
         },
-        "cert_acronym": {
+        "section_description": {
           "type": "Text",
           "config": {
-            "label": "Cert Acronym",
-            "placeholder": "e.g., \"AWS SAA\""
+            "label": "Section Description",
+            "placeholder": "Professional certifications and credentials"
+          }
+        }
+      },
+      "items": {
+        "certification_name": {
+          "type": "Text",
+          "config": {
+            "label": "Certification Name",
+            "placeholder": "Name of the certification"
+          }
+        },
+        "certification_logo": {
+          "type": "Image",
+          "config": {
+            "label": "Certification Logo",
+            "constraint": {},
+            "thumbnails": []
           }
         },
         "issuing_organization": {
           "type": "Text",
           "config": {
             "label": "Issuing Organization",
-            "placeholder": "e.g., \"Amazon Web Services\""
+            "placeholder": "Organization that issued the certification"
           }
         },
-        "issuer_logo": {
-          "type": "Image",
-          "config": {
-            "label": "Issuer Logo",
-            "constraint": {},
-            "thumbnails": []
-          }
-        },
-        "cert_type": {
-          "type": "Select",
-          "config": {
-            "label": "Cert Type",
-            "placeholder": "",
-            "options": [
-              "Certification",
-              "License",
-              "Badge",
-              "Credentials (Micro)"
-            ]
-          }
-        },
-        "cert_level": {
-          "type": "Select",
-          "config": {
-            "label": "Cert Level",
-            "placeholder": "",
-            "options": [
-              "Foundational",
-              "Associate",
-              "Professional",
-              "Expert",
-              "Specialty"
-            ]
-          }
-        },
-        "issue_date": {
-          "type": "Date",
-          "config": {
-            "label": "Issue Date",
-            "placeholder": "When earned"
-          }
-        },
-        "expiry_date": {
-          "type": "Date",
-          "config": {
-            "label": "Expiry Date",
-            "placeholder": "When it expires (if applicable)"
-          }
-        },
-        "is_lifetime": {
-          "type": "Boolean",
-          "config": {
-            "label": "Is Lifetime",
-            "placeholder_false": "false",
-            "placeholder_true": "true",
-            "default_value": false
-          }
-        },
-        "credential_id": {
-          "type": "Text",
-          "config": {
-            "label": "Credential ID",
-            "placeholder": "Certificate number"
-          }
-        },
-        "verification_url": {
+        "organization_website": {
           "type": "Link",
           "config": {
-            "label": "Verification URL",
-            "placeholder": "Where to verify",
+            "label": "Organization Website",
+            "placeholder": "Issuer's website URL",
             "select": null,
             "allowTargetBlank": true,
             "allowText": true,
             "repeat": false
           }
         },
-        "certificate_image": {
-          "type": "Image",
+        "certification_type": {
+          "type": "Select",
           "config": {
-            "label": "Certificate Image",
-            "constraint": {},
-            "thumbnails": [
-              {
-                "name": "certificate",
-                "width": 1024,
-                "height": 1024
-              }
+            "label": "Certification Type",
+            "placeholder": "",
+            "options": [
+              "Professional",
+              "Technical",
+              "Academic",
+              "Industry",
+              "Vendor-specific",
+              "Government"
             ]
           }
         },
-        "voice_summary": {
+        "credential_id": {
           "type": "Text",
           "config": {
-            "label": "Voice Summary",
-            "placeholder": "One-sentence description for voice"
+            "label": "Credential ID",
+            "placeholder": "Certification ID or badge number"
           }
         },
-        "achievement_keywords": {
+        "issue_date": {
+          "type": "Date",
+          "config": {
+            "label": "Issue Date",
+            "placeholder": ""
+          }
+        },
+        "expiry_date": {
+          "type": "Date",
+          "config": {
+            "label": "Expiry Date",
+            "placeholder": "Leave empty if no expiry"
+          }
+        },
+        "never_expires": {
+          "type": "Boolean",
+          "config": {
+            "label": "Never Expires",
+            "placeholder_false": "false",
+            "placeholder_true": "true",
+            "default_value": false
+          }
+        },
+        "verification_url": {
+          "type": "Link",
+          "config": {
+            "label": "Verification URL",
+            "placeholder": "URL to verify the certification",
+            "select": null,
+            "allowTargetBlank": true,
+            "allowText": true,
+            "repeat": false
+          }
+        },
+        "badge_url": {
+          "type": "Link",
+          "config": {
+            "label": "Badge URL",
+            "placeholder": "URL to digital badge",
+            "select": null,
+            "allowTargetBlank": true,
+            "allowText": true,
+            "repeat": false
+          }
+        },
+        "certification_description": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Certification Description",
+            "placeholder": "What this certification covers",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading6,strong,em,hyperlink,list-item,o-list-item"
+          }
+        },
+        "skills_acquired": {
           "type": "Text",
           "config": {
-            "label": "Achievement Keywords",
-            "placeholder": "For search/voice commands"
+            "label": "Skills Acquired",
+            "placeholder": "Key skills gained from this certification"
           }
         },
-        "credential_importance": {
+        "difficulty_level": {
+          "type": "Select",
+          "config": {
+            "label": "Difficulty Level",
+            "placeholder": "",
+            "options": [
+              "Beginner",
+              "Intermediate",
+              "Advanced",
+              "Expert",
+              "Professional"
+            ]
+          }
+        },
+        "relevance_score": {
           "type": "Number",
           "config": {
-            "label": "Credential Importance",
+            "label": "Relevance Score",
             "placeholder": "1-10 for AI prioritization"
           }
         }
-      },
-      "items": {}
+      }
     }
   ]
 }

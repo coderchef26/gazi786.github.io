@@ -5,101 +5,97 @@ import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { motion } from "framer-motion";
 import { useAtlas } from "@/components/atlas/AtlasProvider";
-import { AnimatedContent } from "./AnimatedContent";
+import Link from "next/link";
 
 /**
  * Props for `Skills`.
  */
-export type SkillsProps = SliceComponentProps<Content.SkillsSlice>;
+export type SkillsProps =
+  SliceComponentProps<Content.SkillsSlice>;
 
-interface SkillData {
-  skill_name: string;
-  skill_category: string;
-  skill_type: string;
-  proficiency_level: string;
-  proficiency_percentage: number;
-  years_experience: number;
+interface SkillItem {
+  skill_name?: string;
+  skill_category?: string;
+  skill_type?: string;
+  proficiency_level?: string;
+  proficiency_percentage?: number;
+  years_experience?: number;
   skill_icon?: string;
   display_order?: number;
   colour_hex?: string;
-  is_featured: boolean;
-  skill_description: any;
+  is_featured?: boolean;
+  skill_description?: any;
+  use_cases?: any;
+  certifications?: string;
+  certification_url?: any;
+  projects_count?: number;
+  related_projects?: Array<{ project_name?: string; project_link?: any }>;
+  professional_usage?: any;
+  learning_source?: string;
+  currently_learning?: boolean;
+  next_milestone?: string;
   voice_description?: string;
   skill_keywords?: string;
   importance_rank?: number;
+  skill_aliases?: string;
   environment?: string;
 }
 
 /**
- * Component for "Skills" Slices - ATLAS Enhanced.
+ * Component for "SkillsCollection" Slices - Collection of Skills with Repeatable Zones.
  */
 const Skills: FC<SkillsProps> = ({ slice }) => {
   const { announce, speak, config } = useAtlas();
-  const [skills, setSkills] = useState<SkillData[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [skills, setSkills] = useState<SkillCollectionItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  // Extract skills from Prismic data structure
+  // Extract skills from Prismic repeatable zones
   useEffect(() => {
-    const extractSkillsData = () => {
-      const skillsData: SkillData[] = [];
+    const extractSkillsFromCollection = () => {
+      const skillsData: SkillCollectionItem[] = [];
       
-      // Handle current individual field structure (temporary until restructure)
-      if (slice.primary && 'skill_name' in slice.primary) {
-        const primaryData = slice.primary as any;
-        if (primaryData.skill_name) {
-          skillsData.push({
-            skill_name: primaryData.skill_name || '',
-            skill_category: primaryData.skill_category || 'General',
-            skill_type: primaryData.skill_type || 'Tool',
-            proficiency_level: primaryData.proficiency_level || 'Intermediate',
-            proficiency_percentage: primaryData.proficiency_percentage || 75,
-            years_experience: primaryData.years_experience || 1,
-            skill_icon: primaryData.skill_icon,
-            display_order: primaryData.display_order || 0,
-            colour_hex: primaryData.colour_hex || '#00d4ff',
-            is_featured: primaryData.is_featured || false,
-            skill_description: primaryData.skill_description,
-            voice_description: primaryData.voice_description,
-            skill_keywords: primaryData.skill_keywords,
-            importance_rank: primaryData.importance_rank || 5,
-            environment: primaryData.environment
-          });
-        }
-      }
-      
-      // Handle future repeatable group structure
-      if (slice.primary && 'skill' in slice.primary && Array.isArray(slice.primary.skill)) {
-        const skillGroups = slice.primary.skill as any[];
-        skillGroups.forEach((skillGroup, index) => {
-          if (skillGroup.skill_name) {
+      // Handle repeatable zones (items array)
+      if (slice.items && Array.isArray(slice.items)) {
+        slice.items.forEach((item: any, index) => {
+          if (item.skill_name) {
             skillsData.push({
-              skill_name: skillGroup.skill_name,
-              skill_category: skillGroup.skill_category || 'General',
-              skill_type: skillGroup.skill_type || 'Tool',
-              proficiency_level: skillGroup.proficiency_level || 'Intermediate',
-              proficiency_percentage: skillGroup.proficiency_percentage || 75,
-              years_experience: skillGroup.years_experience || 1,
-              skill_icon: skillGroup.skill_icon,
-              display_order: skillGroup.display_order || index,
-              colour_hex: skillGroup.colour_hex || '#00d4ff',
-              is_featured: skillGroup.is_featured || false,
-              skill_description: skillGroup.skill_description,
-              voice_description: skillGroup.voice_description,
-              skill_keywords: skillGroup.skill_keywords,
-              importance_rank: skillGroup.importance_rank || 5,
-              environment: skillGroup.environment
+              skill_name: item.skill_name,
+              skill_category: item.skill_category,
+              skill_type: item.skill_type,
+              proficiency_level: item.proficiency_level,
+              proficiency_percentage: item.proficiency_percentage,
+              years_experience: item.years_experience,
+              skill_icon: item.skill_icon,
+              display_order: item.display_order || index,
+              colour_hex: item.colour_hex,
+              is_featured: item.is_featured === true,
+              skill_description: item.skill_description,
+              use_cases: item.use_cases,
+              certifications: item.certifications,
+              certification_url: item.certification_url,
+              projects_count: item.projects_count,
+              related_projects: item.related_projects || [],
+              professional_usage: item.professional_usage,
+              learning_source: item.learning_source,
+              currently_learning: item.currently_learning === true,
+              next_milestone: item.next_milestone,
+              voice_description: item.voice_description,
+              skill_keywords: item.skill_keywords,
+              importance_rank: item.importance_rank,
+              skill_aliases: item.skill_aliases,
+              environment: item.environment
             });
           }
         });
       }
       
-      // Sort by importance rank and display order
+      // Sort by featured status, importance rank, and display order
       skillsData.sort((a, b) => {
-        const importanceA = a.importance_rank || 5;
-        const importanceB = b.importance_rank || 5;
-        if (importanceA !== importanceB) {
-          return importanceB - importanceA; // Higher importance first
+        if (a.is_featured && !b.is_featured) return -1;
+        if (!a.is_featured && b.is_featured) return 1;
+        if ((a.importance_rank || 0) !== (b.importance_rank || 0)) {
+          return (b.importance_rank || 0) - (a.importance_rank || 0);
         }
         return (a.display_order || 0) - (b.display_order || 0);
       });
@@ -108,85 +104,89 @@ const Skills: FC<SkillsProps> = ({ slice }) => {
       setIsLoading(false);
     };
 
-    extractSkillsData();
+    extractSkillsFromCollection();
   }, [slice]);
 
   // Announce section when loaded and setup voice commands
   useEffect(() => {
     if (!isLoading && skills.length > 0) {
       const skillCount = skills.length;
-      const categories = [...new Set(skills.map(s => s.skill_category))];
-      const message = `Skills section loaded. ${skillCount} skills across ${categories.length} categories: ${categories.join(', ')}.`;
+      const featuredCount = skills.filter(s => s.is_featured).length;
+      const categories = [...new Set(skills.map(s => s.skill_category))].filter(Boolean);
+      const message = `Skills collection loaded. ${skillCount} skills across ${categories.length} categories${featuredCount > 0 ? `, including ${featuredCount} featured skills` : ''}.`;
       
       announce(message);
       
       if (config.assistant.autoSpeak) {
-        speak(`Here are my technical skills and expertise areas. I have ${skillCount} skills across ${categories.length} main categories.`);
+        speak(`Skills collection showcasing ${skillCount} technical competencies across ${categories.length} different categories including ${categories.slice(0, 3).join(', ')}.`);
       }
 
-      // Register voice commands for skills
-      const registerSkillCommands = () => {
-        categories.forEach(category => {
-          // Voice commands for skill categories
-          const commands = [
-            `show me ${category} skills`,
-            `tell me about ${category}`,
-            `${category} expertise`,
-            `what ${category} skills do you have`
-          ];
-        });
-
-        skills.forEach(skill => {
-          // Voice commands for individual skills
-          const skillCommands = [
-            `tell me about ${skill.skill_name}`,
-            `how good are you at ${skill.skill_name}`,
-            `${skill.skill_name} proficiency`
-          ];
-        });
-      };
-
-      registerSkillCommands();
+      // Register voice commands for collection skills
+      skills.forEach((skill, index) => {
+        const commands = [
+          `show me ${skill.skill_name}`,
+          `tell me about ${skill.skill_name}`,
+          `skill ${index + 1}`,
+        ];
+        if (skill.skill_aliases) {
+          commands.push(`show me ${skill.skill_aliases}`);
+        }
+      });
     }
   }, [isLoading, skills, announce, speak, config.assistant.autoSpeak]);
 
-  // Filter skills by category
-  const filteredSkills = selectedCategory === 'all' 
-    ? skills 
-    : skills.filter(skill => skill.skill_category === selectedCategory);
-
-  // Get unique categories for filter
-  const categories = ['all', ...new Set(skills.map(s => s.skill_category))];
-
   // Handle skill interaction
-  const handleSkillClick = (skill: SkillData) => {
+  const handleSkillClick = (skill: SkillCollectionItem) => {
     const voiceMsg = skill.voice_description || 
-      `${skill.skill_name}: ${skill.proficiency_level} level with ${skill.years_experience} years experience. ${skill.proficiency_percentage}% proficiency.`;
+      `${skill.skill_name}: ${skill.proficiency_level || 'Skilled'} level with ${skill.years_experience || 'extensive'} years experience.`;
     
-    announce(`Selected ${skill.skill_name}. ${voiceMsg}`);
+    announce(`Selected ${skill.skill_name} from skills collection. ${voiceMsg}`);
     
     if (config.assistant.autoSpeak) {
       speak(voiceMsg);
     }
   };
 
-  // Handle category filter
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category);
-    const message = category === 'all' 
-      ? 'Showing all skills'
-      : `Filtered to ${category} skills`;
-    
-    announce(message);
+  // Get unique categories for filtering
+  const allCategories = [...new Set(skills.map(s => s.skill_category))].filter(Boolean);
+
+  // Filter skills by category
+  const filteredSkills = selectedCategory === 'all' 
+    ? skills 
+    : skills.filter(skill => skill.skill_category === selectedCategory);
+
+  // Get proficiency color
+  const getProficiencyColor = (level: string) => {
+    switch (level?.toLowerCase()) {
+      case 'expert': return 'from-green-500 to-emerald-500';
+      case 'advanced': return 'from-blue-500 to-cyan-500';
+      case 'intermediate': return 'from-yellow-500 to-orange-500';
+      case 'beginner': return 'from-red-500 to-pink-500';
+      default: return 'from-gray-500 to-slate-500';
+    }
+  };
+
+  // Get category color
+  const getCategoryColor = (category: string) => {
+    const colors = {
+      'Frontend': 'bg-blue-500/20 text-blue-400 border-blue-500/30',
+      'Backend': 'bg-green-500/20 text-green-400 border-green-500/30',
+      'Database': 'bg-purple-500/20 text-purple-400 border-purple-500/30',
+      'Dev-Ops': 'bg-orange-500/20 text-orange-400 border-orange-500/30',
+      'Tools': 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+      'Design': 'bg-pink-500/20 text-pink-400 border-pink-500/30',
+      'Soft-skills': 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30'
+    };
+    return colors[category as keyof typeof colors] || 'bg-slate-500/20 text-slate-400 border-slate-500/30';
   };
 
   if (isLoading) {
     return (
-      <section className="py-20 bg-gradient-to-b from-slate-900 to-slate-800">
+      <section className="py-20 bg-gradient-to-b from-slate-800 to-slate-900">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400"></div>
-            <span className="ml-4 text-cyan-400">Loading skills matrix...</span>
+            <span className="ml-4 text-cyan-400">Loading skills collection...</span>
           </div>
         </div>
       </section>
@@ -194,186 +194,282 @@ const Skills: FC<SkillsProps> = ({ slice }) => {
   }
 
   return (
-    <AnimatedContent>
-      <section
-        data-slice-type={slice.slice_type}
-        data-slice-variation={slice.variation}
-        className="py-20 bg-gradient-to-b from-slate-900 to-slate-800 relative overflow-hidden"
-        aria-labelledby="skills-heading"
+    <section
+      data-slice-type={slice.slice_type}
+      data-slice-variation={slice.variation}
+      className="py-20 bg-gradient-to-b from-slate-800 to-slate-900 relative overflow-hidden"
+      aria-labelledby="skills-collection-heading"
+    >
+      {/* Skip Link */}
+      <a 
+        href="#next-section" 
+        className="atlas-skip-link"
+        onClick={() => announce('Navigating to next section')}
       >
-        {/* Skip Link */}
-        <a 
-          href="#projects" 
-          className="atlas-skip-link"
-          onClick={() => announce('Navigating to projects section')}
+        Skip skills collection
+      </a>
+
+      <div className="container mx-auto px-4">
+        {/* Collection Header */}
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
-          Skip to projects
-        </a>
-
-        <div className="container mx-auto px-4">
-          {/* Section Header */}
-          <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+          <h2 
+            id="skills-collection-heading"
+            className="text-4xl md:text-5xl font-bold text-white mb-6 font-orbitron"
           >
-            <h2 
-              id="skills-heading"
-              className="text-4xl md:text-5xl font-bold text-white mb-6 font-orbitron"
-            >
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                Skills Matrix
-              </span>
-            </h2>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-              Technical expertise and proficiency levels across multiple domains
-            </p>
-          </motion.div>
+            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              Technical Skills Collection
+            </span>
+          </h2>
+          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            A comprehensive collection of technical competencies and professional expertise
+          </p>
+        </motion.div>
 
-          {/* Category Filters */}
+        {/* Category Filters */}
+        {allCategories.length > 0 && (
           <motion.div 
             className="flex flex-wrap justify-center gap-4 mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => handleCategoryChange(category)}
-                className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
-                  selectedCategory === category
-                    ? 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/25'
-                    : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-cyan-400'
-                }`}
-                aria-pressed={selectedCategory === category}
-                aria-label={`Filter skills by ${category === 'all' ? 'all categories' : category}`}
-              >
-                {category === 'all' ? 'All Skills' : category}
-              </button>
-            ))}
+            <button
+              onClick={() => setSelectedCategory('all')}
+              className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                selectedCategory === 'all'
+                  ? 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/25'
+                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-cyan-400'
+              }`}
+              aria-pressed={selectedCategory === 'all'}
+            >
+              All Skills ({skills.length})
+            </button>
+            {allCategories.map((category) => {
+              const categoryCount = skills.filter(s => s.skill_category === category).length;
+              return (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category || 'all')}
+                  className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                    selectedCategory === category
+                      ? 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/25'
+                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-cyan-400'
+                  }`}
+                  aria-pressed={selectedCategory === category}
+                >
+                  {category} ({categoryCount})
+                </button>
+              );
+            })}
           </motion.div>
+        )}
 
-          {/* Skills Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredSkills.map((skill, index) => (
-              <motion.div
-                key={`${skill.skill_name}-${index}`}
-                className={`relative group cursor-pointer ${
-                  skill.is_featured ? 'md:col-span-2 lg:col-span-1' : ''
-                }`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ scale: 1.02 }}
-                onClick={() => handleSkillClick(skill)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    handleSkillClick(skill);
-                  }
-                }}
-                tabIndex={0}
-                role="button"
-                aria-label={`Skill: ${skill.skill_name}. ${skill.proficiency_level} level.`}
-              >
-                <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 h-full transition-all duration-300 group-hover:border-cyan-500/50 group-hover:shadow-lg group-hover:shadow-cyan-500/10">
-                  {/* Featured Badge */}
-                  {skill.is_featured && (
-                    <div className="absolute -top-2 -right-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-black text-xs font-bold px-3 py-1 rounded-full">
-                      Featured
+        {/* Skills Collection Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {filteredSkills.map((skill, index) => (
+            <motion.div
+              key={`skill-collection-${skill.skill_name}-${index}`}
+              className={`group cursor-pointer ${skill.is_featured ? 'md:col-span-2 xl:col-span-2' : ''}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.05 }}
+              whileHover={{ scale: 1.02 }}
+              onClick={() => handleSkillClick(skill)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleSkillClick(skill);
+                }
+              }}
+              tabIndex={0}
+              role="button"
+              aria-label={`Skill: ${skill.skill_name}. Proficiency: ${skill.proficiency_level}`}
+            >
+              <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl overflow-hidden h-full transition-all duration-500 group-hover:border-cyan-500/50 group-hover:shadow-xl group-hover:shadow-cyan-500/10">
+                {/* Featured Badge */}
+                {skill.is_featured && (
+                  <div className="absolute top-3 right-3 z-10 bg-gradient-to-r from-cyan-500 to-blue-500 text-black text-xs font-bold px-3 py-1 rounded-full">
+                    Featured
+                  </div>
+                )}
+
+                {/* Currently Learning Badge */}
+                {skill.currently_learning && (
+                  <div className="absolute top-3 left-3 z-10 bg-gradient-to-r from-green-500 to-emerald-500 text-black text-xs font-bold px-3 py-1 rounded-full">
+                    Learning
+                  </div>
+                )}
+
+                {/* Skill Content */}
+                <div className="p-6">
+                  {/* Skill Header */}
+                  <div className="mb-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-lg font-bold text-white font-orbitron">
+                        {skill.skill_name}
+                      </h3>
+                      {skill.skill_icon && (
+                        <span className="text-2xl">{skill.skill_icon}</span>
+                      )}
+                    </div>
+                    
+                    {/* Category and Type */}
+                    <div className="flex items-center gap-2 mb-3 flex-wrap">
+                      {skill.skill_category && (
+                        <span className={`px-2 py-1 rounded-md text-xs font-medium border ${getCategoryColor(skill.skill_category)}`}>
+                          {skill.skill_category}
+                        </span>
+                      )}
+                      {skill.skill_type && (
+                        <span className="px-2 py-1 bg-slate-700/50 text-slate-300 rounded-md text-xs border border-slate-600">
+                          {skill.skill_type}
+                        </span>
+                      )}
+                      {skill.environment && (
+                        <span className="px-2 py-1 bg-slate-700/50 text-slate-400 rounded-md text-xs border border-slate-600">
+                          {skill.environment}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Proficiency Level */}
+                  {skill.proficiency_level && (
+                    <div className="mb-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-slate-300">Proficiency</span>
+                        <span className={`px-2 py-1 rounded-md text-xs font-bold bg-gradient-to-r ${getProficiencyColor(skill.proficiency_level)} text-white`}>
+                          {skill.proficiency_level}
+                        </span>
+                      </div>
+                      {skill.proficiency_percentage && (
+                        <div className="w-full bg-slate-700 rounded-full h-2">
+                          <div 
+                            className={`h-2 rounded-full bg-gradient-to-r ${getProficiencyColor(skill.proficiency_level)} transition-all duration-500`}
+                            style={{ width: `${skill.proficiency_percentage}%` }}
+                          />
+                        </div>
+                      )}
                     </div>
                   )}
 
-                  {/* Skill Header */}
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-white mb-2 font-orbitron">
-                        {skill.skill_name}
-                      </h3>
-                      <div className="flex flex-wrap gap-2 text-sm">
-                        <span className="px-2 py-1 bg-slate-700 text-slate-300 rounded">
-                          {skill.skill_category}
-                        </span>
-                        <span className="px-2 py-1 bg-slate-700 text-slate-300 rounded">
-                          {skill.skill_type}
-                        </span>
-                        {skill.environment && (
-                          <span className="px-2 py-1 bg-slate-700 text-slate-300 rounded">
-                            {skill.environment}
-                          </span>
-                        )}
+                  {/* Experience and Projects */}
+                  <div className="grid grid-cols-2 gap-4 mb-4 text-center">
+                    {skill.years_experience && (
+                      <div className="bg-slate-700/30 rounded-lg p-3">
+                        <div className="text-xl font-bold text-cyan-400">{skill.years_experience}</div>
+                        <div className="text-xs text-slate-400">Years</div>
                       </div>
-                    </div>
-                    {skill.skill_icon && (
-                      <div className="ml-4 text-2xl">
-                        {skill.skill_icon}
+                    )}
+                    {skill.projects_count && (
+                      <div className="bg-slate-700/30 rounded-lg p-3">
+                        <div className="text-xl font-bold text-cyan-400">{skill.projects_count}</div>
+                        <div className="text-xs text-slate-400">Projects</div>
                       </div>
                     )}
                   </div>
 
-                  {/* Proficiency Bar */}
-                  <div className="mb-4">
-                    <div className="flex justify-between text-sm text-slate-400 mb-2">
-                      <span>{skill.proficiency_level}</span>
-                      <span>{skill.proficiency_percentage}%</span>
-                    </div>
-                    <div className="w-full bg-slate-700 rounded-full h-2">
-                      <motion.div
-                        className="h-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500"
-                        initial={{ width: 0 }}
-                        animate={{ width: `${skill.proficiency_percentage}%` }}
-                        transition={{ duration: 1, delay: index * 0.1 + 0.5 }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Experience */}
-                  <div className="text-sm text-slate-400 mb-4">
-                    {skill.years_experience} year{skill.years_experience !== 1 ? 's' : ''} experience
-                  </div>
-
                   {/* Description */}
                   {skill.skill_description && (
-                    <div className="text-sm text-slate-300 leading-relaxed">
+                    <div className="text-slate-300 text-sm leading-relaxed mb-4 line-clamp-3">
                       {typeof skill.skill_description === 'string' 
                         ? skill.skill_description
-                        : 'Detailed description available'
+                        : 'Detailed skill description available'
                       }
                     </div>
                   )}
 
-                  {/* Hover Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                  {/* Related Projects */}
+                  {skill.related_projects && skill.related_projects.length > 0 && (
+                    <div className="mb-4">
+                      <h4 className="text-xs font-semibold text-slate-400 mb-2 uppercase tracking-wider">
+                        Related Projects
+                      </h4>
+                      <div className="flex flex-wrap gap-1">
+                        {skill.related_projects.slice(0, 3).map((project, projectIndex) => (
+                          project.project_name && (
+                            <span
+                              key={projectIndex}
+                              className="px-2 py-1 bg-slate-700/30 text-slate-300 rounded-md text-xs"
+                            >
+                              {project.project_name}
+                            </span>
+                          )
+                        ))}
+                        {skill.related_projects.length > 3 && (
+                          <span className="px-2 py-1 bg-slate-700/30 text-slate-400 rounded-md text-xs">
+                            +{skill.related_projects.length - 3} more
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Certification Link */}
+                  {skill.certification_url?.url && (
+                    <Link
+                      href={skill.certification_url.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        announce(`Opening certification for ${skill.skill_name}`);
+                      }}
+                    >
+                      View Certification
+                    </Link>
+                  )}
+
+                  {/* Next Milestone */}
+                  {skill.next_milestone && (
+                    <div className="mt-4 p-3 bg-slate-700/20 rounded-lg border border-slate-600/50">
+                      <div className="text-xs font-semibold text-slate-400 mb-1">Next Milestone</div>
+                      <div className="text-sm text-slate-300">{skill.next_milestone}</div>
+                    </div>
+                  )}
                 </div>
-              </motion.div>
-            ))}
-          </div>
 
-          {/* Empty State */}
-          {filteredSkills.length === 0 && (
-            <motion.div 
-              className="text-center py-12"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              <p className="text-slate-400 text-lg">
-                No skills found in the {selectedCategory} category.
-              </p>
+                {/* Hover Effect Overlay */}
+                <div className={`absolute inset-0 bg-gradient-to-r ${getProficiencyColor(skill.proficiency_level || 'Intermediate')} opacity-0 group-hover:opacity-5 transition-opacity duration-300 pointer-events-none rounded-xl`} />
+              </div>
             </motion.div>
-          )}
-
-          {/* Section Summary for Screen Readers */}
-          <div className="atlas-sr-only" aria-live="polite">
-            Showing {filteredSkills.length} skills
-            {selectedCategory !== 'all' && ` in ${selectedCategory} category`}.
-            Use tab to navigate through skills and press Enter to get detailed information.
-          </div>
+          ))}
         </div>
-      </section>
-    </AnimatedContent>
+
+        {/* Empty State */}
+        {filteredSkills.length === 0 && (
+          <motion.div 
+            className="text-center py-12"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-slate-400 text-lg">
+              No skills found in this collection matching the selected category.
+            </p>
+            <button
+              onClick={() => setSelectedCategory('all')}
+              className="mt-4 px-6 py-3 bg-cyan-500/20 text-cyan-400 rounded-lg hover:bg-cyan-500/30 transition-colors"
+            >
+              Show All Collection Skills
+            </button>
+          </motion.div>
+        )}
+
+        {/* Collection Summary for Screen Readers */}
+        <div className="atlas-sr-only" aria-live="polite">
+          Skills collection showing {filteredSkills.length} skills
+          {selectedCategory !== 'all' && ` in ${selectedCategory} category`}.
+          Use tab to navigate through skills and press Enter for details.
+        </div>
+      </div>
+    </section>
   );
 };
 

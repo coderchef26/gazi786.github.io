@@ -12,14 +12,22 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "education": {
-          "type": "Group",
+        "section_title": {
+          "type": "Text",
           "config": {
-            "label": "Education",
-            "repeat": true,
-            "fields": {}
+            "label": "Section Title",
+            "placeholder": "Education"
           }
         },
+        "section_description": {
+          "type": "Text",
+          "config": {
+            "label": "Section Description",
+            "placeholder": "My educational background and qualifications"
+          }
+        }
+      },
+      "items": {
         "institution_name": {
           "type": "Text",
           "config": {
@@ -57,10 +65,10 @@
             ]
           }
         },
-        "degree_tilte": {
+        "degree_title": {
           "type": "Text",
           "config": {
-            "label": "Degree Tilte",
+            "label": "Degree Title",
             "placeholder": "e.g., \"Bachelor of Computer Science\""
           }
         },
@@ -121,19 +129,7 @@
             "label": "Thesis Description",
             "placeholder": "Brief description",
             "allowTargetBlank": true,
-            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
-          }
-        },
-        "relevant_coursework": {
-          "type": "Select",
-          "config": {
-            "label": "Relevant Coursework",
-            "placeholder": "",
-            "options": [
-              "Course Name",
-              "Course Code",
-              "Grade"
-            ]
+            "multi": "paragraph,preformatted,heading6,strong,em,hyperlink,list-item,o-list-item"
           }
         },
         "key_achievements": {
@@ -142,7 +138,7 @@
             "label": "Key Achievements",
             "placeholder": "Academic achievements",
             "allowTargetBlank": true,
-            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+            "multi": "paragraph,preformatted,heading6,strong,em,hyperlink,list-item,o-list-item"
           }
         },
         "extracurriculars": {
@@ -151,11 +147,17 @@
             "label": "Extracurriculars",
             "placeholder": "Clubs, societies, activities",
             "allowTargetBlank": true,
-            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+            "multi": "paragraph,preformatted,heading6,strong,em,hyperlink,list-item,o-list-item"
+          }
+        },
+        "relevant_coursework": {
+          "type": "Text",
+          "config": {
+            "label": "Relevant Coursework",
+            "placeholder": "Key subjects studied"
           }
         }
-      },
-      "items": {}
+      }
     }
   ]
 }

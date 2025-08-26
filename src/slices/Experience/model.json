@@ -12,14 +12,22 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "experience": {
-          "type": "Group",
+        "section_title": {
+          "type": "Text",
           "config": {
-            "label": "Experience",
-            "repeat": true,
-            "fields": {}
+            "label": "Section Title",
+            "placeholder": "Experience"
           }
         },
+        "section_description": {
+          "type": "Text",
+          "config": {
+            "label": "Section Description",
+            "placeholder": "My professional experience and career journey"
+          }
+        }
+      },
+      "items": {
         "company_name": {
           "type": "Text",
           "config": {
@@ -85,7 +93,7 @@
         "job_title": {
           "type": "Text",
           "config": {
-            "label": "Title",
+            "label": "Job Title",
             "placeholder": "Your position"
           }
         },
@@ -112,18 +120,18 @@
             ]
           }
         },
-        "startdate": {
+        "start_date": {
           "type": "Date",
           "config": {
             "label": "Start Date",
             "placeholder": ""
           }
         },
-        "enddate": {
+        "end_date": {
           "type": "Date",
           "config": {
             "label": "End Date",
-            "placeholder": ""
+            "placeholder": "Leave empty if current"
           }
         },
         "is_current": {
@@ -141,53 +149,16 @@
             "label": "Role Summary",
             "placeholder": "Brief overview of the role",
             "allowTargetBlank": true,
-            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,list-item,o-list-item,rtl"
+            "multi": "paragraph,preformatted,heading6,strong,em,hyperlink,list-item,o-list-item"
           }
         },
         "key_achievements": {
-          "type": "Group",
+          "type": "StructuredText",
           "config": {
             "label": "Key Achievements",
-            "repeat": true,
-            "fields": {
-              "achievement_title": {
-                "type": "Text",
-                "config": {
-                  "label": "Achievement Title",
-                  "placeholder": ""
-                }
-              },
-              "achievement_description": {
-                "type": "StructuredText",
-                "config": {
-                  "label": "Achievement Description",
-                  "placeholder": "",
-                  "allowTargetBlank": true,
-                  "multi": "paragraph,heading6,strong,em,hyperlink,list-item,o-list-item,rtl"
-                }
-              },
-              "metric_value": {
-                "type": "Text",
-                "config": {
-                  "label": "Metric Value",
-                  "placeholder": "e.g., \"40% improvement\""
-                }
-              },
-              "impact_area": {
-                "type": "Select",
-                "config": {
-                  "label": "Impact Area",
-                  "placeholder": "",
-                  "options": [
-                    "Revenue",
-                    "Cost",
-                    "Efficiency",
-                    "Quality",
-                    "User-experience"
-                  ]
-                }
-              }
-            }
+            "placeholder": "Notable accomplishments in this role",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading6,strong,em,hyperlink,list-item,o-list-item"
           }
         },
         "projects_delivered": {
@@ -197,29 +168,11 @@
             "placeholder": "Number of projects completed"
           }
         },
-        "skills": {
-          "type": "Link",
-          "config": {
-            "label": "Skills",
-            "placeholder": "Link to skills page",
-            "select": null,
-            "allowTargetBlank": false,
-            "allowText": true,
-            "repeat": true
-          }
-        },
-        "voice_summary": {
+        "technologies_used": {
           "type": "Text",
           "config": {
-            "label": "Voice Summary",
-            "placeholder": "One-sentence role description"
-          }
-        },
-        "role_keyowords": {
-          "type": "Text",
-          "config": {
-            "label": "Role Keyowords",
-            "placeholder": "For search/voice commands"
+            "label": "Technologies Used",
+            "placeholder": "Key technologies and tools"
           }
         },
         "impact_score": {
@@ -229,8 +182,7 @@
             "placeholder": "1-10 for AI prioritization"
           }
         }
-      },
-      "items": {}
+      }
     }
   ]
 }

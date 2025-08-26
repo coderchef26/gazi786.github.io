@@ -12,14 +12,22 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "project": {
-          "type": "Group",
+        "section_title": {
+          "type": "Text",
           "config": {
-            "label": "Project",
-            "repeat": true,
-            "fields": {}
+            "label": "Section Title",
+            "placeholder": "Projects"
           }
         },
+        "section_description": {
+          "type": "Text",
+          "config": {
+            "label": "Section Description",
+            "placeholder": "My portfolio of projects and work"
+          }
+        }
+      },
+      "items": {
         "project_title": {
           "type": "Text",
           "config": {
@@ -47,7 +55,7 @@
             "label": "Project Description",
             "placeholder": "Detailed description",
             "allowTargetBlank": true,
-            "multi": "paragraph,preformatted,heading5,heading6,strong,em,hyperlink,image,list-item,o-list-item,rtl"
+            "multi": "paragraph,preformatted,heading6,strong,em,hyperlink,list-item,o-list-item"
           }
         },
         "project_status": {
@@ -85,33 +93,11 @@
             "thumbnails": []
           }
         },
-        "technologies": {
-          "type": "Group",
+        "technologies_used": {
+          "type": "Text",
           "config": {
-            "label": "Technologies",
-            "repeat": true,
-            "fields": {
-              "tech_name": {
-                "type": "Text",
-                "config": {
-                  "label": "Tech Name",
-                  "placeholder": ""
-                }
-              },
-              "tech_category": {
-                "type": "Select",
-                "config": {
-                  "label": "Tech Category",
-                  "placeholder": "",
-                  "options": [
-                    "Frontend",
-                    "Backend",
-                    "Database",
-                    "Dev-Ops"
-                  ]
-                }
-              }
-            }
+            "label": "Technologies Used",
+            "placeholder": "React, Node.js, MongoDB"
           }
         },
         "live_url": {
@@ -140,49 +126,23 @@
           "type": "Text",
           "config": {
             "label": "Client Name",
-            "placeholder": ""
-          }
-        },
-        "client_industry": {
-          "type": "Text",
-          "config": {
-            "label": "Client Industry",
-            "placeholder": ""
-          }
-        },
-        "meta_title": {
-          "type": "Text",
-          "config": {
-            "label": "Meta Title",
-            "placeholder": ""
-          }
-        },
-        "meta_description": {
-          "type": "Text",
-          "config": {
-            "label": "Meta Description",
-            "placeholder": ""
-          }
-        },
-        "og_image": {
-          "type": "Text",
-          "config": {
-            "label": "OG Image",
-            "placeholder": ""
+            "placeholder": "Client or company name"
           }
         },
         "is_featured": {
-          "type": "Text",
+          "type": "Boolean",
           "config": {
             "label": "Is Featured",
-            "placeholder": ""
+            "placeholder_false": "false",
+            "placeholder_true": "true",
+            "default_value": false
           }
         },
         "display_order": {
           "type": "Number",
           "config": {
             "label": "Display Order",
-            "placeholder": ""
+            "placeholder": "Sort order"
           }
         },
         "color_scheme": {
@@ -197,32 +157,8 @@
               "Green"
             ]
           }
-        },
-        "voice_summary": {
-          "type": "Text",
-          "config": {
-            "label": "Voice Summary",
-            "placeholder": ""
-          }
-        },
-        "ai_keywords": {
-          "type": "Text",
-          "config": {
-            "label": "AI Keywords",
-            "placeholder": ""
-          }
-        },
-        "accessibility_notes": {
-          "type": "StructuredText",
-          "config": {
-            "label": "Accessibility Notes",
-            "placeholder": "",
-            "allowTargetBlank": true,
-            "multi": "paragraph,preformatted,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,list-item,o-list-item,rtl,heading1"
-          }
         }
-      },
-      "items": {}
+      }
     }
   ]
 }

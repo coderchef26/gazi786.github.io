@@ -12,19 +12,27 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "skill": {
-          "type": "Group",
+        "section_title": {
+          "type": "Text",
           "config": {
-            "label": "Skill",
-            "repeat": true,
-            "fields": {}
+            "label": "Section Title",
+            "placeholder": "Skills"
           }
         },
+        "section_description": {
+          "type": "Text",
+          "config": {
+            "label": "Section Description",
+            "placeholder": "Technologies and tools I work with"
+          }
+        }
+      },
+      "items": {
         "skill_name": {
           "type": "Text",
           "config": {
             "label": "Skill Name",
-            "placeholder": ""
+            "placeholder": "JavaScript"
           }
         },
         "skill_category": {
@@ -36,10 +44,10 @@
               "Frontend",
               "Backend",
               "Database",
-              "Dev-Ops",
+              "DevOps",
               "Tools",
               "Design",
-              "Soft-skills"
+              "Soft Skills"
             ]
           }
         },
@@ -75,35 +83,28 @@
           "type": "Number",
           "config": {
             "label": "Proficiency Percentage",
-            "placeholder": ""
+            "placeholder": "85"
           }
         },
         "years_experience": {
           "type": "Number",
           "config": {
             "label": "Years Experience",
-            "placeholder": ""
+            "placeholder": "3"
           }
         },
         "skill_icon": {
           "type": "Text",
           "config": {
             "label": "Skill Icon",
-            "placeholder": ""
-          }
-        },
-        "display_order": {
-          "type": "Number",
-          "config": {
-            "label": "Display Order",
-            "placeholder": ""
+            "placeholder": "devicon-javascript-plain"
           }
         },
         "colour_hex": {
           "type": "Text",
           "config": {
             "label": "Colour Hex",
-            "placeholder": ""
+            "placeholder": "#F7DF1E"
           }
         },
         "is_featured": {
@@ -121,16 +122,14 @@
             "label": "Skill Description",
             "placeholder": "What you can do with this skill",
             "allowTargetBlank": true,
-            "multi": "paragraph,preformatted,heading6,strong,em,hyperlink,list-item,o-list-item,rtl"
+            "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item"
           }
         },
-        "use_cases": {
-          "type": "StructuredText",
+        "projects_count": {
+          "type": "Number",
           "config": {
-            "label": "Use Cases",
-            "placeholder": "How you've applied this skill",
-            "allowTargetBlank": true,
-            "multi": "paragraph,preformatted,heading6,strong,em,hyperlink,list-item,o-list-item,rtl"
+            "label": "Projects Count",
+            "placeholder": "5"
           }
         },
         "certifications": {
@@ -140,127 +139,19 @@
             "placeholder": "Related certifications"
           }
         },
-        "certification_url": {
-          "type": "Link",
-          "config": {
-            "label": "Certification URL",
-            "placeholder": "Link to certification",
-            "select": null,
-            "allowTargetBlank": true,
-            "allowText": true,
-            "repeat": false
-          }
-        },
-        "projects_count": {
-          "type": "Number",
-          "config": {
-            "label": "Projects Count",
-            "placeholder": "Number of projects using this skill"
-          }
-        },
-        "related_projects": {
-          "type": "Group",
-          "config": {
-            "label": "Related Projects",
-            "repeat": true,
-            "fields": {
-              "project_name": {
-                "type": "Text",
-                "config": {
-                  "label": "Project Name",
-                  "placeholder": ""
-                }
-              },
-              "project_link": {
-                "type": "Link",
-                "config": {
-                  "label": "Project Link",
-                  "placeholder": "",
-                  "select": null,
-                  "allowTargetBlank": true,
-                  "allowText": true,
-                  "repeat": false
-                }
-              }
-            }
-          }
-        },
-        "professional_usage": {
-          "type": "StructuredText",
-          "config": {
-            "label": "Professional Usage",
-            "placeholder": "How you've used it professionally",
-            "allowTargetBlank": true,
-            "multi": "paragraph,preformatted,heading5,heading6,strong,em,hyperlink,list-item,o-list-item,rtl"
-          }
-        },
-        "learning_source": {
-          "type": "Text",
-          "config": {
-            "label": "Learning Source",
-            "placeholder": " Where/how you learned it"
-          }
-        },
-        "currently_learning": {
-          "type": "Boolean",
-          "config": {
-            "label": "Currently Learning",
-            "placeholder_false": "false",
-            "placeholder_true": "true",
-            "default_value": false
-          }
-        },
-        "next_milestone": {
-          "type": "Text",
-          "config": {
-            "label": "Next Milestone",
-            "placeholder": ""
-          }
-        },
-        "voice_description": {
-          "type": "Text",
-          "config": {
-            "label": "Voice Description",
-            "placeholder": "Short description for voice reading"
-          }
-        },
-        "skill_keywords": {
-          "type": "Text",
-          "config": {
-            "label": "Skill Keywords",
-            "placeholder": "Search/voice command keywords"
-          }
-        },
-        "importance_rank": {
-          "type": "Number",
-          "config": {
-            "label": "Importance Rank",
-            "placeholder": "1-10 for AI prioritization"
-          }
-        },
-        "skill_aliases": {
-          "type": "Text",
-          "config": {
-            "label": "Skill Aliases",
-            "placeholder": "Alternative names (e.g., \"JS\" for JavaScript)"
-          }
-        },
-        "environment": {
+        "learning_status": {
           "type": "Select",
           "config": {
-            "label": "Environment",
+            "label": "Learning Status",
             "placeholder": "",
             "options": [
-              "Client",
-              "Server",
-              "Fullstack",
-              "Mobile",
-              "Cloud"
+              "Proficient",
+              "Currently Learning",
+              "Want to Learn"
             ]
           }
         }
-      },
-      "items": {}
+      }
     }
   ]
 }

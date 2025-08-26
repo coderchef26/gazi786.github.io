@@ -12,11 +12,21 @@
           "label": "UID"
         }
       },
+      "blog_slug": {
+        "type": "Text",
+        "config": {
+          "label": "Blog Slug",
+          "placeholder": ""
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "blogposts": {
+              "type": "SharedSlice"
+            },
             "blog": {
               "type": "SharedSlice"
             }
