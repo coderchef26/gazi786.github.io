@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { Inter, Orbitron } from "next/font/google";
 import "./globals.css";
 import { AzmaraLayout } from "@/components/layout/AzmaraLayout";
@@ -13,11 +13,6 @@ const orbitron = Orbitron({
 	variable: "--font-orbitron",
 	weight: ["400", "700", "900"],
 });
-
-export const viewport: Viewport = {
-	width: "device-width",
-	initialScale: 1,
-};
 
 export const metadata: Metadata = {
 	title: "Alshafaraz Gazi - Full-Stack Developer & Creative Problem Solver",
@@ -79,11 +74,12 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" suppressHydrationWarning>
-			<body
-				className={`${inter.variable} ${orbitron.variable} font-sans antialiased bg-[#0a0a0f] text-[#00d4ff]`}
-				suppressHydrationWarning
-			>
+		<html
+			lang="en"
+			className={`${inter.variable} ${orbitron.variable}`}
+			suppressHydrationWarning
+		>
+			<body className="antialiased bg-[#0a0a0f] text-[#00d4ff]">
 				<AzmaraLayout>{children}</AzmaraLayout>
 			</body>
 		</html>

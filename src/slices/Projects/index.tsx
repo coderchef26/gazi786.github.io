@@ -13,6 +13,8 @@ import { componentStyles } from "@/lib/theme/components";
 import { themeColors, themeEffects } from "@/lib/theme/colors";
 import { animationPresets } from "@/lib/animations/slice-animations";
 import { sliceHelpers } from "@/lib/utils/slice-helpers";
+import HolographicCard from "@/components/ui/HolographicCard";
+import HolographicText from "@/components/ui/HolographicText";
 
 /**
  * Props for `Projects`.
@@ -145,7 +147,7 @@ const Projects: FC<ProjectsProps> = ({ slice }) => {
           />
         )}
 
-        {/* Projects Grid */}
+        {/* Holographic Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project, index) => (
             <motion.div
@@ -157,20 +159,27 @@ const Projects: FC<ProjectsProps> = ({ slice }) => {
               custom={index}
               className={`group relative ${project.is_featured ? 'md:col-span-2 lg:col-span-2' : ''}`}
             >
-              <div className={`h-full rounded-xl bg-gradient-to-br ${themeColors.cardBg} ${themeEffects.backdropBlur} ${themeColors.border} border ${themeEffects.transition} hover:${themeColors.borderHover} hover:shadow-xl hover:shadow-cyan-500/10 overflow-hidden`}>
+              <HolographicCard
+                variant={project.is_featured ? "elevated" : "default"}
+                title={project.project_title}
+                subtitle={project.project_tagline}
+                className="h-full group"
+              >
                 {/* Featured Badge */}
                 {project.is_featured && (
-                  <div className="absolute top-4 right-4 z-10">
+                  <div className="absolute top-2 right-2 z-30">
                     <span className="flex items-center gap-1 px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 text-slate-900">
                       <FaStar className="w-3 h-3" />
-                      Featured
+                      <HolographicText variant="data" className="text-slate-900 font-mono">
+                        FEATURED
+                      </HolographicText>
                     </span>
                   </div>
                 )}
 
-                {/* Project Image */}
+                {/* Holographic Project Image */}
                 {project.featured_image && (
-                  <div className="relative h-48 overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900">
+                  <div className="relative h-48 overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900 mb-4">
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent z-10" />
                     <img 
                       src={project.featured_image.src || '/placeholder.jpg'} 
@@ -178,100 +187,129 @@ const Projects: FC<ProjectsProps> = ({ slice }) => {
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     
-                    {/* Arc Reactor Overlay on Hover */}
+                    {/* Holographic Overlay on Hover */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
-                      <div className="w-20 h-20 rounded-full bg-cyan-500/20 animate-pulse backdrop-blur-sm border-2 border-cyan-400/50" />
+                      <div className="w-20 h-20 rounded-full bg-cyan-500/20 animate-pulse backdrop-blur-sm border-2 border-cyan-400/50 flex items-center justify-center">
+                        <FaRocket className="w-8 h-8 text-cyan-400" />
+                      </div>
                     </div>
                   </div>
                 )}
 
-                {/* Project Content */}
-                <div className="p-6">
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className={`${componentStyles.subheading} group-hover:text-cyan-400 ${themeEffects.transition}`}>
-                      {project.project_title}
-                    </h3>
-                    <span className={`px-2 py-1 text-xs rounded-full bg-${getStatusColor(project.project_status)}-500/20 text-${getStatusColor(project.project_status)}-400 border border-${getStatusColor(project.project_status)}-500/30`}>
+                {/* Project Status & Info */}
+                <div className="flex items-center justify-between mb-4">
+                  <HolographicText variant="data">
+                    PROJECT STATUS
+                  </HolographicText>
+                  <span className={`px-2 py-1 text-xs rounded-full bg-${getStatusColor(project.project_status)}-500/20 text-${getStatusColor(project.project_status)}-400 border border-${getStatusColor(project.project_status)}-500/30`}>
+                    <HolographicText variant="caption">
                       {project.project_status}
-                    </span>
-                  </div>
+                    </HolographicText>
+                  </span>
+                </div>
 
-                  {project.project_tagline && (
-                    <p className={`${themeColors.primary} text-sm mb-3`}>
-                      {project.project_tagline}
-                    </p>
-                  )}
-
-                  {project.project_description && (
-                    <p className={`${themeColors.secondary} text-sm mb-4 line-clamp-3`}>
+                {/* Project Description */}
+                {project.project_description && (
+                  <div className="mb-4">
+                    <HolographicText variant="body" className="line-clamp-3">
                       {project.project_description}
-                    </p>
-                  )}
+                    </HolographicText>
+                  </div>
+                )}
 
-                  {/* Client Info */}
-                  {project.client_name && (
-                    <div className={`flex items-center gap-2 mb-4 ${themeColors.secondary} text-sm`}>
-                      <FaUser className="w-3 h-3" />
-                      <span>Client: {project.client_name}</span>
-                    </div>
-                  )}
+                {/* Client Info */}
+                {project.client_name && (
+                  <div className="flex items-center gap-2 mb-4">
+                    <FaUser className="w-3 h-3 text-cyan-400" />
+                    <HolographicText variant="caption">
+                      CLIENT: {project.client_name.toUpperCase()}
+                    </HolographicText>
+                  </div>
+                )}
 
-                  {/* Technologies */}
-                  {project.technologies && project.technologies.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-4">
+                {/* Technologies - Holographic Tags */}
+                {project.technologies && project.technologies.length > 0 && (
+                  <div className="mb-4">
+                    <HolographicText variant="data" className="mb-2">
+                      TECH STACK
+                    </HolographicText>
+                    <div className="flex flex-wrap gap-2">
                       {project.technologies.slice(0, 5).map((tech: any, techIndex: number) => (
                         <span
                           key={techIndex}
-                          className={`px-2 py-1 text-xs rounded-md bg-slate-700/50 ${themeColors.secondary} border border-slate-600`}
+                          className="px-2 py-1 text-xs rounded-md bg-slate-700/50 text-cyan-300 border border-cyan-400/30 font-mono uppercase tracking-wide"
                         >
                           {tech.tech_name}
                         </span>
                       ))}
                       {project.technologies.length > 5 && (
-                        <span className={`px-2 py-1 text-xs rounded-md ${themeColors.muted}`}>
-                          +{project.technologies.length - 5} more
+                        <span className="px-2 py-1 text-xs rounded-md bg-slate-600/50 text-cyan-400/60 font-mono">
+                          +{project.technologies.length - 5} MORE
                         </span>
                       )}
                     </div>
+                  </div>
+                )}
+
+                {/* Holographic Action Links */}
+                <div className="flex gap-3 pt-4 border-t border-cyan-400/30">
+                  {project.live_url && (
+                    <motion.a
+                      href={project.live_url.url || '#'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-slate-900 font-mono font-semibold uppercase tracking-wider transition-all duration-300"
+                      whileHover={{ 
+                        scale: 1.05,
+                        boxShadow: '0 0 25px rgba(0, 212, 255, 0.6)'
+                      }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <FaExternalLinkAlt className="w-3 h-3" />
+                      <HolographicText variant="command" className="text-slate-900">
+                        VIEW LIVE
+                      </HolographicText>
+                    </motion.a>
                   )}
 
-                  {/* Action Links */}
-                  <div className="flex gap-3 pt-4 border-t border-slate-700/50">
-                    {project.live_url && (
-                      <a
-                        href={project.live_url.url || '#'}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`flex items-center gap-2 px-4 py-2 text-sm rounded-lg bg-gradient-to-r ${themeColors.primaryGradient} text-slate-900 font-semibold ${themeEffects.transition} hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-105`}
-                      >
-                        <FaExternalLinkAlt className="w-3 h-3" />
-                        Live Demo
-                      </a>
-                    )}
-                    
-                    {project.github_url && (
-                      <a
-                        href={project.github_url.url || '#'}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`flex items-center gap-2 px-4 py-2 text-sm rounded-lg bg-slate-800 ${themeColors.secondary} ${themeEffects.transition} hover:bg-slate-700 hover:text-white`}
-                      >
-                        <FaGithub className="w-4 h-4" />
-                        Source Code
-                      </a>
-                    )}
-                    
-                    {!project.live_url && !project.github_url && project.project_slug && (
-                      <button
-                        className={`flex items-center gap-2 px-4 py-2 text-sm rounded-lg bg-slate-800 ${themeColors.secondary} ${themeEffects.transition} hover:bg-slate-700 hover:text-cyan-400`}
-                      >
-                        <FaRocket className="w-3 h-3" />
-                        View Details
-                      </button>
-                    )}
-                  </div>
+                  {project.github_url && (
+                    <motion.a
+                      href={project.github_url.url || '#'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg border-2 border-cyan-400 text-cyan-400 font-mono font-semibold uppercase tracking-wider hover:bg-cyan-400/10 transition-all duration-300"
+                      whileHover={{ 
+                        scale: 1.05,
+                        borderColor: '#00d4ff',
+                        boxShadow: '0 0 20px rgba(0, 212, 255, 0.4)'
+                      }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <FaGithub className="w-3 h-3" />
+                      <HolographicText variant="command">
+                        SOURCE CODE
+                      </HolographicText>
+                    </motion.a>
+                  )}
+                  
+                  {!project.live_url && !project.github_url && project.project_slug && (
+                    <motion.button
+                      className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg border border-cyan-400/60 text-cyan-400 font-mono font-semibold uppercase tracking-wider hover:bg-cyan-400/10 transition-all duration-300"
+                      whileHover={{ 
+                        scale: 1.05,
+                        borderColor: '#00d4ff',
+                        boxShadow: '0 0 15px rgba(0, 212, 255, 0.3)'
+                      }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <FaRocket className="w-3 h-3" />
+                      <HolographicText variant="command">
+                        VIEW DETAILS
+                      </HolographicText>
+                    </motion.button>
+                  )}
                 </div>
-              </div>
+              </HolographicCard>
             </motion.div>
           ))}
         </div>

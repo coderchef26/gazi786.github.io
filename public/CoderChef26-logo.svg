@@ -1,0 +1,116 @@
+<svg width="400" height="160" viewBox="0 0 400 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Glow effect filter -->
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Animated glow for interactive version -->
+    <filter id="pulseGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- CODERCHEF text - top -->
+  <text 
+    x="200" 
+    y="50" 
+    text-anchor="middle" 
+    fill="#00d4ff" 
+    stroke="#00d4ff" 
+    stroke-width="0.5" 
+    font-size="28" 
+    font-family="'Orbitron', 'Rajdhani', monospace" 
+    font-weight="400" 
+    letter-spacing="8px"
+    filter="url(#glow)"
+  >
+    CODERCHEF
+  </text>
+
+  <!-- Stark Industries style horizontal line -->
+  <line 
+    x1="80" 
+    y1="80" 
+    x2="320" 
+    y2="80" 
+    stroke="#00d4ff" 
+    stroke-width="2"
+    filter="url(#glow)"
+  />
+
+  <!-- 26 text - bottom -->
+  <text 
+    x="200" 
+    y="110" 
+    text-anchor="middle" 
+    fill="#00d4ff" 
+    stroke="#00d4ff" 
+    stroke-width="0.3" 
+    font-size="18" 
+    font-family="'Orbitron', 'Rajdhani', monospace" 
+    font-weight="400" 
+    letter-spacing="12px"
+    filter="url(#glow)"
+  >
+    26
+  </text>
+
+  <!-- Line end caps -->
+  <circle 
+    cx="80" 
+    cy="80" 
+    r="2" 
+    fill="#00d4ff"
+    filter="url(#glow)"
+  />
+  
+  <circle 
+    cx="320" 
+    cy="80" 
+    r="2" 
+    fill="#00d4ff"
+    filter="url(#glow)"
+  />
+
+  <!-- Central power core indicator -->
+  <circle 
+    cx="200" 
+    cy="80" 
+    r="3" 
+    fill="#00d4ff"
+    filter="url(#pulseGlow)"
+  />
+
+  <!-- Outer power ring -->
+  <circle 
+    cx="200" 
+    cy="80" 
+    r="6" 
+    fill="none" 
+    stroke="#00d4ff" 
+    stroke-width="1" 
+    opacity="0.4"
+    filter="url(#glow)"
+  />
+
+  <!-- Additional tech details -->
+  <!-- Small corner dots -->
+  <circle cx="35" cy="25" r="1" fill="#00d4ff" opacity="0.7"/>
+  <circle cx="365" cy="25" r="1" fill="#00d4ff" opacity="0.7"/>
+  <circle cx="365" cy="135" r="1" fill="#00d4ff" opacity="0.7"/>
+  <circle cx="35" cy="135" r="1" fill="#00d4ff" opacity="0.7"/>
+
+  <!-- Side status indicators -->
+  <rect x="25" y="78" width="8" height="4" fill="none" stroke="#00d4ff" stroke-width="0.5" opacity="0.5"/>
+  <rect x="367" y="78" width="8" height="4" fill="none" stroke="#00d4ff" stroke-width="0.5" opacity="0.5"/>
+
+</svg>

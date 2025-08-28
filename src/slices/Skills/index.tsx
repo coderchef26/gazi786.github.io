@@ -13,6 +13,8 @@ import { componentStyles } from "@/lib/theme/components";
 import { themeColors, themeEffects } from "@/lib/theme/colors";
 import { animationPresets } from "@/lib/animations/slice-animations";
 import { sliceHelpers } from "@/lib/utils/slice-helpers";
+import HolographicCard from "@/components/ui/HolographicCard";
+import HolographicText from "@/components/ui/HolographicText";
 
 /**
  * Props for `Skills`.
@@ -71,8 +73,8 @@ const Skills: FC<SkillsProps> = ({ slice }) => {
         display_order: item.display_order || index,
         colour_hex: sliceHelpers.extractText(item.colour_hex) || '#00d4ff',
         is_featured: item.is_featured === true,
-        skill_description: sliceHelpers.extractRichText(item.skill_description),
-        use_cases: sliceHelpers.extractRichText(item.use_cases),
+        skill_description: sliceHelpers.extractRichText(item.skill_description) || '',
+        use_cases: sliceHelpers.extractRichText(item.use_cases) || '',
         certifications: sliceHelpers.extractText(item.certifications),
         certification_url: item.certification_url,
         projects_count: item.projects_count || 0,
@@ -163,12 +165,12 @@ const Skills: FC<SkillsProps> = ({ slice }) => {
       data-slice-variation={slice.variation}
     >
       <SliceContainer
-        title="Technical Skills Matrix"
-        subtitle="Comprehensive skillset spanning multiple technologies and domains"
+        title="TECHNICAL SKILL MATRIX"
+        subtitle="ANALYZING TECHNOLOGICAL CAPABILITIES AND SYSTEM PROFICIENCIES"
         isEmpty={skills.length === 0}
         emptyStateConfig={{
-          title: 'No Skills Data',
-          description: 'Skills information will appear here once added.'
+          title: 'NO SKILLS DATA DETECTED',
+          description: 'SKILL ANALYSIS PROTOCOLS AWAITING DATA INPUT'
         }}
       >
         {/* Category Filters */}
@@ -180,7 +182,7 @@ const Skills: FC<SkillsProps> = ({ slice }) => {
           />
         )}
 
-        {/* Skills by Type Groups */}
+        {/* Holographic Skills Matrix */}
         <div className="space-y-12">
           {Object.entries(skillsByType).map(([type, typeSkills]) => (
             <motion.div
@@ -190,15 +192,20 @@ const Skills: FC<SkillsProps> = ({ slice }) => {
               viewport={{ once: true }}
               variants={animationPresets.sliceSection.container}
             >
-              {/* Type Header */}
-              <h3 className={`${componentStyles.subheading} mb-6 pb-2 border-b ${themeColors.border}`}>
-                {type}
-                <span className={`ml-3 text-sm ${themeColors.muted}`}>
-                  ({typeSkills.length} skills)
-                </span>
-              </h3>
+              {/* Holographic Type Header */}
+              <div className="relative mb-8">
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-blue-500/10 to-transparent blur-sm" />
+                <div className="relative p-4 border border-cyan-400/30 bg-slate-900/50 backdrop-blur-sm">
+                  <HolographicText variant="heading" className="text-2xl">
+                    {type.toUpperCase()} SYSTEMS
+                  </HolographicText>
+                  <HolographicText variant="data" className="mt-2">
+                    ACTIVE PROTOCOLS: {typeSkills.length} | STATUS: OPERATIONAL
+                  </HolographicText>
+                </div>
+              </div>
 
-              {/* Skills Grid */}
+              {/* Holographic Skills Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {typeSkills.map((skill, index) => (
                   <motion.div
@@ -207,151 +214,208 @@ const Skills: FC<SkillsProps> = ({ slice }) => {
                     custom={index}
                     className={`relative group ${skill.is_featured ? 'lg:col-span-2' : ''}`}
                   >
-                    <div className={`h-full p-6 rounded-xl bg-gradient-to-br ${themeColors.cardBg} ${themeEffects.backdropBlur} ${themeColors.border} border ${themeEffects.transition} hover:${themeColors.borderHover} hover:shadow-lg hover:shadow-cyan-500/10`}>
-                      {/* Featured Badge */}
+                    <HolographicCard
+                      variant={skill.is_featured ? "elevated" : "default"}
+                      title={skill.skill_name}
+                      subtitle={`SKILL ANALYSIS PROTOCOL ${index + 1}`}
+                      className="h-full group"
+                    >
+                      {/* Tony Stark Style Featured Badge */}
                       {skill.is_featured && (
-                        <div className="absolute -top-2 -right-2">
-                          <span className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400">
-                            <FaStar className="w-4 h-4 text-slate-900" />
-                          </span>
+                        <div className="absolute top-2 right-2 z-30">
+                          <div className="relative">
+                            <div className="absolute inset-0 bg-yellow-400 blur-md opacity-50 animate-pulse" />
+                            <span className="relative flex items-center gap-1 px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-yellow-400 to-orange-400 text-slate-900 border border-yellow-300">
+                              <FaStar className="w-3 h-3" />
+                              <HolographicText variant="command" className="text-slate-900">
+                                PRIMARY
+                              </HolographicText>
+                            </span>
+                          </div>
                         </div>
                       )}
 
-                      {/* Skill Header */}
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex items-center gap-3">
+                      {/* Holographic Skill Header */}
+                      <div className="mb-6">
+                        <div className="flex items-center gap-4 mb-3">
                           {skill.skill_icon && (
-                            <div 
-                              className="w-12 h-12 rounded-lg flex items-center justify-center text-2xl"
-                              style={{ backgroundColor: `${skill.colour_hex}20`, color: skill.colour_hex }}
-                            >
-                              {skill.skill_icon}
+                            <div className="relative">
+                              <div 
+                                className="w-16 h-16 rounded-lg flex items-center justify-center text-3xl border-2"
+                                style={{ 
+                                  backgroundColor: `${skill.colour_hex}10`, 
+                                  color: skill.colour_hex,
+                                  borderColor: `${skill.colour_hex}40`,
+                                  boxShadow: `0 0 20px ${skill.colour_hex}30`
+                                }}
+                              >
+                                {skill.skill_icon}
+                              </div>
+                              <div 
+                                className="absolute inset-0 rounded-lg animate-pulse"
+                                style={{ 
+                                  boxShadow: `inset 0 0 10px ${skill.colour_hex}20`
+                                }}
+                              />
                             </div>
                           )}
-                          <div>
-                            <h4 className={`${themeColors.white} font-semibold text-lg`}>
-                              {skill.skill_name}
-                            </h4>
+                          <div className="flex-1">
+                            <HolographicText variant="heading" className="text-xl mb-1">
+                              {skill.skill_name?.toUpperCase()}
+                            </HolographicText>
                             {skill.skill_category && (
-                              <p className={`${themeColors.muted} text-xs`}>
-                                {skill.skill_category}
-                              </p>
+                              <HolographicText variant="data" className="text-sm">
+                                CLASSIFICATION: {skill.skill_category.toUpperCase()}
+                              </HolographicText>
                             )}
                           </div>
                         </div>
 
                         {skill.currently_learning && (
-                          <span className="px-2 py-1 text-xs rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">
-                            Learning
-                          </span>
+                          <div className="flex items-center gap-2 mt-3">
+                            <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" />
+                            <HolographicText variant="caption" className="text-purple-400">
+                              ACTIVE LEARNING PROTOCOL
+                            </HolographicText>
+                          </div>
                         )}
                       </div>
 
-                      {/* Proficiency Bar */}
-                      <div className="mb-4">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className={`text-sm ${themeColors.secondary}`}>
-                            {skill.proficiency_level}
-                          </span>
-                          <span className={`text-sm font-bold ${themeColors.primary}`}>
-                            {skill.proficiency_percentage}%
-                          </span>
+                      {/* Tony Stark Style Proficiency Analysis */}
+                      <div className="mb-6">
+                        <div className="flex justify-between items-center mb-3">
+                          <HolographicText variant="data">
+                            PROFICIENCY LEVEL
+                          </HolographicText>
+                          <div className="flex items-center gap-2">
+                            <HolographicText variant="command" className="text-cyan-400">
+                              {skill.proficiency_percentage}%
+                            </HolographicText>
+                            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+                          </div>
                         </div>
-                        <div className="h-2 bg-slate-700/50 rounded-full overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${skill.proficiency_percentage}%` }}
-                            transition={{ duration: 1, ease: "easeOut" }}
-                            className={`h-full bg-gradient-to-r ${getProficiencyStyle(skill.proficiency_percentage || 0).color}`}
+                        
+                        {/* Holographic Progress Bar */}
+                        <div className="relative">
+                          <div className="h-3 bg-slate-800/50 border border-slate-600/50 overflow-hidden">
+                            <motion.div
+                              initial={{ width: 0 }}
+                              whileInView={{ width: `${skill.proficiency_percentage}%` }}
+                              transition={{ duration: 2, ease: "easeOut" }}
+                              className={`h-full bg-gradient-to-r ${getProficiencyStyle(skill.proficiency_percentage || 0).color} relative`}
+                            >
+                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse" />
+                            </motion.div>
+                          </div>
+                          <div 
+                            className="absolute top-0 h-3 bg-gradient-to-r from-cyan-400/20 to-transparent animate-pulse"
+                            style={{ width: `${skill.proficiency_percentage}%` }}
                           />
                         </div>
+                        
+                        <HolographicText variant="caption" className="mt-2">
+                          STATUS: {getProficiencyStyle(skill.proficiency_percentage || 0).label.toUpperCase()}
+                        </HolographicText>
                       </div>
 
-                      {/* Skill Details */}
-                      <div className="space-y-3">
+                      {/* Tony Stark Style Skill Analytics */}
+                      <div className="space-y-4 border-t border-cyan-400/20 pt-4">
                         {skill.years_experience && (
-                          <div className="flex items-center justify-between">
-                            <span className={`text-sm ${themeColors.muted}`}>Experience</span>
-                            <span className={`text-sm ${themeColors.secondary}`}>
-                              {skill.years_experience} {skill.years_experience === 1 ? 'year' : 'years'}
-                            </span>
+                          <div className="flex items-center justify-between py-2 border-l-2 border-cyan-400/40 pl-3">
+                            <HolographicText variant="data">
+                              OPERATIONAL TIME
+                            </HolographicText>
+                            <HolographicText variant="command" className="text-cyan-300">
+                              {skill.years_experience} {skill.years_experience === 1 ? 'YEAR' : 'YEARS'}
+                            </HolographicText>
                           </div>
                         )}
 
                         {skill.projects_count && skill.projects_count > 0 && (
-                          <div className="flex items-center justify-between">
-                            <span className={`text-sm ${themeColors.muted}`}>Projects</span>
-                            <span className={`text-sm ${themeColors.secondary}`}>
-                              {skill.projects_count} completed
-                            </span>
+                          <div className="flex items-center justify-between py-2 border-l-2 border-blue-400/40 pl-3">
+                            <HolographicText variant="data">
+                              PROJECT DEPLOYMENTS
+                            </HolographicText>
+                            <HolographicText variant="command" className="text-blue-300">
+                              {skill.projects_count} COMPLETED
+                            </HolographicText>
                           </div>
                         )}
 
                         {skill.certifications && (
-                          <div className="flex items-center gap-2">
-                            <FaCertificate className={`w-4 h-4 ${themeColors.warning}`} />
+                          <div className="flex items-center gap-2 py-2 border-l-2 border-yellow-400/40 pl-3">
+                            <FaCertificate className="w-4 h-4 text-yellow-400" />
                             {skill.certification_url ? (
-                              <a 
+                              <motion.a 
                                 href={skill.certification_url.url || '#'}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={`text-sm ${themeColors.secondary} hover:${themeColors.primary} ${themeEffects.transition}`}
+                                className="flex items-center gap-2 group"
+                                whileHover={{ scale: 1.05 }}
                               >
-                                {skill.certifications}
-                                <FaExternalLinkAlt className="inline-block w-3 h-3 ml-1" />
-                              </a>
+                                <HolographicText variant="command" className="text-yellow-300 group-hover:text-yellow-200">
+                                  {skill.certifications.toUpperCase()}
+                                </HolographicText>
+                                <FaExternalLinkAlt className="w-3 h-3 text-yellow-400 group-hover:text-yellow-200" />
+                              </motion.a>
                             ) : (
-                              <span className={`text-sm ${themeColors.secondary}`}>
-                                {skill.certifications}
-                              </span>
+                              <HolographicText variant="command" className="text-yellow-300">
+                                {skill.certifications.toUpperCase()}
+                              </HolographicText>
                             )}
                           </div>
                         )}
 
                         {skill.learning_source && (
-                          <div className="flex items-center gap-2">
-                            <FaGraduationCap className={`w-4 h-4 ${themeColors.muted}`} />
-                            <span className={`text-sm ${themeColors.secondary}`}>
-                              {skill.learning_source}
-                            </span>
+                          <div className="flex items-center gap-2 py-2 border-l-2 border-green-400/40 pl-3">
+                            <FaGraduationCap className="w-4 h-4 text-green-400" />
+                            <HolographicText variant="data">
+                              SOURCE: {skill.learning_source.toUpperCase()}
+                            </HolographicText>
                           </div>
                         )}
 
                         {skill.next_milestone && skill.currently_learning && (
-                          <div className="pt-3 border-t border-slate-700/50">
-                            <p className={`text-xs ${themeColors.muted} mb-1`}>Next Milestone</p>
-                            <p className={`text-sm ${themeColors.secondary}`}>
-                              {skill.next_milestone}
-                            </p>
+                          <div className="py-2 border-l-2 border-purple-400/40 pl-3">
+                            <HolographicText variant="data" className="mb-2">
+                              NEXT OBJECTIVE
+                            </HolographicText>
+                            <HolographicText variant="body" className="text-purple-300">
+                              {skill.next_milestone.toUpperCase()}
+                            </HolographicText>
                           </div>
                         )}
 
                         {skill.skill_description && (
-                          <div className="pt-3 border-t border-slate-700/50">
-                            <p className={`text-sm ${themeColors.secondary} line-clamp-2`}>
+                          <div className="py-2 border-l-2 border-slate-400/40 pl-3 mt-4">
+                            <HolographicText variant="body" className="line-clamp-3">
                               {skill.skill_description}
-                            </p>
+                            </HolographicText>
                           </div>
                         )}
                       </div>
 
-                      {/* Related Projects (shown on hover/featured) */}
+                      {/* Related Projects - Tony Stark Style */}
                       {skill.related_projects && skill.related_projects.length > 0 && skill.is_featured && (
-                        <div className="mt-4 pt-4 border-t border-slate-700/50">
-                          <p className={`text-xs ${themeColors.muted} mb-2`}>Used in Projects</p>
-                          <div className="flex flex-wrap gap-2">
-                            {skill.related_projects.slice(0, 3).map((project: any, pIndex: number) => (
-                              <span
+                        <div className="mt-6 pt-4 border-t border-cyan-400/20">
+                          <HolographicText variant="data" className="mb-3">
+                            DEPLOYED IN SYSTEMS
+                          </HolographicText>
+                          <div className="grid grid-cols-2 gap-2">
+                            {skill.related_projects.slice(0, 4).map((project: any, pIndex: number) => (
+                              <div
                                 key={pIndex}
-                                className={`px-2 py-1 text-xs rounded-md bg-slate-700/50 ${themeColors.secondary}`}
+                                className="px-3 py-2 bg-slate-800/50 border border-cyan-400/30 text-center"
                               >
-                                {project.project_name}
-                              </span>
+                                <HolographicText variant="command" className="text-xs">
+                                  {project.project_name?.toUpperCase()}
+                                </HolographicText>
+                              </div>
                             ))}
                           </div>
                         </div>
                       )}
-                    </div>
+                    </HolographicCard>
                   </motion.div>
                 ))}
               </div>
@@ -359,38 +423,107 @@ const Skills: FC<SkillsProps> = ({ slice }) => {
           ))}
         </div>
 
-        {/* Skills Summary Stats */}
+        {/* Tony Stark Style System Analytics Dashboard */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={animationPresets.sliceSection.item}
-          className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 p-6 rounded-xl bg-gradient-to-br from-slate-800/50 to-slate-900/30 border border-slate-700"
+          className="mt-12"
         >
-          <div className="text-center">
-            <div className={`text-3xl font-bold ${themeColors.primary} mb-1`}>
-              {skills.length}
+          <HolographicCard variant="elevated" title="SYSTEM ANALYSIS REPORT" subtitle="COMPREHENSIVE CAPABILITY ASSESSMENT">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {/* Total Skills */}
+              <div className="relative text-center group">
+                <div className="absolute inset-0 bg-cyan-400/10 blur-md group-hover:bg-cyan-400/20 transition-colors" />
+                <div className="relative">
+                  <motion.div 
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="text-4xl font-bold text-cyan-400 mb-2 font-mono"
+                  >
+                    {skills.length}
+                  </motion.div>
+                  <HolographicText variant="data">
+                    TOTAL SYSTEMS
+                  </HolographicText>
+                  <div className="w-8 h-0.5 bg-cyan-400 mx-auto mt-2" />
+                </div>
+              </div>
+
+              {/* Expert Level */}
+              <div className="relative text-center group">
+                <div className="absolute inset-0 bg-blue-400/10 blur-md group-hover:bg-blue-400/20 transition-colors" />
+                <div className="relative">
+                  <motion.div 
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{ delay: 0.4 }}
+                    className="text-4xl font-bold text-blue-400 mb-2 font-mono"
+                  >
+                    {skills.filter(s => s.proficiency_percentage && s.proficiency_percentage >= 80).length}
+                  </motion.div>
+                  <HolographicText variant="data">
+                    EXPERT LEVEL
+                  </HolographicText>
+                  <div className="w-8 h-0.5 bg-blue-400 mx-auto mt-2" />
+                </div>
+              </div>
+
+              {/* Certified */}
+              <div className="relative text-center group">
+                <div className="absolute inset-0 bg-yellow-400/10 blur-md group-hover:bg-yellow-400/20 transition-colors" />
+                <div className="relative">
+                  <motion.div 
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{ delay: 0.6 }}
+                    className="text-4xl font-bold text-yellow-400 mb-2 font-mono"
+                  >
+                    {skills.filter(s => s.certifications).length}
+                  </motion.div>
+                  <HolographicText variant="data">
+                    CERTIFIED
+                  </HolographicText>
+                  <div className="w-8 h-0.5 bg-yellow-400 mx-auto mt-2" />
+                </div>
+              </div>
+
+              {/* Learning */}
+              <div className="relative text-center group">
+                <div className="absolute inset-0 bg-purple-400/10 blur-md group-hover:bg-purple-400/20 transition-colors" />
+                <div className="relative">
+                  <motion.div 
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{ delay: 0.8 }}
+                    className="text-4xl font-bold text-purple-400 mb-2 font-mono"
+                  >
+                    {skills.filter(s => s.currently_learning).length}
+                  </motion.div>
+                  <HolographicText variant="data">
+                    LEARNING
+                  </HolographicText>
+                  <div className="w-8 h-0.5 bg-purple-400 mx-auto mt-2" />
+                </div>
+              </div>
             </div>
-            <div className={`text-sm ${themeColors.secondary}`}>Total Skills</div>
-          </div>
-          <div className="text-center">
-            <div className={`text-3xl font-bold ${themeColors.primary} mb-1`}>
-              {skills.filter(s => s.proficiency_percentage && s.proficiency_percentage >= 80).length}
+
+            {/* System Status */}
+            <div className="mt-8 pt-6 border-t border-cyan-400/20 text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                <HolographicText variant="command" className="text-green-400">
+                  ALL SYSTEMS OPERATIONAL
+                </HolographicText>
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+              </div>
+              <HolographicText variant="caption">
+                SKILL MATRIX ANALYSIS COMPLETE | {new Date().toLocaleString('en-NZ').toUpperCase()}
+              </HolographicText>
             </div>
-            <div className={`text-sm ${themeColors.secondary}`}>Expert Level</div>
-          </div>
-          <div className="text-center">
-            <div className={`text-3xl font-bold ${themeColors.primary} mb-1`}>
-              {skills.filter(s => s.certifications).length}
-            </div>
-            <div className={`text-sm ${themeColors.secondary}`}>Certified</div>
-          </div>
-          <div className="text-center">
-            <div className={`text-3xl font-bold ${themeColors.primary} mb-1`}>
-              {skills.filter(s => s.currently_learning).length}
-            </div>
-            <div className={`text-sm ${themeColors.secondary}`}>Learning</div>
-          </div>
+          </HolographicCard>
         </motion.div>
       </SliceContainer>
     </section>

@@ -50,6 +50,20 @@
                 "label": "Description",
                 "placeholder": ""
               }
+            },
+            "icon": {
+              "type": "Text",
+              "config": {
+                "label": "Icon",
+                "placeholder": "Icon name or emoji"
+              }
+            },
+            "color": {
+              "type": "Text",
+              "config": {
+                "label": "Color",
+                "placeholder": "Hex color code"
+              }
             }
           }
         }

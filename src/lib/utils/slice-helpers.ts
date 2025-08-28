@@ -22,11 +22,29 @@ export const sliceHelpers = {
    * Safely extract rich text as plain text
    */
   extractRichText: (field: any): string => {
-    if (!field) return '';
-    if (isFilled.richText(field)) {
-      return field.map((block: any) => block.text).join(' ');
+    try {
+      if (!field) return '';
+      
+      // Handle array rich text (Prismic format)
+      if (Array.isArray(field) && isFilled.richText(field)) {
+        return field.map((block: any) => block?.text || '').join(' ');
+      }
+      
+      // Handle string fields
+      if (typeof field === 'string') {
+        return field;
+      }
+      
+      // Handle object with text property
+      if (field && typeof field === 'object' && field.text) {
+        return field.text;
+      }
+      
+      return '';
+    } catch (error) {
+      console.warn('Error extracting rich text:', error);
+      return '';
     }
-    return '';
   },
 
   /**

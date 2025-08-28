@@ -4,196 +4,274 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 interface CoderChefLogoProps {
-  size?: 'sm' | 'md' | 'lg' | 'xl';
-  animate?: boolean;
+  size?: number;
+  color?: string;
+  animated?: boolean;
   className?: string;
+  glowEffect?: boolean;
 }
 
-export default function CoderChefLogo({ 
-  size = 'md', 
-  animate = true, 
-  className = '' 
+export default function CoderChefLogo({
+  size = 200,
+  color = "#00d4ff",
+  animated = true,
+  className = "",
+  glowEffect = true
 }: CoderChefLogoProps) {
-  const sizes = {
-    sm: { width: 120, height: 60, text: 'text-sm' },
-    md: { width: 200, height: 100, text: 'text-base' },
-    lg: { width: 300, height: 150, text: 'text-lg' },
-    xl: { width: 400, height: 200, text: 'text-xl' }
+  const logoVariants = {
+    hidden: { 
+      opacity: 0,
+      pathLength: 0,
+      fill: "transparent"
+    },
+    visible: {
+      opacity: 1,
+      pathLength: 1,
+      fill: color,
+      transition: {
+        duration: 2,
+        ease: "easeInOut",
+        fill: { delay: 1.5, duration: 0.5 }
+      }
+    }
   };
 
-  const { width, height, text } = sizes[size];
+  const lineVariants = {
+    hidden: { 
+      pathLength: 0,
+      opacity: 0
+    },
+    visible: {
+      pathLength: 1,
+      opacity: 1,
+      transition: {
+        duration: 1.5,
+        delay: 0.5,
+        ease: "easeInOut"
+      }
+    }
+  };
 
   return (
-    <motion.div
-      className={`relative ${className}`}
-      style={{ width, height }}
-      initial={animate ? { opacity: 0, scale: 0.8 } : {}}
-      animate={animate ? { opacity: 1, scale: 1 } : {}}
-      transition={{ duration: 1, ease: "easeOut" }}
-    >
-      <svg
-        width={width}
-        height={height}
-        viewBox="0 0 400 200"
-        className="absolute inset-0"
+    <div className={`inline-flex items-center justify-center ${className}`}>
+      <motion.svg
+        width={size}
+        height={size * 0.4}
+        viewBox="0 0 400 160"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        initial={animated ? "hidden" : "visible"}
+        animate="visible"
+        className={glowEffect ? "drop-shadow-2xl" : ""}
+        style={{
+          filter: glowEffect ? `drop-shadow(0 0 20px ${color}40)` : undefined
+        }}
       >
-        {/* Background glow */}
-        <defs>
-          <radialGradient id="logoGlow" cx="50%" cy="50%" r="70%">
-            <stop offset="0%" stopColor="rgba(0, 212, 255, 0.3)" />
-            <stop offset="70%" stopColor="rgba(0, 212, 255, 0.1)" />
-            <stop offset="100%" stopColor="transparent" />
-          </radialGradient>
-          
-          <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#00d4ff" />
-            <stop offset="50%" stopColor="#0099cc" />
-            <stop offset="100%" stopColor="#00d4ff" />
-          </linearGradient>
+        {/* Glow effect background */}
+        {glowEffect && (
+          <defs>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge> 
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+            
+            <filter id="pulseGlow">
+              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+              <feMerge> 
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+        )}
 
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-            <feMerge> 
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-        </defs>
+        {/* CODERCHEF text - top */}
+        <motion.text
+          x="200"
+          y="50"
+          textAnchor="middle"
+          fill={animated ? "transparent" : color}
+          stroke={color}
+          strokeWidth="0.5"
+          fontSize="28"
+          fontFamily="'Orbitron', 'Rajdhani', monospace"
+          fontWeight="400"
+          letterSpacing="8px"
+          variants={animated ? logoVariants : undefined}
+          filter={glowEffect ? "url(#glow)" : undefined}
+        >
+          CODERCHEF
+        </motion.text>
 
-        {/* Background circle */}
-        <circle
-          cx="200"
-          cy="100"
-          r="90"
-          fill="url(#logoGlow)"
-          opacity="0.5"
-        />
-
-        {/* Outer hexagon ring */}
-        <motion.polygon
-          points="200,20 260,55 260,145 200,180 140,145 140,55"
-          fill="none"
-          stroke="#00d4ff"
+        {/* Stark Industries style horizontal line */}
+        <motion.line
+          x1="80"
+          y1="80"
+          x2="320"
+          y2="80"
+          stroke={color}
           strokeWidth="2"
-          strokeDasharray="10,5"
-          initial={animate ? { pathLength: 0, opacity: 0 } : {}}
-          animate={animate ? { pathLength: 1, opacity: 0.6 } : {}}
-          transition={{ duration: 2, delay: 0.5 }}
+          variants={animated ? lineVariants : undefined}
+          filter={glowEffect ? "url(#glow)" : undefined}
         />
 
-        {/* Inner geometric design */}
-        <g filter="url(#glow)">
-          {/* Central diamond */}
-          <motion.polygon
-            points="200,60 230,100 200,140 170,100"
-            fill="rgba(0, 212, 255, 0.2)"
-            stroke="#00d4ff"
-            strokeWidth="2"
-            initial={animate ? { scale: 0, opacity: 0 } : {}}
-            animate={animate ? { scale: 1, opacity: 1 } : {}}
-            transition={{ duration: 1, delay: 1 }}
-          />
+        {/* 26 text - bottom */}
+        <motion.text
+          x="200"
+          y="110"
+          textAnchor="middle"
+          fill={animated ? "transparent" : color}
+          stroke={color}
+          strokeWidth="0.3"
+          fontSize="18"
+          fontFamily="'Orbitron', 'Rajdhani', monospace"
+          fontWeight="400"
+          letterSpacing="12px"
+          variants={animated ? logoVariants : undefined}
+          filter={glowEffect ? "url(#glow)" : undefined}
+        >
+          26
+        </motion.text>
 
-          {/* Tech lines */}
-          <motion.g
-            initial={animate ? { opacity: 0 } : {}}
-            animate={animate ? { opacity: 1 } : {}}
-            transition={{ duration: 1, delay: 1.5 }}
-          >
-            <line x1="170" y1="70" x2="230" y2="70" stroke="#00d4ff" strokeWidth="1" opacity="0.7" />
-            <line x1="170" y1="100" x2="230" y2="100" stroke="#00d4ff" strokeWidth="2" />
-            <line x1="170" y1="130" x2="230" y2="130" stroke="#00d4ff" strokeWidth="1" opacity="0.7" />
-          </motion.g>
+        {/* Line end caps */}
+        <motion.circle
+          cx="80"
+          cy="80"
+          r="2"
+          fill={color}
+          variants={animated ? lineVariants : undefined}
+          filter={glowEffect ? "url(#glow)" : undefined}
+        />
+        
+        <motion.circle
+          cx="320"
+          cy="80"
+          r="2"
+          fill={color}
+          variants={animated ? lineVariants : undefined}
+          filter={glowEffect ? "url(#glow)" : undefined}
+        />
 
-          {/* Corner accents */}
-          <motion.g
-            initial={animate ? { opacity: 0, scale: 0 } : {}}
-            animate={animate ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.8, delay: 2 }}
-          >
-            <circle cx="160" cy="80" r="3" fill="#00d4ff" />
-            <circle cx="240" cy="80" r="3" fill="#00d4ff" />
-            <circle cx="160" cy="120" r="3" fill="#00d4ff" />
-            <circle cx="240" cy="120" r="3" fill="#00d4ff" />
-          </motion.g>
-        </g>
+        {/* Central power core indicator */}
+        <motion.circle
+          cx="200"
+          cy="80"
+          r="3"
+          fill={color}
+          variants={animated ? {
+            hidden: { scale: 0, opacity: 0 },
+            visible: { 
+              scale: 1, 
+              opacity: 1,
+              transition: { delay: 2, duration: 0.5 }
+            }
+          } : undefined}
+          filter={glowEffect ? "url(#pulseGlow)" : undefined}
+        />
 
-        {/* Rotating energy ring */}
-        {animate && (
+        {/* Pulsing energy ring */}
+        {animated && (
           <motion.circle
             cx="200"
-            cy="100"
-            r="75"
+            cy="80"
+            r="6"
             fill="none"
-            stroke="rgba(0, 212, 255, 0.3)"
+            stroke={color}
             strokeWidth="1"
-            strokeDasharray="5,10"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            style={{ transformOrigin: "200px 100px" }}
+            opacity="0.4"
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.4, 0.1, 0.4]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              delay: 2.5,
+              ease: "easeInOut"
+            }}
+            filter={glowEffect ? "url(#glow)" : undefined}
           />
         )}
-      </svg>
 
-      {/* Text overlay */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <motion.div
-          className="text-center"
-          initial={animate ? { opacity: 0, y: 20 } : {}}
-          animate={animate ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, delay: 2.5 }}
-        >
-          <div 
-            className={`font-bold ${text} tracking-wider`}
-            style={{
-              background: 'linear-gradient(135deg, #00d4ff 0%, #0099cc 50%, #00d4ff 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              filter: 'drop-shadow(0 0 10px rgba(0, 212, 255, 0.5))',
-              fontFamily: 'monospace'
-            }}
-          >
-            CODER
-          </div>
-          <div 
-            className={`font-bold ${text} tracking-wider mt-1`}
-            style={{
-              background: 'linear-gradient(135deg, #00d4ff 0%, #0099cc 50%, #00d4ff 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              filter: 'drop-shadow(0 0 10px rgba(0, 212, 255, 0.5))',
-              fontFamily: 'monospace'
-            }}
-          >
-            CHEF
-          </div>
-          <motion.div 
-            className="text-xs text-cyan-400/70 mt-1 tracking-widest"
-            initial={animate ? { opacity: 0 } : {}}
-            animate={animate ? { opacity: 1 } : {}}
-            transition={{ duration: 1, delay: 3 }}
-            style={{ fontFamily: 'monospace' }}
-          >
-            ATLAS DIVISION
-          </motion.div>
-        </motion.div>
-      </div>
-
-      {/* Pulse effect */}
-      {animate && (
-        <motion.div
-          className="absolute inset-0 rounded-full border border-cyan-400/20"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0, 0.3]
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
+        {/* Small corner dots */}
+        <motion.circle 
+          cx="35" cy="25" r="1" 
+          fill={color} 
+          opacity="0.7"
+          variants={animated ? lineVariants : undefined}
         />
-      )}
-    </motion.div>
+        <motion.circle 
+          cx="365" cy="25" r="1" 
+          fill={color} 
+          opacity="0.7"
+          variants={animated ? lineVariants : undefined}
+        />
+        <motion.circle 
+          cx="365" cy="135" r="1" 
+          fill={color} 
+          opacity="0.7"
+          variants={animated ? lineVariants : undefined}
+        />
+        <motion.circle 
+          cx="35" cy="135" r="1" 
+          fill={color} 
+          opacity="0.7"
+          variants={animated ? lineVariants : undefined}
+        />
+
+        {/* Side status indicators */}
+        <motion.rect 
+          x="25" y="78" width="8" height="4" 
+          fill="none" 
+          stroke={color} 
+          strokeWidth="0.5" 
+          opacity="0.5"
+          variants={animated ? lineVariants : undefined}
+        />
+        <motion.rect 
+          x="367" y="78" width="8" height="4" 
+          fill="none" 
+          stroke={color} 
+          strokeWidth="0.5" 
+          opacity="0.5"
+          variants={animated ? lineVariants : undefined}
+        />
+
+      </motion.svg>
+    </div>
   );
 }
+
+// Export variants for different use cases
+export const CoderChefLogoMinimal = (props: Partial<CoderChefLogoProps>) => (
+  <CoderChefLogo
+    size={150}
+    animated={false}
+    glowEffect={false}
+    {...props}
+  />
+);
+
+export const CoderChefLogoAnimated = (props: Partial<CoderChefLogoProps>) => (
+  <CoderChefLogo
+    size={250}
+    animated={true}
+    glowEffect={true}
+    color="#00d4ff"
+    {...props}
+  />
+);
+
+export const CoderChefLogoBrand = (props: Partial<CoderChefLogoProps>) => (
+  <CoderChefLogo
+    size={300}
+    animated={true}
+    glowEffect={true}
+    color="#00d4ff"
+    className="hover:scale-105 transition-transform duration-300"
+    {...props}
+  />
+);

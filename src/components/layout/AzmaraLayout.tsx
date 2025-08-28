@@ -21,7 +21,7 @@ export const AzmaraLayout = ({ children }: AzmaraLayoutProps) => {
 	};
 
 	return (
-		<div className="h-screen w-screen relative overflow-hidden p-4">
+		<main className="h-screen w-screen relative overflow-hidden p-4">
 			{/* Background Layers */}
 			<div className="fixed inset-0 z-0">
 				{/* Base Grid */}
@@ -90,6 +90,6 @@ export const AzmaraLayout = ({ children }: AzmaraLayoutProps) => {
 					</div>
 				</motion.div>
 			)}
-		</div>
+		</main>
 	);
 };
