@@ -2,7 +2,7 @@
   "id": "about",
   "type": "SharedSlice",
   "name": "About",
-  "description": "About",
+  "description": "About section with personal information, mission, and values",
   "variations": [
     {
       "id": "default",
@@ -12,17 +12,180 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
+        "name": {
+          "type": "Text",
+          "config": {
+            "label": "Full Name",
+            "placeholder": "Your full name"
+          }
+        },
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Professional Title",
+            "placeholder": "e.g. Full Stack Developer"
+          }
+        },
+        "tagline": {
+          "type": "Text",
+          "config": {
+            "label": "Tagline",
+            "placeholder": "A short professional tagline"
+          }
+        },
+        "location": {
+          "type": "Text",
+          "config": {
+            "label": "Location",
+            "placeholder": "e.g. Wellington, New Zealand"
+          }
+        },
+        "email": {
+          "type": "Text",
+          "config": {
+            "label": "Email",
+            "placeholder": "your.email@example.com"
+          }
+        },
+        "phone": {
+          "type": "Text",
+          "config": {
+            "label": "Phone",
+            "placeholder": "+64 21 XXX XXXX"
+          }
+        },
+        "profileImage": {
+          "type": "Image",
+          "config": {
+            "label": "Profile Image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "bio": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Biography",
+            "placeholder": "Tell your story...",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading3,heading4,heading5,heading6,strong,em,hyperlink,list-item,o-list-item"
+          }
+        },
         "mission": {
           "type": "StructuredText",
           "config": {
-            "label": "Mission",
-            "placeholder": "",
+            "label": "Mission Statement",
+            "placeholder": "Your professional mission...",
             "allowTargetBlank": true,
-            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+            "multi": "paragraph,preformatted,heading3,heading4,heading5,heading6,strong,em,hyperlink,list-item,o-list-item"
+          }
+        },
+        "values": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Core Values",
+            "placeholder": "Your core values...",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading3,heading4,heading5,heading6,strong,em,hyperlink,list-item,o-list-item"
+          }
+        },
+        "yearsOfExperience": {
+          "type": "Number",
+          "config": {
+            "label": "Years of Experience",
+            "placeholder": "e.g. 10"
+          }
+        },
+        "projectsCompleted": {
+          "type": "Number",
+          "config": {
+            "label": "Projects Completed",
+            "placeholder": "e.g. 50"
+          }
+        },
+        "clientsSatisfied": {
+          "type": "Number",
+          "config": {
+            "label": "Satisfied Clients",
+            "placeholder": "e.g. 30"
+          }
+        },
+        "coffeeConsumed": {
+          "type": "Number",
+          "config": {
+            "label": "Cups of Coffee",
+            "placeholder": "e.g. 5000"
+          }
+        },
+        "resumeLink": {
+          "type": "Link",
+          "config": {
+            "label": "Resume/CV Link",
+            "placeholder": "Link to your resume",
+            "allowTargetBlank": true
+          }
+        },
+        "linkedinUrl": {
+          "type": "Link",
+          "config": {
+            "label": "LinkedIn URL",
+            "placeholder": "Your LinkedIn profile",
+            "allowTargetBlank": true
+          }
+        },
+        "githubUrl": {
+          "type": "Link",
+          "config": {
+            "label": "GitHub URL",
+            "placeholder": "Your GitHub profile",
+            "allowTargetBlank": true
+          }
+        },
+        "twitterUrl": {
+          "type": "Link",
+          "config": {
+            "label": "Twitter/X URL",
+            "placeholder": "Your Twitter/X profile",
+            "allowTargetBlank": true
           }
         }
       },
-      "items": {}
+      "items": {
+        "achievement": {
+          "type": "Text",
+          "config": {
+            "label": "Achievement",
+            "placeholder": "Key achievement or milestone"
+          }
+        },
+        "achievementIcon": {
+          "type": "Select",
+          "config": {
+            "label": "Achievement Icon",
+            "placeholder": "Choose an icon",
+            "options": [
+              "trophy",
+              "star",
+              "certificate",
+              "medal",
+              "award",
+              "crown",
+              "rocket",
+              "target",
+              "flag",
+              "lightning"
+            ],
+            "default_value": "star"
+          }
+        },
+        "achievementYear": {
+          "type": "Number",
+          "config": {
+            "label": "Achievement Year",
+            "placeholder": "e.g. 2024"
+          }
+        }
+      }
     }
   ]
 }

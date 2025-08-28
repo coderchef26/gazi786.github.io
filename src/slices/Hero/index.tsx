@@ -45,8 +45,6 @@ const Hero: FC<HeroProps> = ({ slice }) => {
 	const renderIcon = (iconName: string, size = 20) => {
 		const iconProps = { size, className: "text-current" };
 
-		// Log the icon name for debugging
-		console.log("Rendering icon:", iconName);
 
 		switch (iconName?.toLowerCase()) {
 			case "target":
@@ -87,15 +85,10 @@ const Hero: FC<HeroProps> = ({ slice }) => {
 				const client = createClient();
 				const settings = await client.getSingle("settings");
 				if (settings.data.navigation) {
-					console.log(
-						"Loaded navigation from Prismic:",
-						settings.data.navigation
-					);
 					setNavigationItems(settings.data.navigation);
 				}
 			} catch {
 				// Fallback navigation if settings not available
-				console.log("Using fallback navigation");
 				setNavigationItems([
 					{
 						n_id: "projects",
@@ -154,7 +147,7 @@ const Hero: FC<HeroProps> = ({ slice }) => {
 	if (!isInitialized) {
 		return (
 			<div className="min-h-screen flex items-center justify-center">
-				<ArcReactorLoader size="lg" text="INITIALISING ATLAS PROTOCOL..." />
+				<ArcReactorLoader text="INITIALISING ATLAS PROTOCOL..." />
 			</div>
 		);
 	}
@@ -199,7 +192,6 @@ const Hero: FC<HeroProps> = ({ slice }) => {
 					<div className="cursor-pointer">
 						<CommandCentreReactor
 							powerLevel={100}
-							showNavigation={showNavigation}
 							className="scale-75 md:scale-100 lg:scale-125"
 						/>
 					</div>
@@ -210,7 +202,9 @@ const Hero: FC<HeroProps> = ({ slice }) => {
 							<div className="absolute inset-0 flex items-center justify-center">
 								{navigationItems.map((item, index) => {
 									const angle = (index * 360) / navigationItems.length;
-									const radius = window.innerWidth < 768 ? 100 : window.innerWidth < 1024 ? 120 : 150;
+									const radius = typeof window !== 'undefined' 
+										? (window.innerWidth < 768 ? 100 : window.innerWidth < 1024 ? 120 : 150)
+										: 120;
 									const radian = (angle * Math.PI) / 180;
 									const x = Math.cos(radian - Math.PI / 2) * radius;
 									const y = Math.sin(radian - Math.PI / 2) * radius;

@@ -54,7 +54,7 @@ export default function NotFound() {
 						transition={{ delay: 0.2, type: "spring", stiffness: 100 }}
 						className="mb-8 flex justify-center"
 					>
-						<ArcReactorLoader size="lg" text="" />
+						<ArcReactorLoader text="" />
 					</motion.div>
 
 					{/* Error Code */}

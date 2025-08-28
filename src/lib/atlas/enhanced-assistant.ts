@@ -74,12 +74,7 @@ export class EnhancedAtlasAssistant {
       // Extract voice commands from Prismic
       this.voiceCommands = PrismicDataAdapter.extractVoiceCommands(pageData);
 
-      console.log('ATLAS knowledge base updated with Prismic data:', {
-        projects: transformedData.projects?.length || 0,
-        skills: transformedData.skills?.length || 0,
-        experience: transformedData.experience?.length || 0,
-        education: transformedData.education?.length || 0
-      });
+      // ATLAS knowledge base updated with Prismic data
     } catch (error) {
       console.warn('Failed to update ATLAS knowledge base:', error);
     }

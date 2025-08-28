@@ -9,7 +9,6 @@ import AzmaraEffects from '@/components/effects/AzmaraEffects';
 export default function AtlasPortfolio() {
   const handleNavigation = (section: string) => {
     // Handle navigation to different sections
-    console.log('Navigating to:', section);
     
     // You can implement routing logic here
     // For now, we'll use the existing routing structure

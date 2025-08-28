@@ -45,18 +45,24 @@ export class AtlasSpeech {
   }
 
   public getVoices(): SpeechSynthesisVoice[] {
+    // Return all voices, not just English, to support multilingual content
+    return this.voices;
+  }
+  
+  public getEnglishVoices(): SpeechSynthesisVoice[] {
     return this.voices.filter(voice => voice.lang.includes('en'));
   }
 
   public getPreferredVoice(): SpeechSynthesisVoice | null {
-    const englishVoices = this.getVoices();
+    const englishVoices = this.getEnglishVoices();
     
-    // Preferred voice names for ATLAS
+    // Preferred voice names for ATLAS - prioritize natural-sounding voices
     const preferredNames = [
+      'Google UK English Male',
+      'Google US English',
+      'Microsoft David Desktop',
       'Daniel',           // UK English Male
       'Alex',             // US English Male
-      'Google UK English Male',
-      'Microsoft David Desktop - English (United States)',
       'Microsoft Mark Desktop - English (United States)'
     ];
 

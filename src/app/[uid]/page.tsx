@@ -12,7 +12,7 @@ type Params = { uid: string };
 function LoadingPage() {
 	return (
 		<div className="min-h-screen flex items-center justify-center">
-			<ArcReactorLoader size="lg" text="LOADING PAGE..." />
+			<ArcReactorLoader text="LOADING PAGE..." />
 		</div>
 	);
 }

@@ -302,7 +302,6 @@ export default function AtlasHero() {
           >
             <CommandCentreReactor
               powerLevel={Math.min(...metrics.map(m => m.value))}
-              showNavigation={false}
               className={`scale-125 md:scale-150 ${!config.accessibility.reducedMotion ? 'transition-transform duration-300' : ''}`}
             />
           </div>

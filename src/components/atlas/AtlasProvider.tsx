@@ -19,7 +19,7 @@ interface AtlasContextType {
   updateKnowledgeBase: (pageData: Content.PageDocument) => void;
   
   // Speech
-  speak: (text: string) => Promise<void>;
+  speak: (text: string, customConfig?: Partial<AtlasConfig['voice']>) => Promise<void>;
   stopSpeaking: () => void;
   isSpeaking: boolean;
   
@@ -155,14 +155,19 @@ export default function AtlasProvider({ children, onNavigate }: AtlasProviderPro
   }, []);
 
   // Speech functions
-  const speak = useCallback(async (text: string) => {
+  const speak = useCallback(async (text: string, customConfig?: Partial<typeof config.voice>) => {
     if (!config.voice.enabled) return;
     
     try {
-      await speech.speak(text, {
+      const voiceConfig = {
         rate: config.voice.rate,
         pitch: config.voice.pitch,
         volume: config.voice.volume,
+        ...customConfig
+      };
+      
+      await speech.speak(text, {
+        ...voiceConfig,
         voice: speech.getVoices().find(v => v.name === config.voice.preferredVoice)
       });
     } catch (error) {

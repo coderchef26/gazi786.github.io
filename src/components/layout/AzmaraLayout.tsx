@@ -84,10 +84,9 @@ export const AzmaraLayout = ({ children }: AzmaraLayoutProps) => {
 							<div className="flex-1 overflow-hidden">
 								<MainContent>{children}</MainContent>
 							</div>
-
-							{/* Bottom Status Bar - Stacked with Main Content */}
-							<BottomStatusBar />
 						</div>
+						{/* Bottom Status Bar - Stacked with Main Content */}
+						<BottomStatusBar />
 					</div>
 				</motion.div>
 			)}

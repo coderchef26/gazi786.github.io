@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import HolographicInterface from "@/components/effects/HolographicInterface";
-import { ArcReactor } from "@/components/ui/ArcReactor";
+import ArcReactor from "@/components/shared/ArcReactor";
 
 interface LeftPanelProps {
 	isActive?: boolean;
@@ -16,9 +16,11 @@ export const LeftPanel = ({ isActive = true }: LeftPanelProps) => {
 					{/* Arc Reactor Hub */}
 					<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
 						<ArcReactor
-							size="medium"
-							showOuterRing={true}
-							showEnergyBeams={true}
+							variant="enhanced"
+							size="md"
+							showParticles={true}
+							showPulse={true}
+							showGlow={true}
 						/>
 					</div>
 
