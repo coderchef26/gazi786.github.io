@@ -1,8 +1,8 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&color=0:00b4d8,100:0077b6&height=180&section=header&text=Portfolio%20Website&fontSize=40&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Alshafaraz%20Hussain%20Gazi&descAlignY=58&descSize=18)
 
 <p align="center">
-  <a href="https://coderchef26.dev" target="_blank">
-    <img src="https://img.shields.io/badge/coderchef26.dev-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+  <a href="https://github.com/coderchef26/coderchef26.github.io" target="_blank">
+    <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
   </a>
   <a href="https://www.linkedin.com/in/gazi-ah/" target="_blank">
     <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" />
