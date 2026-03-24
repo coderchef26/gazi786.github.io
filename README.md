@@ -1,8 +1,8 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&color=0:00b4d8,100:0077b6&height=180&section=header&text=Portfolio%20Website&fontSize=40&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Alshafaraz%20Hussain%20Gazi&descAlignY=58&descSize=18)
 
 <p align="center">
-  <a href="https://coderchef26.github.io" target="_blank">
-    <img src="https://img.shields.io/badge/Live%20Site-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+  <a href="https://coderchef26.dev" target="_blank">
+    <img src="https://img.shields.io/badge/coderchef26.dev-000000?style=for-the-badge&logo=vercel&logoColor=white" />
   </a>
   <a href="https://www.linkedin.com/in/gazi-ah/" target="_blank">
     <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" />
@@ -12,7 +12,7 @@
   </a>
 </p>
 
-A modern, responsive portfolio website showcasing projects, skills, and experience. Built with Next.js 15, TypeScript, Tailwind CSS, Material-UI, and Framer Motion.
+A modern, responsive portfolio website showcasing projects, skills, and professional experience. Built with Next.js 15, TypeScript, Tailwind CSS, Material-UI, and Framer Motion. Deployed on Vercel at [coderchef26.dev](https://coderchef26.dev).
 
 ---
 
@@ -35,7 +35,7 @@ A modern, responsive portfolio website showcasing projects, skills, and experien
   <img src="https://github.com/devicons/devicon/blob/master/icons/tailwindcss/tailwindcss-original.svg" title="Tailwind CSS" alt="Tailwind CSS" width="40" height="40"/>&nbsp;&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/materialui/materialui-original.svg" title="MUI" alt="MUI" width="40" height="40"/>&nbsp;&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original.svg" title="React" alt="React" width="40" height="40"/>&nbsp;&nbsp;
-  <img src="https://github.com/devicons/devicon/blob/master/icons/github/github-original.svg" title="GitHub Pages" alt="GitHub Pages" width="40" height="40"/>
+  <img src="https://github.com/devicons/devicon/blob/master/icons/vercel/vercel-original.svg" title="Vercel" alt="Vercel" width="40" height="40"/>
 </div>
 
 | Layer | Technology |
@@ -46,7 +46,7 @@ A modern, responsive portfolio website showcasing projects, skills, and experien
 | Animations | Framer Motion |
 | Forms | React Hook Form + Zod + Formspree |
 | CMS | Prismic (optional) |
-| Hosting | GitHub Pages |
+| Hosting | Vercel — [coderchef26.dev](https://coderchef26.dev) |
 
 ---
 
