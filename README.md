@@ -35,7 +35,7 @@ A modern, responsive portfolio website showcasing projects, skills, and professi
   <img src="https://github.com/devicons/devicon/blob/master/icons/tailwindcss/tailwindcss-original.svg" title="Tailwind CSS" alt="Tailwind CSS" width="40" height="40"/>&nbsp;&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/materialui/materialui-original.svg" title="MUI" alt="MUI" width="40" height="40"/>&nbsp;&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original.svg" title="React" alt="React" width="40" height="40"/>&nbsp;&nbsp;
-  <img src="https://github.com/devicons/devicon/blob/master/icons/vercel/vercel-original.svg" title="Vercel" alt="Vercel" width="40" height="40"/>
+  <img src="https://assets.vercel.com/image/upload/front/favicon/vercel/57x57.png" title="Vercel" alt="Vercel" width="40" height="40"/>
 </div>
 
 | Layer | Technology |
@@ -46,7 +46,7 @@ A modern, responsive portfolio website showcasing projects, skills, and professi
 | Animations | Framer Motion |
 | Forms | React Hook Form + Zod + Formspree |
 | CMS | Prismic (optional) |
-| Hosting | Vercel — [coderchef26.dev](https://coderchef26.dev) |
+| Hosting | [Vercel](https://vercel.com) — [coderchef26.dev](https://coderchef26.dev) |
 
 ---
 
